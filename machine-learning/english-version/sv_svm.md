@@ -15,7 +15,7 @@ sidebar:
 
 # 1 Intuition and Notation
 
-In general, binary classification is of great interests since it is the bottom line for multi-classes classification. The simplest case of binary classification is to classify points in space and can be sovled by using a determinist algorithm called support vector machine. 
+In general, binary classification is of great interests since it is the bottom line for multi-classes classification. The simplest case of binary classification is to classify points in space and can be sovled by using a determinist algorithm called support vector machine. mark
 
 ![SVM Intuition](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_intuition.png)
 
