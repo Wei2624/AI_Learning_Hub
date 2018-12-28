@@ -17,7 +17,7 @@ A classical learning paradigm is called supervised learning. In this case, we us
 
 To do so, we collect a training dataset in which we have a number of pairs of training sample composing of a feature vector denoted $\mathcal{X}$ and its corresponding output denoted $\mathcal{Y}$. Since we have ground truth for every single input, we call this type of learning as supervised learning and the learned model as hypothesis. An example can be shown in the table below. 
 
-![Supervise Learning Intuition](/images/cs229_lec1_intuit.png)
+![Supervise Learning Intuition](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_lec1_intuit.png)
 
 In this case, we have living areas as features and price as output. The task is that given a new input of living area, the model can predict the price of it. 
 
@@ -62,7 +62,7 @@ $$\theta_j = \theta_j + \alpha\sum\limits_{i=0}^m (y^{(i)} - h_{\theta}(x^{(i)})
 
 where m is the number of training samples and j can span the dimension of feature vector. This algorithm takes all the factors from every single training sample. We call it **batch gradient descent**. This method is sensitive to the local minimum (i.e. might arrive at saddle point) where we generally assume that the cost function has only global minimum which is the case (J is convex). An graphical illustration can be shown below. 
 
-![Batch Gradient Descent](/images/cs229_lec1_bgd.png)
+![Batch Gradient Descent](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_lec1_bgd.png)
 
 Note that in the updating, we run through all the samples to make one step forward to local min. This step is computationally expensive if m is very large. Thus,in this case, we introduce a similar algortihm called **stochastic gradient descent** where only a small part of samples are fed into the algorithm at one time. By doing this, we can converge faster although it might oscillate a lot. It will produce good approximation to the global minimum. Thus, we use this often in reality. 
 
@@ -270,7 +270,7 @@ $$h_{\theta}(x) = g(\theta^T x) = \frac{1}{1+\exp(-\theta^Tx)}$$
 
 where g is called **logistic function or sigmoid function**. A plot of logistic function can be found below:
 
-![Logistic Function](/images/cs229_lec1_logistic.png)
+![Logistic Function](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_lec1_logistic.png)
 
 It ranges from 0 to 1 as output. This intuitively explains why we call it regression since it outputs in a continuous space. However, the value indicates the probability of belonging to certain class. So essentially it is a classifier. 
 
@@ -323,7 +323,7 @@ The updating equation remains the same. This is called **perceptron learning alg
 
 So imagine that we want to find the root of a function f. Newton's method allows us to do this task in quadratic speed. The idea is to initialize $x_0$ randomly and find the tangent line of $f(x_0)$,dentoed $f^{\prime}(x_0)$. We use the root of $f^{\prime}(x_0)$ as new x. We also define the distance between new x and old x as $\Delta$. An example of this can be shown as:
 
-![Newton's Method](/images/cs229_lec1_newton.png)
+![Newton's Method](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_lec1_newton.png)
 
 So we now have:
 

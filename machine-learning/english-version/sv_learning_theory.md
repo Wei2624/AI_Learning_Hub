@@ -144,17 +144,17 @@ Given a hypothesis class, we define its **Vapnik-Chervonenkis dimension(VC-dimen
 
 For instance, we consider the case of three points:
 
-![Three Points in 2D](/images/cs229_learningtheory_vc1.png)
+![Three Points in 2D](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_learningtheory_vc1.png)
 
 So assume that we have a hypothesis class in 2D, can this hypothesis class classify any possible labeling for these three points or shatter them? Given that $h(x) = \mathcal{1}\\{\theta_0+\theta_1x_1+\theta_2x_2\\}$, we can enumerate all possible labeling for these three points and draw a straight line in 2D to perfectly classify them. That is:
 
-![All Possible Classifier](/images/cs229_learningtheory_vc2.png)
+![All Possible Classifier](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_learningtheory_vc2.png)
 
 Moreover, we can prove that there is no set of 4 points that can be shattered by this hypothesis class. Thus, $VC(\mathcal{H})=3$. 
 
 Note that not all possible of set of 3 points can be shattered by this hypothesis class even if VC dimension is 3. The below is an example for such as case where this hypothesis class failed to classify them. 
 
-![Special Case](/images/cs229_learningtheory_vc3.png)
+![Special Case](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_learningtheory_vc3.png)
 
 Thus, to prove that some hypothesis class has VC dimension at least d, we just need to it can shatter at least one set of points with size d. 
 

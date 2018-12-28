@@ -17,7 +17,7 @@ sidebar:
 
 In general, binary classification is of great interests since it is the bottom line for multi-classes classification. The simplest case of binary classification is to classify points in space and can be sovled by using a determinist algorithm called support vector machine. 
 
-![SVM Intuition](/images/svm_intuition.png)
+![SVM Intuition](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_intuition.png)
 
 From the figure, we have A, B and C point in the space. A is the safest point since it is far from the **boundary line**, while C is the most dangerous point since it is close to the **hyperplane**. The distance between the boundary line and the point is called **margin**.
 
@@ -41,7 +41,7 @@ where m is the number of training samples.
 
 **Geometric Margins:** In functional margin, We need to normalize w and b **with respect to the norm of w** since magnitude of w and b should not affect the scale of the margin. A figure for geometric margin can be shown:
 
-![SVM Geometric Margins](/images/svm_gm.png)
+![SVM Geometric Margins](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_gm.png)
 
 It shows a vector w also called **support vector** which is perpendicular to the boundary line, which is always true. To prove this, you just need to take two points on boundary line to get a parallel vector and prove that the dot product is 0. 
 
@@ -182,7 +182,7 @@ where i spans all training samples. From KKT dual complementarity condition, we 
 
 We can vistualize this in the picture below. The three points on the dash line are the ones with the smallest geometric margin which is 1. Thus, those points are the ones with positve $\alpha_i$ and are called **support vector**. 
 
-![SVM Boundary](/images/svm_bound.png)
+![SVM Boundary](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_bound.png)
 
 The Lagranian with only inequality constraint is:
 
@@ -259,7 +259,7 @@ Kernel method is not only used in SVM but also anywhere that inner product is us
 
 Although mapping x to higher dimensional space increases the chance to be separable, it might not always be the case. An outlier could also be the cause that we actually don't want to include. An example of such a case can be shown below. 
 
-![SVM outlier](/images/svm_outlier.png)
+![SVM outlier](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_outlier.png)
 
 To make the algorithm work for non-linear case as well, we add **regularization** to it:
 
@@ -311,7 +311,7 @@ for loop until convergence:
 
 Basically, we fix all the $\alpha$ except for $\alpha_i$ and then move to next $\alpha$ for updating. **The assumption is that calculating gradient to $\alpha$ is efficient.** An example can be shown below. 
 
-![SVM coordinate](/images/svm_coordinate.png)
+![SVM coordinate](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_coordinate.png)
 
 Note that the path of the convergence is always parallel to axis because it is updated one variable at a time. 
 
@@ -331,7 +331,7 @@ $$\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = \zeta$$
 
 which can be pioctorially shown as:
 
-![SVM coordinate](/images/svm_two_coord.png)
+![SVM coordinate](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_two_coord.png)
 
 Note that although it is a square where $\alpha$ can lie but with a straight line, we might have a lower bound and upper bound on them. 
 

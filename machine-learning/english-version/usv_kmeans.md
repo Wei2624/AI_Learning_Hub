@@ -118,7 +118,7 @@ K is the parameter that we need to pre-define. This is called **parametric laern
 
 The figure of learning process can show this process. 
 
-![K Means](https://wei2624.github.io/images/cs229_usv_keams.png)
+![K Means](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_usv_keams.png)
 
 Plot (a) is the plot of samples. Plot (b) is samples with centroids. The rest plots show the training process. 
 

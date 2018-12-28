@@ -94,7 +94,7 @@ Moreover, if f is strictly convex, $E[f(X)] = f(E[X])$ is true iff X is constant
 
 What that means is that with a convex function f, and two points on X-axis with each probability of 0.5 to be selected. We can see that the function value of expected X is less or equal than the expected function value on two points. Such a concept can be visualized in below.
 
-![EM Jensen's Inequality](/images/cs229_usv_em_jensen.png)
+![EM Jensen's Inequality](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_usv_em_jensen.png)
 
 **Note** This also holds true for concave function since concave funciton is just the reverse of convex function. The inequality is also reversed. 
 
@@ -389,7 +389,7 @@ In this section, I will talk about another example that we can use EM to solve i
 
 Let's see an example. 
 
-![Missing Data](/images/cs229_em_missingdata.png)
+![Missing Data](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_em_missingdata.png)
 
 Consider each column as a data sample. We have a couple of missing entries in the data matrix. We can model each column with iid assumption as:
 

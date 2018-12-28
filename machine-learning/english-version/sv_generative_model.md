@@ -50,7 +50,7 @@ Cov(Z) &= E[(Z-E[Z])(Z-E[Z])^T] \\
 
 An example of plot of density function with zero mean but different covariance can be shwon below. 
 
-![Multivariate Gaussian](/images/cs229_gen_mul_gau.png)
+![Multivariate Gaussian](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_gen_mul_gau.png)
 
 In this example, we have covariance frome left from right:
 
@@ -202,7 +202,7 @@ $$\begin{align}
 
 The results can be shown as:
 
-![GDA Learning](/images/cs229_gen_gda_learn.png)
+![GDA Learning](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_gen_gda_learn.png)
 
 Note that we have shared covariance so the shape of two contours are the same but the means are different. On the boundary line, we have probability of 0.5 for each class. 
 

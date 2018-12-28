@@ -53,7 +53,7 @@ The fisrt term is data noise which we cannot do anything. A high bias term means
 
 To analyze a model, we should first build a pipeline of the interests. Then, we start from plugging ground truth for each component and see how much accuracy that change makes on the model. We always try to see which componenet in ground truth is affect the most when adding to the system. An example can be seen below. 
 
-![Error Analysis](/images/err_ana.png)
+![Error Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/err_ana.png)
 
 # 3 Ablative Analysis
 
@@ -62,4 +62,4 @@ Whereas error analysis tries to recognize the difference between current perform
 
 For example, assume that we have more add-on features that makes the model perform better. We want to see how much performance it will be reduced by eliminating one add-on feature at a time. An example can be shown below. 
 
-![Ablative Analysis](/images/ablative_ana.png)
+![Ablative Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/ablative_ana.png)

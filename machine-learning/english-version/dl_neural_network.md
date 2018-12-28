@@ -17,19 +17,19 @@ sidebar:
 
 Recall that in the housing price prediction example. We take the size of the house as input and make predictions on price by fitting a straight line. The problem in this model is that a straight line has mathematical meaning in negative domain, which does not make sense in predicting house values. Thus, we need to perform some link function to get a plot like the one below. 
 
-![Link Function](/images/cs229_deeplearning_link.png)
+![Link Function](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_deeplearning_link.png)
 
 Mathematically, we want $f:x\rightarrow y$. To prevent a negative prediction, we can have a single neuron where $f(x) = \max(ax+b,0)$ for some a and b from training process. This is called ReLU (rectified linear unit) function. This is essentially the simplest neuron that we can have. We can also stack multiple neurons where the output of a neuron can serve as the input of the other. This can give us a more complex struture. 
 
 In the housing price prediction example, we can have multiple input such as the size of house, the number of bedrooms, the zip code and the wealth of neighborhood. We can take these features as input to the neural network. In addition, we might also find out that the size of house and the number of bedrooms are related to family size, the zip code is related to the walkable distance to stores and the wealth of neighborhoods are related to the quality of life around. Thus, we can futher say that the price of house depends more directly on these three factors. Such an idea can be realized by stacking several neurons together as:
 
-![Neuron Networks](/images/cs229_deeplearning_nn.png)
+![Neuron Networks](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_deeplearning_nn.png)
 
 Part of magic of neural networks is that we only need to feed the network with input features x and output prediction y. Everything else is called hidden units and figured out by the neural network itself. They are called hidden layers since we do not have ground truth for those nuerons and we ask network to solve for us. We cal this **end-to-end learning**. The last thing required is a large amount of training samples. The model will figure out the latent features that are helpful on prediction. Since human cannot understand the features it has produced, this renders the neural network as **black box** technology.
 
 Before going to details, let's denote $x_i$ as i-th input feature, $a_j^{[\ell]}$ as the activition output at j-th unit in layer $\ell$, $foo^{\ell}$ as everything associated with layer $\ell$ and $z=\theta^Tx$. We can draw a diagram for a single neuron for illustration as:
 
-![Neuron Networks](/images/cs229_deeplearning_neuron.png)
+![Neuron Networks](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_deeplearning_neuron.png)
 
 For the choice of activition functions, we can logistic function as before:
 
@@ -97,7 +97,7 @@ We have defined and learned how neural network propagates forwards, which is cal
 
 For example, assume that we want to predict if an image contains a ball or not, which is a binary problem. As an image, we have RGB values, which means we deal with a three dimensional matrix. We first flatten it to a one-dimensional vector, and then feed it into the neural network to get the output. It can be illustrated figuratively as below. 
 
-![Example for BP](/images/cs229_deeplearning_bp_1.png)
+![Example for BP](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_deeplearning_bp_1.png)
 
 So next, let's talk about how to update its parameters. 
 
@@ -105,7 +105,7 @@ So next, let's talk about how to update its parameters.
 
 Keep in mind that the input is flattened although it is image. With two layers of neural network, we can draw it as:
 
-![Example for BP](/images/cs229_deeplearning_bp_2.png)
+![Example for BP](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_deeplearning_bp_2.png)
 
 Note how each node in each layer is connected. This is called fully connected. We can now use the method discussed in last section to figure out what output will be for each node in each layer by using matrix notation. In addition, with matrix notation, we can calculate the number of parameters that we are trying to update. I would not repeat the calculation step but the answer is $3n+14$.
 
@@ -215,10 +215,10 @@ Recall that logistic regression train each parameter for each pixel. However, fo
 
 To solve this, we have a new type of network structure called **comvolutional neural networks**. Instead of a vector of parameters, we use a matrix of vector, say size of 4 by 4. We take this matrix and slide it over the image. This can be shown below.
 
-![Example for CNN](/images/cs229_deeplearning_cnn_1.png)
+![Example for CNN](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_deeplearning_cnn_1.png)
 
 This matrix of parameters will take inner product with corresponding pixels in the image, which is a scalar. Then we slide matrix to the right and the bottom, which can be shown as:
 
-![Example for CNN](/images/cs229_deeplearning_cnn_2.png)
+![Example for CNN](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_deeplearning_cnn_2.png)
 
 Note that each matrix share the same weighs across the entire image. 
