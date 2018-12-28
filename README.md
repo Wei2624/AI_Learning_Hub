@@ -54,4 +54,10 @@ bundle exec jekyll build
 4. In `_site` directory, you can find `.html` file. Then, you are able to view them locally. 
 
 
+# Blog Information
+
+| Module | Blog Title | Lang | Author | Contact |
+|:--------:|:------------:|:------:|:--------:|:---------:|
+|ML|[Generative Algorithm](https://wei2624.github.io/MachineLearning/sv_generative_model/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
+|ML|[Generative Algorithm](https://air-yan.github.io/machine%20learning/Generative-Learning-Algorithm/)|CH|[Zishi Yan](https://air-yan.github.io/)|WeChat:air-sowhat|
 
