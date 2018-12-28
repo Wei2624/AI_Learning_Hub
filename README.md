@@ -53,6 +53,10 @@ bundle exec jekyll build
 
 4. In `_site` directory, you can find `.html` file. Then, you are able to view them locally. 
 
+## Join us
+
+You are very welcome to join us to improve this repo more! Please message [me](https://wei2624.github.io/) for more details. 
+
 
 # Blog Information
 
