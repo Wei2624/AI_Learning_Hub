@@ -2,10 +2,12 @@
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/LICENSE)
 
-<a href="url"><img src="https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/AI.jpg" align="left" height="450" width="870" ></a>
+<a href="url"><img src="https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/AI.jpg" align="left" height="450" width="900" ></a>
 
 <br><br>
 <br><br>
+
+Photo Credit: [Liam Kay](https://www.thirdsector.co.uk/author/4626/Liam-Kay)
 
 
 AI Learning Hub is an open-sourced machine learning handbook. We contribute to this repo by summarizing interesting blog, course and/or notes of machine learning, deep learning, computer vision, robotics and/or statistics. We also intend to provide each post with Chinese version. 
