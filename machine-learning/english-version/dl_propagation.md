@@ -6,7 +6,7 @@ toc_sticky: true
 category: Machine Learning
 tags: [notes]
 qr: machine_learning_notes.png
-title: Nerual Networks
+title: Backpropagation
 share: true
 permalink: /MachineLearning/dl_propagtion/
 sidebar:
