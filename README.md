@@ -2,6 +2,8 @@
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/LICENSE)
 
+![AI](AI.jpg)
+
 AI Learning Hub is an open-sourced machine learning handbook. We contribute to this repo by summarizing interesting blog, course and/or notes of machine learning, deep learning, computer vision, robotics and/or statistics. We also intend to provide each post with Chinese version. 
 
 We do this because we love AI and sharing. Excellent materials are the step stone for learning AI. We think everyone is deserved a chance to study AI with excellent materials. We welcome anyone to join us to make it better! 
@@ -45,7 +47,7 @@ bundle exec jekyll build
 
 ```
 
-4. In `_site` directory, you can find `html` file. Then, you are able to view them locally. 
+4. In `_site` directory, you can find `.html` file. Then, you are able to view them locally. 
 
 
 
