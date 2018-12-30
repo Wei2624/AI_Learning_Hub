@@ -26,7 +26,7 @@ The best way to view the contents of any blog is to view the homepage of the aut
 
 We highly recommend this way to view the contents of any blog. 
 
-### Use Ruby to view locally (Not Recommended)
+### Use Jekyll and Ruby to view locally (Not Recommended)
 
 1. Install Ruby environment. Instructions can be found [here](https://jekyllrb.com/docs/installation/).
 
@@ -43,7 +43,6 @@ git clone https://github.com/Wei2624/AI_Learning_Hub.git
 cd AI_Learning_Hub
 bundle install
 bundle exec jekyll build
-
 ```
 
 4. In `_site` directory, you can find `.html` file. Then, you are able to view them locally. 

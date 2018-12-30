@@ -13,7 +13,7 @@ title                    : ""
 title_separator          : "-"
 name                     : ""
 description              : ""
-url                      : "https://wei2624.github.io"
+url                      : ""
 baseurl                  : #"https://wei2624.github.io"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
@@ -99,30 +99,9 @@ author:
   location         : ""
   email            : #"wz2363@columbia.edu"
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: mailto:wz2363@columbia.edu
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://wei2624.github.io"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/WeiKB24"
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      # url: "https://facebook.com/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/Wei2624"
-    - label: "WeChat"
-      icon: "fab fa-weixin"
-      # url: "/images/WechatID.jpeg"
-    - label: "Zhihu"
-      icon: "fab fa-zhihu"
-      url: "/images/zhihu_qr.jpeg"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      # url: "https://instagram.com/"
+    # - label: "Email"
+    #   icon: "fas fa-fw fa-envelope-square"
+    #   url: mailto:wz2363@columbia.edu
 
 # Site Footer
 footer:
@@ -286,15 +265,3 @@ defaults:
       comments: # true
       share: true
       related: true
-  # _MachineLearning
-  - scope:
-      path: ""
-      type: MachineLearning
-    values:
-      layout: single
-      read_time: false
-      author_profile: false
-      share: true
-      comments: true
-      sidebar:
-        nav: "MachineLearning"
