@@ -1,30 +1,16 @@
-
 ---
-layout: single 
-<!-- single comments -->
-
+published: true
+layout: single
 mathjax: true
-<!-- latex -->
-
 toc: true
-<!-- table of content / 7 max-->
-
 toc_sticky: true
-<!-- table follow screen -->
-
-category: Machine Learning CN
-<!-- tags: [notes] -->
-<!-- qr: machine_learning_notes.png -->
-
-title: Discriminative Algorithm Chinese Version
-
-share: true
-<!-- share buttons at bottom -->
-
-permalink: /MachineLearning/sv_discriminative_model_ch/
-<!-- set a path to call -->
-
+category: Machine Learning
+tags: [notes,chinese]
 excerpt: "This post is a translation for one of Wei's posts in his machine learning notes."
+title: Discriminative Algorithm Chinese Version
+share: true
+author_profile: true
+permalink: /MachineLearning/sv_discriminative_model_ch/
 ---
 
 Please note this post is a study note translated to Chinese by me. Click [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model/) to see the original English version in Wei's homepage.
