@@ -15,17 +15,17 @@ sidebar:
 
 # 1 Intuition and Notation
 
-In general, binary classification is of great interests since it is the bottom line for multi-classes classification. The simplest case of binary classification is to classify points in space and can be sovled by using a determinist algorithm called support vector machine. 
+In general, binary classification is of great interests since it is the simplest case for multi-classes classification. One of the binary classification is to classify points in a random dimensional space and can be sovled by using a determinist algorithm called support vector machine. 
 
 ![SVM Intuition](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_intuition.png)
 
-From the figure, we have A, B and C point in the space. A is the safest point since it is far from the **boundary line**, while C is the most dangerous point since it is close to the **hyperplane**. The distance between the boundary line and the point is called **margin**.
+From the figure, we have A, B and C point in the space. A is the safest point since it is far from the **boundary line (hyperplane in high dimensions)**, while C is the most dangerous point since it is close to the **hyperplane**. The distance between the boundary line and the point is called **margin**.
 
 We also denote $x$ as feature vector, $y$ as label and $h$ as classifier. Thus, the classifier an be shown as:
 
 $$h_{w,b}(x) = g(w^Tx + b)$$
 
-Note, we have w, b instead $\theta$ here. And the label only takes the value 1 and -1 instead of 0 and 1. The classifier predicts directly as 1 or -1 like **perceptron algorithm** without calculating the probability like what logistic algorithm does. **However, this does not mean SVM cannot output its corresponding probability. Rather, it will tell us how confident the predict is. **
+Note, we have w, b instead $\theta$ here. And the label only takes the value 1 and -1 instead of 0 and 1. The classifier predicts directly as 1 or -1 like **perceptron algorithm** without calculating the probability like what logistic algorithm does. **However, some library, for example scikit-learn in Python, does provide SVM with probabilistic output. They achieve this by using a conversion function such as logistic function. Many other conversion functions are available.**
 
 # 2 Functional and Geometric Margins
 
@@ -33,13 +33,13 @@ Note, we have w, b instead $\theta$ here. And the label only takes the value 1 a
 
 $$\overset{\wedge}{\gamma^{(i)}} = y^{(i)}(w^Tx^{(i)} + b)$$
 
-We want $(w^Tx^{(i)} + b)$ to be a large positive number if label is positive or large negative number if label is negative. Thus, it means that **functional margin should be positive to be correct. And the larger the margin, the more confident we are.** However, this might not be meaningful when we replace w and b with 2w and 2b without changing anything else. Thus, this leads to the deifnition **geometric margine** coming next. Furthermore, we denote the function margin for the dataset as:
+We want $(w^Tx^{(i)} + b)$ to be a large positive number if label is positive or large negative number if label is negative. Thus, it means that **functional margin should be positive to be correct. And the larger the margin, the more confident we are.** However, this might not be meaningful when we scale w and b to 2w and 2b without changing anything else. We did not change our parameters w and b but we get a larger margin simply by scaling w and b. Thus, this leads to a new deifnition **geometric margine** coming next. Furthermore, we denote the function margin for the dataset as:
 
 $$\overset{\wedge}{\gamma} = \min_{i=1,\dots,m} \overset{\wedge}{\gamma^{(i)}} $$
 
 where m is the number of training samples. 
 
-**Geometric Margins:** In functional margin, We need to normalize w and b **with respect to the norm of w** since magnitude of w and b should not affect the scale of the margin. A figure for geometric margin can be shown:
+**Geometric Margins:** In geometric margin, we need to normalize w and b **with respect to the norm of w** since magnitude of w and b should not affect the scale of the margin. A figure for geometric margin can be shown:
 
 ![SVM Geometric Margins](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_gm.png)
 
@@ -47,15 +47,15 @@ It shows a vector w also called **support vector** which is perpendicular to the
 
 Similarily, to find the margin of point A, we take point B as the projected point of A. Formally, $x^{(i)} - \gamma^{(i)} w/\lvert\lvert w \rvert\rvert$. The point is on boundary, meaning that
 
-$$w^T(x^{(i)} - \gamma^{(i)} w/\lvert\lvert w \rvert\rvert) + b = 0$$
+$$w^T(x^{(i)} - \gamma^{(i)} \frac{w}{\lvert\lvert w \rvert\rvert}) + b = 0$$
 
 Solve:
 
-$$\gamma^{(i)} = (w/\lvert\lvert w \rvert\rvert)^T x^{(i)} + b/\lvert\lvert w \rvert\rvert$$
+$$\gamma^{(i)} = (\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\lvert\lvert w \rvert\rvert$$
 
 Thus, **geometric margin** with respect to a training sample is defined as:
 
-$$\gamma^{(i)} = y^{(i)}((w/\lvert\lvert w \rvert\rvert)^T x^{(i)} + b/\lvert\lvert w \rvert\rvert)$$
+$$\gamma^{(i)} = y^{(i)}((\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\lvert\lvert w \rvert\rvert)$$
 
 If $\lvert\lvert w \rvert\rvert = 1$, the functional margin is equal to geometric margin. Similarily, the geometric margin for all samples is:
 
@@ -83,7 +83,7 @@ $$ \text{s.t. } y^{(i)}(w^Tx^{(i)} + b) \geq \overset{\wedge}{\gamma}, i = 1,\do
 
 Basically, we relate geometric margin with function margine. Instead of geometric margin, we subject to a functional margin. **By doing this, we eliminate $\lvert\lvert w \rvert\rvert = 1$.** However, it is still bad. 
 
-By scaling constraint on w and b, we do not change anything. We use this fact to make $\overset{\wedge}{\gamma} = 1$.And then, the max problem becomes a min problem now. That is,
+By scaling constraint on w and b, we do not change anything. We use this fact to force $\overset{\wedge}{\gamma} = 1$.And then, the max problem becomes a min problem now. That is,
 
 $$\min_{\gamma,w,b} \frac{1}{2} \lvert\lvert w \rvert\rvert^2$$
 
@@ -168,7 +168,7 @@ Third euqaiton is called **KKT dual complementarity condition**. It means if $\a
 
 # 5 Optimal Margin Classifier
 
-Let's revisit the primal problem:
+Let's revisit the primal problem in SVM:
 
 $$\min_{\gamma,w,b} \frac{1}{2} \lvert\lvert w \rvert\rvert^2$$
 
@@ -180,7 +180,7 @@ $$g_i(w) = -y^{(i)}(w^Tx^{(i)} + b) + 1 \leq 0$$
 
 where i spans all training samples. From KKT dual complementarity condition, we have $\alpha_i > 0$ only when the functional margin is 1 ($g_i(w) = 0$).
 
-We can vistualize this in the picture below. The three points on the dash line are the ones with the smallest geometric margin which is 1. Thus, those points are the ones with positve $\alpha_i$ and are called **support vector**. 
+We can visualize this in the picture below. The three points on the dash line are the ones with the smallest geometric margin which is 1. Thus, those points are the ones with positve $\alpha_i$ and are called **support vector**. 
 
 ![SVM Boundary](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_bound.png)
 
@@ -220,20 +220,20 @@ The equation (3) says that the optimal w is based on the optimal $\alpha$. To ma
 
 $$w^Tx + b = (\sum\limits_{i=1}^m \alpha_i y^{(i)} x^{(i)})^Tx + b = \sum\limits_{i=1}^m \alpha_i y^{(i)} <x^{(i)},x> + b$$
 
-If it is bigger than zero, we predict one. We also know that $\alpha$ will be all zeros except for the support vectors. That means **we only cares about the inner product between x and support vector**. This makes the prediction faster and brings the **Kernel funciton** into the sight. Keep in mind that so far everything is low dimensional. How about high dimensions and infinite dimension space?
+If it is bigger than zero, we predict one.If it is less than zero, we predict negative one. We also know that $\alpha$ will be all zeros except for the support vectors. That means **we only cares about the inner product between x and support vector**. This makes the prediction faster and brings the **Kernel funciton** into the sight. Keep in mind that so far everything is low dimensional. How about high dimensions and infinite dimension space?
 
 
 # 6 Kernels
 
-In the example of living area of house, we can use the feature $x.x^2,x^3$ to get cubic function. X is called **input attribute** and $x.x^2,x^3$ is called **features**. We dentoe $\phi (x)$ the feature mapping from attribute to features. 
+In the example of living area of house, we can use the feature $x.x^2,x^3$ to get cubic function. X is called **input attribute** and $x.x^2,x^3$ is called **features**. We dentoe a feature mapping function $\phi (x)$ that maps from attribute to features. 
 
-Thus, we might want to learn inthe new feature space $\phi (x)$. In last section,we only need to calculate inner product $<x,z>$ and now we can replace it with $<\phi(x),\phi(z)>$. 
+Thus, we might want to learn in the new feature space $\phi (x)$. In last section,we only need to calculate inner product $<x,z>$ and now we can replace it with $<\phi(x),\phi(z)>$. 
 
 Formally, given a mapping, we denote **Kernel** to be:
 
 $$K(x,z) = \phi(x)^T\phi(z)$$
 
-We can use Kernel for the replacement instead of mapping itself. The reason is that Kernel is less expensive computationally. So we can learn in high dimensuional space without calculating mapping $\phi$.
+We can use Kernel instead of mapping itself. The reason is that Kernel is less expensive computationally. So we can learn in high dimensuional space without calculating mapping $\phi$.
 
 An example of how effective it is can be shown in the notes. It should be noted that calculating mapping is exponential time complexity whereas Kernel is linear time. 
 
@@ -243,7 +243,7 @@ $$K(x,z) = \exp(-\frac{\lvert\lvert x-z \rvert\rvert^2}{2\sigma^2})$$
 
 We can use this as learning SVM and it corresponds to infinite dimensional feature mapping $\phi$. It also shows that it is impossible to calculate infinite dimensional mapping but we can use Kernel instead. 
 
-Next, we are insterested in telling if a Kernel is valid or not. 
+Next, we are interested in telling if a Kernel is valid or not. 
 
 We define **Kernel Matrix** as $K_{ij} = K(x^{(i)},x^{(j)})$ for m points(i.e. K is m-by-m). Now, if K is valid, it means:
 
