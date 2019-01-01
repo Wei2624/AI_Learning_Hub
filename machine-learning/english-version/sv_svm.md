@@ -234,7 +234,7 @@ $$\begin{align}
 &= \sum\limits_{i=1}^m \alpha_i - \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j (x^{(i)})^Tx^{(j)}
 \eng{align}$$
 
-Note that $\alpha_i \grq 0$ and constratin (4). Thus, we have the dual problem as:
+Note that $\alpha_i \geq 0$ and constratin (4). Thus, we have the dual problem as:
 
 $$\begin{align}
 \max_{\alpha} W(\alpha) &= \sum\limits_{i=1}^m \alpha_i - \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j <x^{(i)},x^{(j)}> \\
@@ -298,7 +298,7 @@ To make the algorithm work for non-linear case as well, we add **regularization*
 $$\begin{align}
 \min_{\gamma,w,b} & \frac{1}{2}\lvert\lvert w\rvert\rvert^2 + C\sum\limits_{i=1}^m \xi_i  \\
 \text{s.t.   } & y^{(i)}(w^Tx^{(i)} + b) \geq 1-\xi_i,i=1,\dots,m \\
-\xi_i \geq 0,i=1,\dots,m
+& \xi_i \geq 0,i=1,\dots,m
 \end{align}$$
 
 It will pay the cost for the functional margin that is less than one. C will ensure that most examples have functional margin at least 1. It says that:
@@ -312,7 +312,7 @@ The Lagrangian is :
 $$\begin{align}
 \mathcal{L}(w,b,\xi,\alpha,r) &= \frac{1}{2}w^Tw + C\sum\limits_{i=1}^{m}\xi_i \\
 & - \sum\limits_{i=1}^m \alpha_i[y^{(i)}(x^{(i)T}w + b) - 1 + \xi_i] - \sum\limits_{i=1}^{m}r_i\xi_i
-\eng{align}$$
+\end{align}$$
 
 where $\alpha$ and r are Lagrangian multipliers which must be non-negative since constraints here are inequality. Now, we need to do the same thing to find out the dual form of the problem. I ignore the procedure here. After setting the derivatives with respect to w and b to zero, plugging back will produce the dual problem as:
 
