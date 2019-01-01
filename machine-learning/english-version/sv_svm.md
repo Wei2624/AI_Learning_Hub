@@ -126,10 +126,9 @@ The above only has equality constraints. We can generalize to both inequality an
 
 $$\begin{align}
 \min_w & f(w) \\
-& \text{s.t.   } & g_i(w) \leq 0,i = 1,\dots,k  \\
+\text{s.t.   } & g_i(w) \leq 0,i = 1,\dots,k  \\
 & h_i(w) = 0,i = 1,\dots,l
 \end{align}$$
-
 
 We define **generalized Lagrangian** as:
 
@@ -167,7 +166,25 @@ The primal and dual problem is related by:
 
 $$d^{\ast} = \max_{\alpha,\beta:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta) \leq p^{\ast} = \min_w \theta_{\mathcal{P}(w)}$$
 
-This is always true. The proof can be found online (I will add this into another notes and put a link here). The key is that under certain condition, they are equal. If they are equal, we can focus on dual problem instead of primal problem. The question is when they are equal. 
+This is always true. To see this, let's first define a function $f(x,y): X \times Y \mapsto \mathbb{R}$. Then, we can define:
+
+$$g(x) := \min_{y} f(x,y)$$
+
+That is for every x of funciton g, we choose such a y value that f(x,y) is minimum. Then, we can say:
+
+$$g(x) \leq f(x,y) \forall x\forall y$$
+
+We can add a max operator on both sides so as to eliminate variable x. In particular,
+
+$$\max_{x} g(x) \leq \max_{x} f(x,y) \forall y$$
+
+This is equivalently saying:
+
+$$\max_{x} \min_{y} f(x,y) \leq \min_{y} \max_{x} f(x,y)$$
+
+This concludes the proof. 
+
+**Back to the topic:** The key is that under certain condition, they are equal. If they are equal, we can focus on dual problem instead of primal problem. The question is when they are equal. 
 
 We assume that f and g are all convex and h are affine(**When f has a Hessian, it is convex iff Hessian is positive semi-definite. All affine are convex. Affine means linear.**) and g are all less than 0 for some w. Wtih these assumptions, there must exist $w^{\ast}$ for primal solution and $\alpha^{\ast},\beta^{\ast}$ for dual solution and $p^{\ast} = d^{\ast}$. And $w^{\ast}$,$\alpha^{\ast}$ and $\beta^{\ast}$ satisfy **Karush-Kuhn-Tucker (KKT) conditions**, which says:
 
