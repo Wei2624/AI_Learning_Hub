@@ -325,7 +325,7 @@ $$\text{s.t. }0\leq \alpha_i \leq C,i=1,\dots,m$$
 
 $$\sum\limits_{i=1}^{m}\alpha_i y^{(i)} = 0$$
 
-Notice that we have an interval for $\alpha$. This is becuase it has $\sum\limits_{i=1}^{m}(C-\alpha_i-r_i)\xi_i$. We take derivative with respect to $\xi$ and set to zero and we can eliminate $\xi$ and get the interval. In this case, $r_i$ is always non-negative and $\alpha_i=C$ when $\r_i = 0$. 
+Notice that we have an interval for $\alpha$. This is becuase it has $\sum\limits_{i=1}^{m}(C-\alpha_i-r_i)\xi_i$. We take derivative with respect to $\xi$ and set to zero and we can eliminate $\xi$ and get the interval. In this case, $r_i$ is always non-negative and $\alpha_i=C$ when $r_i = 0$. 
 
 Also notice that the optimal b is not the same anymore because the margin for both cloest points have changed. In next section, we will find the algrotihm to figure out the solution. 
 
