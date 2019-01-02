@@ -24,21 +24,21 @@ share: true
 permalink: /MachineLearning/sv_discriminative_model_ch/
 <!-- set a path to call -->
 
-excerpt: "This post is a translation for one of Wei's posts in his machine learning notes."
+excerpt: "A Chinese translation for one of Wei's posts in his machine learning notes."
 ---
 
-Please note this post is a study note translated to Chinese by me. Click [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model/) to see the original English version in Wei's homepage.
+This Article is a Chinese translation of a study note by Wei. Click [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model/) to see the original English version in Wei's homepage.
 
 请注意: 本文是我翻译的一份学习资料，英文原版请点击[Wei的学习笔记](https://wei2624.github.io/MachineLearning/sv_discriminative_model/)。
 
 
 一类经典的学习问题叫做监督学习(supervised learning)。在这种情况下，我们有输入叫特征(features)，和输出叫目标(target)。学习的目的是基于给定的输入训练模型，然后用训练好的模型预测输出。
 
-为此，我们收集一个训练数据集(training set)，在这个数据集中，我们有许多成对的训练样本，每对样本包含特征向量(feature vector)(用符号X表示所有的特征向量)及其相应的目标(output)（用符号Y表示所有的目标值）。 由于每一个输入都有来自事实对应的标签，我们将这种学习称为监督学习(supervised learning)(有正确答案），将训练好的模型称为假设(hypothesis)。 下表是一个例子。
+为此，我们收集一个训练数据集(training set)，在这个数据集中，我们有许多成对的训练样本，每对样本包含特征向量(feature vector)作为输入(用符号X表示所有的特征向量)及其相应的目标(output)作为输出（用符号Y表示所有的目标值）。 由于每一个输入都有来自事实对应的标签，我们将这种学习称为监督学习(supervised learning)(有正确答案），同时将训练好的模型称为假设(hypothesis)。 下表是一个例子。
 
 ![Supervise Learning Intuition](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_lec1_intuit.png)
 
-在这种情况下，我们将居住面积域作为特征，把价格作为目标。学习任务为给定一个新房子居住面积作为输入，用该模型预测房子的价格。
+在这种情况下，我们将房子的居住面积作为特征，把价格作为目标。学习任务为给定一个新房子居住面积作为输入，用训练好的模型预测新房子的价格。
 
 当目标输出处于连续空间时，我们将其称为**回归问题(regression problem)**。 当目标输出位于离散空间时，我们将其称为**分类问题(classification problem)**。
 
@@ -47,21 +47,21 @@ Please note this post is a study note translated to Chinese by me. Click [here](
 
 $$h(x) = \sum\limits_{i=0}^n \theta_i x_i = \theta^Tx$$
 
-我们以 $\theta_0$ 作为偏差项，有时称为截距项。 想象一下，当你尝试回归二维域中的线，截距项决定了线与y轴交叉的位置。$\theta$ 被称为参数(parameters)，我们将从训练数据中学习它。
+我们以 $\theta_0$ 作为偏差项，有时称为截距项。 想象一下，当你尝试回归二维域中的线时，截距项决定了线与y轴交叉的位置。$\theta$ 被称为参数(parameters)，我们将从训练数据中学习它。
 
-为了训练模型，我们定义以下代价函数(cost function)，并试图将它最小化：
+为了训练模型，我们定义以下**代价函数(cost function)**，并试图将它最小化：
 
 $$J(\theta) = \frac{1}{2}\sum\limits_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})^2$$
 
-目标是找到最小化代价的 $\theta$ 。 那么如何实现呢？为什么函数前面会有 $\frac{1}{2}$ 呢？在下一节中我们将推导出该成本函数的导数并给出解释。 简而言之，这种定义方式使数学运算变得方便。
+训练的目的是找到最小化代价的 $\theta$ 。 那么如何实现呢？为什么函数前面会有 $\frac{1}{2}$ 呢？在下一节中我们将推导出该成本函数的导数并给出解释。 简而言之，这种定义方式使数学运算变得方便。
 
 ## 最小均方差Least Mean Square(LMS) algorithm
 
-LMS算法主要使用梯度下降(gradient descent)来找到局部最小值(local minimum)。 为了实现它，我们将参数初始化为0，即 $\theta = \overrightarrow{0}$ ，然后用以下方法来反复更新θ：
+LMS算法主要使用**梯度下降(gradient descent)**来找到**局部最小值(local minimum)**。 为了实现它，我们将参数初始化为0，即 $\theta = \overrightarrow{0}$ ，然后用以下方法来反复更新θ：
 
 $$\theta_j = \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta)$$
 
-其中j可以遍历特征向量中的所有维度。$\alpha$ 被称为学习率(learning rate)，它控制模型学习/训练的速度。
+其中j可以遍历特征向量中的所有维度。$\alpha$ 被称为**学习率(learning rate)**，它控制模型学习/训练的速度。这种一步步更新来找到最小值叫**迭代算法iterative algorithm**。它将产生良好的对全局最小值的近似。
 
 现在，我们根据一个样本求偏导数：
 
@@ -72,17 +72,17 @@ $$\begin{align}
 &= (h_{\theta}(x)-y) x_j
 \end{align}$$
 
-**数学解释**：第二行是导数的的链式规则(chain rule)。 在第三行，我根据定义扩展 $h_{\theta}(x) = \sum\limits_{i=0}^n \theta_i x_i$ 。 在最后一行，因为我们只关心 $\theta_j$，所以其他一切都是常数。
+**数学解释**：第二行是导数的的**链式规则(chain rule)**。 在第三行，我根据定义扩展 $h_{\theta}(x) = \sum\limits_{i=0}^n \theta_i x_i$ 。 在最后一行，因为我们只关心 $\theta_j$，所以其他一切都是常数。
 
 所以，所有样本的更新是：
 
 $$\theta_j = \theta_j + \alpha\sum\limits_{i=0}^m (y^{(i)} - h_{\theta}(x^{(i)}))x_j^{(i)}$$
 
-其中m是训练样本的数量，j可以跨越特征向量的维度。 该算法从每个训练样本中获取所有梯度信息。 我们称之为**批量梯度下降(batch gradient descent)**。 该方法对局部最小值(即可能到达的鞍点saddle point）敏感，而我们通常假设成本函数仅有全局最小值(global minimum)(J是凸函数convex function), 这也是这个例子的情况 。梯度变化如下图所示：
+其中m是训练样本的数量，j可以跨越特征向量的维度。 该算法从每个训练样本中获取所有梯度信息。 我们称之为**批量梯度下降(batch gradient descent)**。 该方法对**局部最小值**(即可能到达的**鞍点saddle point**）敏感，而我们通常假设成本函数仅有**全局最小值(global minimum)(J是凸函数convex function)**， 这也是这个例子的情况 。梯度变化如下图所示：
 
 ![Batch Gradient Descent](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_lec1_bgd.png)
 
-请注意，在更新过程中，我们会遍历所有样本以向局部最小值前进一步。 如果m非常大，则该步骤计算量十分巨大。 因此，在这种情况下，我们引入了一个类似算法，称为**随机梯度下降stochastic gradient descent**。其中每次算法只会从一小部分样本中计算代价和梯度。 这样做使模型可以更快收敛，尽管它可能会在最小值处振荡(并没有严格到达最小)。 这种一步步更新来找到最小值叫迭代算法iterative algorithm。它将产生良好的对全局最小值的近似。 因此，我们经常在现实中使用它。
+请注意，在更新过程中，我们会遍历所有样本以向局部最小值前进一步。 如果m非常大，则该算法每一次迭代计算量十分巨大。 因此，在这种情况下，我们引入了一个类似算法，称为**随机梯度下降stochastic gradient descent**。其中每次算法只会从一小部分样本中计算代价和梯度。 这样做使模型可以更快收敛，尽管它可能会在最小值处振荡(并没有严格到达最小)。因此，我们经常在现实中使用它。
 
 当不能直接计算或者很难计算使目标函数的导数为0的参数时，我们会用以上的迭代算法。如果可以直接计算使导数为0的参数，我们可以通过下面的正则方程直接计算。
 
@@ -177,16 +177,16 @@ $$\begin{align}
 
 $$\triangledown_A trABA^TC = CAB + C^TAB^T$$
 
-**证明**：trace只存在于方矩阵，，因此可得$A\in\mathbb{R}^{N\times M},B\in\mathbb{R}^{M\times M},C\in\mathbb{R}^{N\times N}$
+**证明**：trace只存在于方矩阵，，因此可得$A\in\mathbb{R}^{N\times M}，B\in\mathbb{R}^{M\times M}，C\in\mathbb{R}^{N\times N}$
 
 $$\begin{align}
 \triangledown_A trABA^TC &= \begin{bmatrix} \frac{\partial trABA^TC}{\partial A_{11}} & \frac{\partial trABA^TC}{\partial A_{12}} & \dots & \frac{\partial trABA^TC}{\partial A_{1M} }\\ \frac{\partial trABA^TC}{\partial A_{21}} & \frac{\partial trABA^TC}{\partial A_{22} } & \dots & \frac{\partial trABA^TC}{\partial A_{2M} } \\ \vdots & \vdots & \dots & \vdots \\ \frac{\partial trABA^TC}{\partial A_{N1} } & \frac{\partial trABA^TC}{\partial A_{N2} } & \dots & \frac{\partial trABA^TC}{\partial A_{NM}} \end{bmatrix} \\
 &= \begin{bmatrix} \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{11}} & \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{12}} & \dots & \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{1M}}\\ \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{21}} & \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{22} } & \dots & \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{2M} } \\ \vdots & \vdots & \dots & \vdots \\ \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{N1} } & \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{N2} } & \dots & \frac{\partial \sum\limits_{i=1}^N(ABA^TC)_{ii}}{\partial A_{NM}} \end{bmatrix} 
 \end{align}$$
 
-$$= \begin{bmatrix} \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{11}} & \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{12}} & \dots & \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{1M}}\\ \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{21}} & \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{22} } & \dots & \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{2M} } \\ \vdots & \vdots & \dots & \vdots \\ \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{N1} } & \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{N2} } & \dots & \frac{\partial \sum\limits_{i=j=k=h=1}^{N,M,M,N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{NM}} \end{bmatrix}$$
+$$= \begin{bmatrix} \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{11}} & \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{12}} & \dots & \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{1M}}\\ \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{21}} & \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{22} } & \dots & \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{2M} } \\ \vdots & \vdots & \dots & \vdots \\ \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{N1} } & \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{N2} } & \dots & \frac{\partial \sum\limits_{i=j=k=h=1}^{N，M，M，N} A_{ij}B_{jk}A_{hk}C_{hi}}{\partial A_{NM}} \end{bmatrix}$$
 
-$$=\begin{bmatrix}  \dots & \sum\limits_{k,h}^{M,N} B_{Mk}A_{hk}C_{h1} + \sum\limits_{i,j}^{N,M} A_{ij}B_{jM}C_{1i}\\  \dots & \sum\limits_{k,h}^{M,N} B_{Mk}A_{hk}C_{h2} + \sum\limits_{i,j}^{N,M} A_{ij}B_{jM}C_{2i} \\  \dots & \vdots \\ \dots & \sum\limits_{k,h}^{M,N} B_{Mk}A_{hk}C_{hN} + \sum\limits_{i,j}^{N,M} A_{ij}B_{jM}C_{Ni} \end{bmatrix}$$
+$$=\begin{bmatrix}  \dots & \sum\limits_{k，h}^{M，N} B_{Mk}A_{hk}C_{h1} + \sum\limits_{i，j}^{N，M} A_{ij}B_{jM}C_{1i}\\  \dots & \sum\limits_{k，h}^{M，N} B_{Mk}A_{hk}C_{h2} + \sum\limits_{i，j}^{N，M} A_{ij}B_{jM}C_{2i} \\  \dots & \vdots \\ \dots & \sum\limits_{k，h}^{M，N} B_{Mk}A_{hk}C_{hN} + \sum\limits_{i，j}^{N，M} A_{ij}B_{jM}C_{Ni} \end{bmatrix}$$
 
 
 $$= C^TAB^T + CAB $$
@@ -227,7 +227,7 @@ $$\begin{align}
 &= X^X\theta - X^T\overrightarrow{y}
 \end{align}$$
 
-**数学解释**：$a = tr(a)$，因此可得第二行。第三行（1）$\theta$ 对$\overrightarrow{y}^T\overrightarrow{y}$求导可得0；（2）$tr(A+B) = tr(A) + tr(B)$;(3) $- \theta^TX^T\overrightarrow{y} - \overrightarrow{y}^TX\theta = 2\overrightarrow{y}^TX\theta$；。第四行来源于(1)使用以上的性质$A^T = \theta,B = B^T = X^TX, C = I$;(2)$\triangledown_A trAB = B^T$.
+**数学解释**：$a = tr(a)$，因此可得第二行。第三行（1）$\theta$ 对$\overrightarrow{y}^T\overrightarrow{y}$求导可得0；（2）$tr(A+B) = tr(A) + tr(B)$;(3) $- \theta^TX^T\overrightarrow{y} - \overrightarrow{y}^TX\theta = 2\overrightarrow{y}^TX\theta$；。第四行来源于(1)使用以上的性质$A^T = \theta，B = B^T = X^TX， C = I$;(2)$\triangledown_A trAB = B^T$.
 
 我们将它设为0，可得正则方程，即：
 
@@ -324,7 +324,7 @@ $$\begin{align}
 # 6 跑个题：感知器学习算法
 我们再之后的学习理论中会继续讨论，简单来讲，我们把假设函数调整为：
 
-$$g(\theta^Tx) = \begin{cases} 1  \text{, if } \theta^Tx \geq 0 \\ 0  \text{, otherwise} \\ \end{cases}$$
+$$g(\theta^Tx) = \begin{cases} 1  \text{， if } \theta^Tx \geq 0 \\ 0  \text{， otherwise} \\ \end{cases}$$
 
 之前的更新方程保持不变，这就是**感知器学习算法**。
 
@@ -403,7 +403,7 @@ $$b(y) = (1/\sqrt{2\pi})\exp(-y^2/2)$$
 
 ## 9.1普通最小二乘法
 
-在这种情况下，我们有 $y\thicksim \mathcal{N}(\mu,\sigma^2)$。 以前，我们讨论过高斯作为指数族。 特别是，我们有：
+在这种情况下，我们有 $y\thicksim \mathcal{N}(\mu，\sigma^2)$。 以前，我们讨论过高斯作为指数族。 特别是，我们有：
 
 $$\begin{align}
 h_{\theta}(x) &= \mathbb{E}[y\lvert x;\theta]\\
@@ -432,11 +432,11 @@ h_{\theta}(x) &= \mathbb{E}[y\lvert x;\theta]\\
 
 在更广泛的情况下，我们可以有多个类而不是上面的二项类。 将其建模为多项分布是很自然的，它也属于可以从GLM导出的指数族。
 
-在多项分布中，我们可以将 $\phi_1,\phi_2,\dots,\phi_{k-1}$ 定义为 $k-1$ 类的对应概率。 我们不需要所有k类，因为一旦设置了前一个k-1就确定了最后一类。 所以我们可以写为 $\phi_k = 1-\sum_{i=1}^{k-1}\phi_i$ 
+在多项分布中，我们可以将 $\phi_1，\phi_2，\dots，\phi_{k-1}$ 定义为 $k-1$ 类的对应概率。 我们不需要所有k类，因为一旦设置了前一个k-1就确定了最后一类。 所以我们可以写为 $\phi_k = 1-\sum_{i=1}^{k-1}\phi_i$ 
 
 我们首先定义 $T(y) \in \mathbb{R}^{k-1}$，并且：
 
-$$T(1) = \begin{bmatrix} 1\\ 0 \\ \vdots  \\ 0 \end{bmatrix}, T(2) = \begin{bmatrix} 0\\ 1 \\ \vdots  \\ 0 \end{bmatrix},\dots,T(k) = \begin{bmatrix} 0\\ 0 \\ \vdots  \\ 0 \end{bmatrix}$$
+$$T(1) = \begin{bmatrix} 1\\ 0 \\ \vdots  \\ 0 \end{bmatrix}， T(2) = \begin{bmatrix} 0\\ 1 \\ \vdots  \\ 0 \end{bmatrix}，\dots，T(k) = \begin{bmatrix} 0\\ 0 \\ \vdots  \\ 0 \end{bmatrix}$$
 
 注意，对于 $T(k)$，我们在向量中只有全零，因为向量的长度是k-1。 我们让 $T(y)_i$ 来定义在向量中的第i个元素。 课程笔记说明中也引入了指标的定义，我在此不再详述。
 
@@ -477,7 +477,7 @@ $$\phi_i = \frac{e^{\eta_i}}{\sum_{j=1}^{k}e^{\eta_j}}$$
 
 这个响应函数就是我们的**softmax函数**。
 
-根据GLM中的假设（3），我们知道对于对于$i=1,2,\dots,k-1$， $\eta_i = \theta_i^Tx ，并且 $\theta_i \in \mathbb{R}^{n+1}$ 是我们GLM模型的参数。而 $\theta_k$ 只是0，因此 $\eta_k = 0$ 。 现在，我们有基于x的模型：
+根据GLM中的假设（3），我们知道对于对于$i=1，2，\dots，k-1$， $\eta_i = \theta_i^Tx ，并且 $\theta_i \in \mathbb{R}^{n+1}$ 是我们GLM模型的参数。而 $\theta_k$ 只是0，因此 $\eta_k = 0$ 。 现在，我们有基于x的模型：
 
 $$p(y=i\lvert x;\theta) = \phi_i = \frac{e^{\eta_i}}{\sum_{j=1}^{k}e^{\eta_j}} = \frac{e^{\theta_i^T x}}{\sum_{j=1}^{k}e^{\theta_j^Tx}}$$
 
