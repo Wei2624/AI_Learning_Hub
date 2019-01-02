@@ -6,7 +6,7 @@ toc: true
 toc_sticky: true
 category: Machine Learning
 tags: [notes,chinese]
-excerpt: "A Chinese translation for one of Wei's posts in his machine learning notes."
+excerpt: "This post is a translation for one of Wei's posts in his machine learning notes."
 title: Discriminative Algorithm Chinese Version
 share: true
 author_profile: true
