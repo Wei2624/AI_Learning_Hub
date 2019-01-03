@@ -470,7 +470,7 @@ $$\phi_i = \frac{e^{\eta_i}}{\sum_{j=1}^{k}e^{\eta_j}}$$
 
 这个响应函数就是我们的**softmax函数**。
 
-根据广义线性模型中的假设（3），我们知道对于对于$i=1，2，\dots，k-1$， $\eta_i = \theta_i^Tx ，并且 $\theta_i \in \mathbb{R}^{n+1}$ 是我们广义线性模型模型的参数。而 $\theta_k$ 只是0，因此 $\eta_k = 0$ 。 现在，我们有基于x的模型：
+根据广义线性模型中的假设（3），我们知道对于对于$i=1，2，\dots，k-1$， $\eta_i = \theta_i^Tx$ ，并且 $\theta_i \in \mathbb{R}^{n+1}$ 是我们广义线性模型模型的参数。而 $\theta_k$ 只是0，因此 $\eta_k = 0$ 。 现在，我们有基于x的模型：
 
 $$p(y=i\lvert x;\theta) = \phi_i = \frac{e^{\eta_i}}{\sum_{j=1}^{k}e^{\eta_j}} = \frac{e^{\theta_i^T x}}{\sum_{j=1}^{k}e^{\theta_j^Tx}}$$
 
