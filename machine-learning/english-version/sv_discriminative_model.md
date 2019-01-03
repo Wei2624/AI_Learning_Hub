@@ -13,6 +13,10 @@ sidebar:
   nav: "MachineLearning"
 ---
 
+A Chinese version of this section is available. It can be found [here](https://dark417.github.io/MachineLearning/sv_discriminative_model_ch/). The Chinese version will be synced periodically with English version. If the page is not working, you can check out a back-up link [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model_ch/).
+
+---
+
 A classical learning paradigm is called supervised learning. In this case, we usually have an input called features and output called target. The goal is that given some features we ask the trained model to predict the output. 
 
 To do so, we collect a training dataset in which we have a number of pairs of training sample composing of a feature vector denoted $\mathcal{X}$ and its corresponding output denoted $\mathcal{Y}$. Since we have ground truth for every single input, we call this type of learning as supervised learning and the learned model as hypothesis. An example can be shown in the table below. 
