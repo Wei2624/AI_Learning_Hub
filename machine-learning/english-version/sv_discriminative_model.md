@@ -391,7 +391,7 @@ For example, assume that we want to predict y given x. Before moving on deriving
 
 **(1)** We always assume $y \lvert x;\theta \thicksim \text{ExponentialFamily}(\eta)$. 
 
-**(2)** In general, we want to predict the expected vaye of T(y) given x. Most likely, we have $T(y) = y$. Formally, we have $h(x) = \mathbb{E}[y\lvert x]$, which is true for both logistic regression and linear regression. Note that in logistic regression, we always have $\mathbb{E}[y\lvert x] = p(y=1\lvert x;\theta)$.
+**(2)** In general, we want to predict the expected value of T(y) given x. Most likely, we have $T(y) = y$. Formally, we have $h(x) = \mathbb{E}[y\lvert x]$, which is true for both logistic regression and linear regression. Note that in logistic regression, we always have $\mathbb{E}[y\lvert x] = p(y=1\lvert x;\theta)$.
 
 **(3)** The input and natural parameter are related as:$\eta = \theta^Tx$
 
