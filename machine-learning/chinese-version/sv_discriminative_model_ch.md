@@ -14,7 +14,7 @@ permalink: /MachineLearning/sv_discriminative_model_ch/
 ---
 
 
-This Article is a Chinese translation of a study note by Wei. Click [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model/) to see the original English version in Wei's homepage.
+This Article is a Chinese translation of a study note by Wei. Click [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model/) to see the original English version in Wei's homepage. I will continue to update Chinese translate to sync with Wei's notes.
 
 请注意: 本文是我翻译的一份学习资料，英文原版请点击[Wei的学习笔记](https://wei2624.github.io/MachineLearning/sv_discriminative_model/)。
 
