@@ -16,7 +16,7 @@ permalink: /MachineLearning/sv_discriminative_model_ch/
 
 This Article is a Chinese translation of a study note by Wei. Click [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model/) to see the original English version in Wei's homepage. I will continue to update Chinese translation to sync with Wei's notes.
 
-请注意: 本文是我翻译的一份学习资料，英文原版请点击[Wei的学习笔记](https://wei2624.github.io/MachineLearning/sv_discriminative_model/)。
+请注意: 本文是我翻译的一份学习资料，英文原版请点击[Wei的学习笔记](https://wei2624.github.io/MachineLearning/sv_discriminative_model/)。我将不断和原作者的英文笔记同步内容，定期更新和维护。
 
 
 一类经典的学习模式叫做监督学习(supervised learning)。在这种模式下，我们有输入模块，叫特征(features)，和输出模块，叫目标(target)。学习的目的是基于给定的输入和对应的标签训练模型，然后用训练好的模型对给定的新输入来预测输出。
