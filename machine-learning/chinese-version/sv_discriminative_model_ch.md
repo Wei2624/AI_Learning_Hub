@@ -14,9 +14,9 @@ permalink: /MachineLearning/sv_discriminative_model_ch/
 ---
 
 
-This Article is a Chinese translation of a study note by Wei. Click [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model/) to see the original English version in Wei's homepage.
+This Article is a Chinese translation of a study note by Wei. Click [here](https://wei2624.github.io/MachineLearning/sv_discriminative_model/) to see the original English version in Wei's homepage. I will continue to update Chinese translation to sync with Wei's notes.
 
-请注意: 本文是我翻译的一份学习资料，英文原版请点击[Wei的学习笔记](https://wei2624.github.io/MachineLearning/sv_discriminative_model/)。
+请注意: 本文是我翻译的一份学习资料，英文原版请点击[Wei的学习笔记](https://wei2624.github.io/MachineLearning/sv_discriminative_model/)。我将不断和原作者的英文笔记同步内容，定期更新和维护。
 
 
 一类经典的学习模式叫做监督学习(supervised learning)。在这种模式下，我们有输入模块，叫特征(features)，和输出模块，叫目标(target)。学习的目的是基于给定的输入和对应的标签训练模型，然后用训练好的模型对给定的新输入来预测输出。
@@ -44,11 +44,13 @@ $$J(\theta) = \frac{1}{2}\sum\limits_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})^2$$
 
 ## 最小均方算法Least Mean Square(LMS) algorithm
 
-LMS算法主要使用**梯度下降(gradient descent)**来找到**局部最小值(local minimum)**。 为了实现它，我们将参数初始化为0，即 $\theta = \overrightarrow{0}$ ，然后用以下方法来反复更新θ：
+LMS算法主要使用**梯度下降(gradient descent)**来找到**局部最小值(local minimum)**。 为了实现它，我们将参数初始化为0，即 $\theta = \overrightarrow{0}$ ，然后用以下方法来反复更新 $\theta$：
 
 $$\theta_j = \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta)$$
 
+
 其中j可以遍历特征向量中的所有维度。$\alpha$ 被称为**学习率(learning rate)**，它控制模型学习/训练的速度。这种一步步更新来找到最小值叫**迭代算法（iterative algorithm）**。 
+
 
 现在，我们根据一个样本求偏导数：
 
@@ -182,7 +184,7 @@ $$\triangledown_A \lvert A \rvert = \lvert A \rvert(A^{-1})^T$$
 
 ## 再看Least Square
 
-因此，现在我们不是迭代地找到解决方案，而是明确地直接计算代价函数的导数，并将其设为零以便直接解出最终表达式。
+因此，现在我们不是迭代地找到解决方案，而是明确地直接计算代价函数对于 $\theta$ 的导数，并将其设为零以便直接解出最终表达式。
 
 我们定义训练集输入为：
 
@@ -200,7 +202,7 @@ $$X\theta - \overrightarrow{y} = \begin{bmatrix} h_{\theta}(x^{(1)}) - y^{(1)}\\
 
 $$J(\theta) = \frac{1}{2}(X\theta - \overrightarrow{y})^T(X\theta - \overrightarrow{y}) = \frac{1}{2}\sum\limits_{i=1}^m (h_{\theta}(x^{(i)}) - y^{(i)})^2$$
 
-所以在这一点上，我们需要找到关于 $\theta$ 的J的导数。 从矩阵的迹的属性来看，我们知道：
+现在我们需要找到J对于 $\theta$ 的导数。 从矩阵的迹的属性来看，我们知道：
 
 $$\triangledown_{A^T}trABA^TC = B^TA^TC^T + BA^TC$$
 
@@ -225,6 +227,7 @@ $$X^TX\theta = X^T\overrightarrow{y}$$
 $$\theta = (X^TX)^{-1}X^T\overrightarrow{y}$$
 
 # 3 概率解释
+
 正则方程是找到解的一种确定性方法，让我们看看如何从随机性的角度解释它。随机性解释下最终应该得到相同的结果。
 
 我们知道输入和输出的关系为：
@@ -251,13 +254,14 @@ $$\begin{align}
 对于 $\theta$ 来最大化以上值会与最小化代价函数得到相同的答案。这意味着我们用概率的方式证明了我们在最小均方算法中所得的结果。
  
 # 4 局部加权线性回归
-在上面讨论的回归方法中，我们平等对待在每个训练样本产生的代价。 但是，这可能不合适，因为一些异常值(outlier)应该减少权重。因此我们根据查询点来计算每个样本的权重。 例如，这样的权重可以是：
+在上面讨论的回归方法中，我们平等对待在每个训练样本产生的代价。 但是每个样本所带来的代价是不一样的，尤其是一些**异常值(outlier)**会增加很多代价,我们应该减少它们权重。因此我们根据**查询点(querying point)**来计算每个样本的权重。 例如，这样的权重可以是：
 
 $$w^{(i)} = \exp\big(-\frac{(x^{(i)} - x)^2}{2r^2}\big)$$
 
 虽然这个表达式看似于高斯，但它们无关。 x是查询点。 我们需要保留所有训练数据以进行新的预测。
 
 # 5 分类与逻辑回归
+
 我们可以将分类问题当做一个特殊的回归问题，我们只回归到一组二进制值0和1。有时，我们也使用-1和1表示法，我们分别称它为负类和正类。
 
 然而，如果我们在这里应用线性回归模型，那么我们预测0和1以外的任何值是没有意义的。因此，我们将假设函数修改为：
@@ -270,7 +274,7 @@ $$h_{\theta}(x) = g(\theta^T x) = \frac{1}{1+\exp(-\theta^Tx)}$$
 
 输出范围从0到1。这直观地解释了为什么我们将其称为回归，因为它在连续的空间中输出。 但是，该值表示属于某一类的概率。 所以基本上它是一个分类器。
 
-让我们来看看当我们采用逻辑函数的导数会是什么：
+让我们来看看逻辑函数的导数会是什么：
 
 $$\begin{align}
 \frac{d}{dz} g(z) &= \frac{1}{(1+\exp(-z))^2}\big(\exp(-z)\big)\\
@@ -279,7 +283,7 @@ $$\begin{align}
 &= g(z)(1-g(z))
 \end{align}$$
 
-有了这个知识，接下来的问题是我们应该如何找到 $\theta$。 我们知道最小二乘回归可以从最大似然算法中计算出，我们从这里继续。
+有了这个知识，接下来的问题是如何找到 $\theta$。 我们知道最小二乘回归可以从最大似然算法中计算出，我们从这里继续。
 
 我们认为：
 
@@ -315,6 +319,7 @@ $$g(\theta^Tx) = \begin{cases} 1  \text{， if } \theta^Tx \geq 0 \\ 0  \text{�
 之前的更新方程保持不变，这就是**感知器学习算法**。
 
 # 7 牛顿最大化方法
+
 想象一下，我们想要找到函数f的根。 牛顿法允许我们以二次速度完成这项任务。 这个想法是：随机初始化 $x_0$ 并找到 $f(x_0)$ 的切线，标记为$f^{\prime}(x_0)$。 我们使用 $f^{\prime}(x_0)$ 的根作为新x。 我们还将新x和旧x之间的距离定义为 $\Delta$ 。 下图可以展示这个过程：
 
 ![Newton's Method](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_lec1_newton.png)
@@ -413,6 +418,7 @@ h_{\theta}(x) &= \mathbb{E}[y\lvert x;\theta]\\
 \end{align}$$
 
 这部分解释了为什么我们得出了sigmoid函数这样的形式。 因为我们假设当给定x，y是伯努利分布，所以由指数族来产生sigmoid函数是很自然的事。 为了预测，我们认为 $T(y)$ 是相对于 $\eta$ 的期望值合理的猜测，即**规范响应函数**或**链接函数的反函数**
+
 。 通常，响应函数是 $\eta$ 的函数，并给出 $\eta$ 和分布参数之间的关系，而链接函数产生η作为分布参数的函数。 反函数意味着用一者来表达另一者。 从上面的推导，我们知道伯努利的响应函数是逻辑函数，而高斯函数的典型响应函数是均值函数。
 
 ## 9.3 Softmax回归
@@ -464,7 +470,7 @@ $$\phi_i = \frac{e^{\eta_i}}{\sum_{j=1}^{k}e^{\eta_j}}$$
 
 这个响应函数就是我们的**softmax函数**。
 
-根据广义线性模型中的假设（3），我们知道对于对于$i=1，2，\dots，k-1$， $\eta_i = \theta_i^Tx ，并且 $\theta_i \in \mathbb{R}^{n+1}$ 是我们广义线性模型模型的参数。而 $\theta_k$ 只是0，因此 $\eta_k = 0$ 。 现在，我们有基于x的模型：
+根据广义线性模型中的假设（3），我们知道对于对于$i=1，2，\dots，k-1$， $\eta_i = \theta_i^Tx$ ，并且 $\theta_i \in \mathbb{R}^{n+1}$ 是我们广义线性模型模型的参数。而 $\theta_k$ 只是0，因此 $\eta_k = 0$ 。 现在，我们有基于x的模型：
 
 $$p(y=i\lvert x;\theta) = \phi_i = \frac{e^{\eta_i}}{\sum_{j=1}^{k}e^{\eta_j}} = \frac{e^{\theta_i^T x}}{\sum_{j=1}^{k}e^{\theta_j^Tx}}$$
 
