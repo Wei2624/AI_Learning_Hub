@@ -18,53 +18,56 @@ Please note this post is a study note translated to Chinese by me. Click [here](
 请注意: 本文是我翻译的一份学习资料，英文原版请点击[Wei的学习笔记](https://wei2624.github.io/MachineLearning/sv_svm/)。
 
 ---
-In this blog, I will talk about Support Vector Machine (SVM). Many people think SVM is one of the best classifier and is very easy to implment in many programming languages such as Python and Matlab. Also, I will talk about kernel idea. This allows us to apply SVM in a high dimensional space. 
 
-# 1 Intuition and Notation
+许多人认为支持向量机（SVM）是最好的分类器之一，并且很容易在许多编程语言（如Python和Matlab）中实现。我将在这篇博客种讨论支持向量机的原理。另外，SVM中核函数的运用也允许了我们在高维度数据空间中应用SVM，因此核函数也会作为其中一个要点在文章中进行讨论。
 
-In general, binary classification is of great interests since it is the simplest case for multi-classes classification. We have seen probabilistic models in the previous sectons such as logistic regression. On the other hand, SVM can classify points in a random dimensional space and can sovle the problem by using a determinist algorithm. 
+
+# 1 直观理解与符号应用
+
+通常，由于二元分类是多元分类中的最简单的情况，人们总是习惯从二元分类下手研究问题。关于二元分类，我们已经在先前的笔记中学过了一些概率模型，例如逻辑回归。至于SVM，它可以对随机空间维度中的点进行分类，并且可以通过使用确定性算法来解决问题。
 
 ![SVM Intuition](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_intuition.png)
 
-We can see an example in 2D domain above. From the figure, we have A, B and C point in the space. A is the safest point since it is far from the **boundary line (hyperplane in high dimensions)**, while C is the most dangerous point since it is close to the **hyperplane**. The distance between the boundary line and the point is called **margin**.
+上述2D模型是一个简单的例子。从图中我们可以看到，在空间中有A，B和C点。A是最安全的点，因为它远离**边界线（高维的超平面）**，而C是最危险的点，因为它接近**超平面**。边界线和点之间的距离称为**间隔（margin）**。
 
-We also denote $x$ as feature vector, $y$ as label and $h$ as classifier. Thus, the classifier an be shown as:
+我们以$x$表示特征向量，以$y$表示分类结果，以$h$表示分类器。因此，SVM分类器可以表示为：
 
 $$h_{w,b}(x) = g(w^Tx + b)$$
 
-Note, we have w, b instead $\theta$ here. And the label only takes the value 1 and -1 instead of 0 and 1. The classifier predicts directly as 1 or -1 like **perceptron algorithm** without calculating the probability like what logistic algorithm does. **However, some library, for example scikit-learn in Python, does provide SVM with probabilistic output. They achieve this by using a conversion function such as logistic function. Many other conversion functions are available.**
+请注意，SVM和逻辑算法并不一样。在SVM中，w，b代替了原本的$\theta$，而且y的分类结果取值为1和-1，而不是0和1。分类器直接预测结果1或-1，而不像逻辑算法那样计算出概率，这点和**感知器算法**是一样的。 **不过，一些库如Python中的scikit-learn，确实为SVM提供了概率输出。这是通过使用诸如逻辑函数之类的转换函数来实现的。**
 
-# 2 Functional and Geometric Margins
+# 2 函数间隔与几何间隔
 
-**Functional margins** with respect to training example:
+**函数间隔**关于训练数据的表达:
 
 $$\overset{\wedge}{\gamma^{(i)}} = y^{(i)}(w^Tx^{(i)} + b)$$
 
-We want $(w^Tx^{(i)} + b)$ to be a large positive number if label is positive or large negative number if label is negative. Thus, it means that **functional margin should be positive to be correct. And the larger the margin, the more confident we are.** However, this might not be meaningful when we scale w and b to 2w and 2b without changing anything else. We did not change the sign (prediction) of $(w^Tx^{(i)} + b)$ but we get a larger margin simply by scaling w and b. Thus, to make the prediction invariant to the scales of w and b, we bring a new deifnition **geometric margine** coming next. Furthermore, we denote the function margin for the dataset as:
+当分类y为正数1时，我们希望$(w^Tx^{(i)} + b)$是一个较大的正数，当分类为负数-1时，则希望它是一个较大的负数。因此，这意味着**函数间隔必须是正数才对。间隔越大，我们就分类的结果越自信。**但是当我们将w和b的比例放大到2w和2b而不改变其他任何东西时，这可能并没有什么意义。虽然我们没有因此改变$(w^Tx^{(i)} + b)$的正负符号（也就是预测结果），但我们通过缩放w和b得到了更大的间隔。因此，为了使预测不因w和b的数值变动而变动，我们接下来将带来一个新的定义 - **几何边缘**。此外，我们将数据集的函数间隔表示为：
 
 $$\overset{\wedge}{\gamma} = \min_{i=1,\dots,m} \overset{\wedge}{\gamma^{(i)}} $$
 
-where m is the number of training samples. 
+其中，m为训练样本的数量。
 
-**Geometric Margins:** In geometric margin, we need to normalize w and b **with respect to the norm of w** since we think the magnitude of w and b should not affect the scale of the margin. A figure for geometric margin can be shown:
+**几何间隔：**在几何间隔中，我们认为w和b的大小不应影响间隔的比例，因此需要对w和b进行**关于w范数**的归一化。一个几何间隔的表示可见下图：
 
 ![SVM Geometric Margins](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_gm.png)
 
-It shows a vector w also called **support vector** which is perpendicular to the boundary line, which is always true. To prove this, let's take any two points on the line, $x_i,x_j,i\neq j$. By definition, we have:
+图中w也可以被称为**支持向量**。w与边界线相垂直，为了证明这一点，让我们在边界线上任取两点$x_i,x_j,i\neq j$。根据定义，我们有:
 
 $$w^T x_i + b = w^T x_j + b = 0$$
 
-Then, we can say:
+于是，我们可以有:
 
 $$w^T(x_i-x_j) = 0$$
 
-$x_i-x_j$ is the vector along the line. We know that dot product is always zero and it is always perpendicular between the two vectors. 
+$x_i-x_j$是沿着边界线的向量。我们知道如果两个向量的点积为零，那么这两个向量是相互垂直的。所以$w^T$与$(x_i-x_j)$互相垂直。
 
-Similarily, to find the margin of point A, denoted $\gamma^{(i)}$ which is a scalar, we take point B as the projected point of A on the line. By definition, $x^{(i)} - \gamma^{(i)} w/\lvert\lvert w \rvert\rvert$. The point is on boundary, meaning that
+
+类似地，为了找到A点的间隔，我们声明$\gamma^{(i)}$为一个标量，我们将B点作为A点到边界线的投影点。根据定义，A点到B点可以表示为：$x^{(i)} - \gamma^{(i)} w/\lvert\lvert w \rvert\rvert$。如果这个点是在边界线上的话，可以表示为：
 
 $$w^T(x^{(i)} - \gamma^{(i)} \frac{w}{\lvert\lvert w \rvert\rvert}) + b = 0$$
 
-Solve:
+解法：
 
 $$\gamma^{(i)} = (\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\lvert\lvert w \rvert\rvert$$
 
