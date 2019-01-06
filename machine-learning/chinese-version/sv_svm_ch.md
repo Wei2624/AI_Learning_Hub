@@ -42,7 +42,7 @@ $$h_{w,b}(x) = g(w^Tx + b)$$
 
 $$\overset{\wedge}{\gamma^{(i)}} = y^{(i)}(w^Tx^{(i)} + b)$$
 
-当分类y为正数1时，我们希望$(w^Tx^{(i)} + b)$是一个较大的正数，当分类为负数-1时，则希望它是一个较大的负数。因此，这意味着**函数间隔必须是正数才对。间隔越大，我们就分类的结果越自信。**但是当我们将w和b的比例放大到2w和2b而不改变其他任何东西时，这可能并没有什么意义。虽然我们没有因此改变$(w^Tx^{(i)} + b)$的正负符号（也就是预测结果），但我们通过缩放w和b得到了更大的间隔。因此，为了使预测不因w和b的数值变动而变动，我们接下来将带来一个新的定义 - **几何边缘**。此外，我们将数据集的函数间隔表示为：
+当分类y为正数1时，我们希望$(w^Tx^{(i)} + b)$是一个较大的正数，当分类为负数-1时，则希望它是一个较大的负数。因此，这意味着**函数间隔必须是正数才对。间隔越大，我们就分类的结果越自信。**但是当我们将w和b的比例放大到2w和2b而不改变其他任何东西时，这可能并没有什么意义。虽然我们没有因此改变$(w^Tx^{(i)} + b)$的正负符号（也就是预测结果），但我们通过缩放w和b得到了更大的间隔。因此，为了使预测不因w和b的数值变动而变动，我们接下来将带来一个新的定义 - **几何间隔**。此外，我们将数据集的函数间隔表示为：
 
 $$\overset{\wedge}{\gamma} = \min_{i=1,\dots,m} \overset{\wedge}{\gamma^{(i)}} $$
 
@@ -67,25 +67,25 @@ $x_i-x_j$是沿着边界线的向量。我们知道如果两个向量的点积�
 
 $$w^T(x^{(i)} - \gamma^{(i)} \frac{w}{\lvert\lvert w \rvert\rvert}) + b = 0$$
 
-解法：
+解：
 
 $$\gamma^{(i)} = (\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\lvert\lvert w \rvert\rvert$$
 
-This is for the positive case. So the margin is positive. For negative samples, we get a negative number. To unify this, we multiply the label to the derived margin above. Thus, **geometric margin** with respect to a training sample is defined as:
+当然，这仅仅是结果（间隔）为正数的情况。对于负值样本，我们会得到一个负数的结果。所以为了统一这一点，我们将上面推演出的间隔乘以分类y（1或-1）。因此，我们将对于一个训练样本的**几何间隔**定义为：
 
 $$\gamma^{(i)} = y^{(i)}((\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\lvert\lvert w \rvert\rvert)$$
 
-If $\lvert\lvert w \rvert\rvert = 1$, the functional margin is equal to geometric margin. The geometric margin is invariant to rescaling of the parameteres. It means that if we scale w and b by 2, we will stll have the same geometric margin (not functional margin). Keep in mind that you have to scale both parameters by same scalar. The key idea is that we can get whatever functional margin we want but still have the same geometric margin. 
+如果$\lvert\lvert w \rvert\rvert = 1$，函数间隔则等于几何间隔。几何间隔对于重新调整参数是不会变的，这意味着如果我们将w和b放大2倍，我们将具有相同的几何间隔（不是函数间隔）。这里请注意，我们必须使用相同的标量来缩放两个参数。那么关键点来了，这种情况下，我们想要任何的函数间隔都可以，同时我们仍然可以拥有相同的几何间隔。
 
-Similarily, the geometric margin for all samples is:
+类似地，对于所有训练样本的几何间隔是：
 
 $$\gamma = \min_{i=1,\dots,m}\gamma^{(i)}$$
 
-# 3 Optimal Margin Classifier
+# 3 最优间隔分类器
 
-Most importantly, I will keep it short: the goal is to maximize the geometric margin. The larger, the better.
+最重要的是，简单来说，我们的目标是最大化几何间隔，越大越好。
 
-For now, we assume that data is linearly separable. The optimization problem can be defined as :
+目前，我们假设数据是线性可分的。这个优化问题可以定义为：
 
 $$\begin{align}
 \max_{\gamma,w,b} & \gamma \\
@@ -93,44 +93,44 @@ $$\begin{align}
 & \lvert\lvert w \rvert\rvert = 1
 \end{align}$$
 
-The first constraint is to ensure that every training sample has a valid geometric margin. The second point is to ensure that geometric margin is equal to functional margin. We have to have the second constraint since $y^{(i)}(w^Tx^{(i)} + b)$ is functional margin. By having the second constraint, we make functional margin equal to geometric margin. The nasty point is $\lvert\lvert w \rvert\rvert = 1$ constraint, which makes it non-convex. If it is convex, we can get the derivative and set to zero. This is another topic. 
+第一个约束是确保每个训练样本都具有有效的几何间隔。第二点是为了确保几何间隔等于函数间隔。我们必须有第二个约束，因为$y^{(i)}(w^Tx^{(i)} + b)$是函数间隔。通过第二个约束，我们使得函数间隔等于几何间隔。很难受的点是第二个约束$\lvert\lvert w \rvert\rvert = 1$，使得它不是凸的。如果它是凸的，我们可以对它求导并设它为零来找到极值，但这是另一个话题了。
 
-To facilitate this, we can then transform it to:
+为此，我们可以将其转换为：
 
 $$\begin{align}
 \max_{\overset{\wedge}{\gamma},w,b} & \frac{\overset{\wedge}{\gamma}}{\lvert\lvert w \rvert\rvert} \\
 \text{s.t.   } & y^{(i)}(w^Tx^{(i)} + b) \geq \overset{\wedge}{\gamma}, i = 1,\dots,m
 \end{align}$$
 
-Basically, we express geometric margin using function margin. Instead of geometric margin, we subject to a functional margin, which is originally expected. **By doing this, we eliminate $\lvert\lvert w \rvert\rvert = 1$.** However, it is still bad. 
+我们使用了函数间隔来表示几何间隔。这里我们用了最初预期的函数间隔，而不是几何间隔。 **通过这样做，我们消除了$\lvert\lvert w \rvert\rvert = 1$。**但是，这仍然很糟糕。
 
-Recall that by scaling w and b, we do not change anything. We use this fact to force the functional margin $\overset{\wedge}{\gamma} = 1$ but do not change the geometric margin. And then, the max problem can be expressed as a min problem now. That is,
+回想一下，通过缩放w和b，我们没有改变任何东西。我们使用这个事实来强制函数间隔$\overset{\wedge}{\gamma} = 1$，而不改变几何间隔。之后，我们的最大值问题现在可以表示为最小值问题：
 
 $$\begin{align}
 \min_{\gamma,w,b} & \frac{1}{2} \lvert\lvert w \rvert\rvert^2 \\
 \text{s.t.    } & y^{(i)}(w^Tx^{(i)} + b) \geq 1, i = 1,\dots,m
 \end{align}$$
 
-Again, the reason we have $\frac{1}{2}$ is just for math convenience. It does not hurt anything. The problem can be solved by using quadratic programming software. We can still go further to simplify this but it requires the knowledge of **Lagrange Duality**
+同样，我们有$\frac{1}{2}$的原因只是为了数学计算上的方便，这并不会制造出任何问题。现在，这个问题我们已经可以通过使用二次规划软件来解决了，不过我们仍然可以进一步简化这一过程，进一步的简化需要了解**拉格朗日对偶性**
 
-# 4 Lagrange Duality
+# 4 拉格朗日对偶性
 
-Let's take a side step on how to solve general **constrained optimizing problem.** In general, we usually use Lagrange Duality to solve this type of question. 
+关于如何解决**约束优化问题**，让我们稍稍离题一下。一般来说，我们通常使用拉格朗日对偶来解决这类问题。
 
-Consider a problem such as :
+我们考虑这样一个问题:
 
 $$\begin{align}
 \min_w & f(w) \\
 \text{s.t.   } & h_i(w) = 0,i = 1,\dots,l
 \end{align}$$
 
-Now, we can define **Lagrangian** to be:
+现在，我们可以将**拉格朗日**定义为：
 
 $$\mathcal{L}(w,\beta) = f(w) + \sum\limits_{i=1}^l \beta_i h_i(w)$$
 
-where $\beta_i$ is called **Lagrange multiplier.** Now, we can use partial derivative to set to zero and find out each $w_i$ and each $\beta_i$.
+其中$\beta_i$称为**拉格朗日乘数**。现在，我们可以求偏导数并设为零，并找出每个$w_i$和每个$\beta_i$。
 
-The above only has equality constraints. We can generalize to both inequality and equality constraints. So we can define **primal problem** to be:
+上述只有等式约束，同时我们可以推演到等式和不等式约束。所以我们定义**Primal Problem**为（没有很好的中文翻译，所以用原英文代替）：
 
 $$\begin{align}
 \min_w & f(w) \\
@@ -138,63 +138,67 @@ $$\begin{align}
 & h_i(w) = 0,i = 1,\dots,l
 \end{align}$$
 
-We define **generalized Lagrangian** as:
+我们将**广义拉格朗日**定义为:
 
 $$\mathcal{L} = f(w) + \sum\limits_{i=1}^k \alpha_i g_i(w) + \sum\limits_{i=1}^l \beta_i h_i(w)$$
 
-where all $\alpha$ and $\beta$ are Lagrangian multiplier. 
+其中所有的$\alpha$和$\beta$都是拉格朗日乘子。
 
-Let's define a quantity for primal problem as:
+让我们定义primal problem的数量为:
 
 $$\theta_{\mathcal{P}}(w) = \max_{\alpha,\beta:\alpha_i\geq 0} \mathcal{L}(w,\alpha,\beta)$$
 
-In this quantity, we need $\alpha_i$ to be larger than zero. If $\alpha_i < 0$, the max of the above quantity is just $\infty$ since $g_i(w) \leq 0$. Also if some constraints are violated, then $\theta_{\mathcal{P}}(w) = \infty$ as a result. 
+在这个数量中，我们需要$\alpha_i$大于零。如果$\alpha_i < 0$，则由于$g_i(w) \leq 0$，则上述量的最大值就是$\infty$。此外，如果违反了某些约束，那么我们也将得到$\theta_{\mathcal{P}}(w) = \infty$。
 
-If everything is satisfied, we have:
+如果所有条件都满足的话，我们将有：
 
-$$\theta_{\mathcal{P}}(w) = \begin{cases} f(w)  \text{, if w satisfy primal constraints} \\ \infty  \text{, otherwise} \\ \end{cases}$$
+$$\theta_{\mathcal{P}}(w) = \begin{cases} f(w)  \text{, if w 满足 primal 约束} \\ \infty  \text{, 其他情况} \\ \end{cases}$$
 
-To mathch with our primal problem, we define the min problem as:
+为了与我们的primal problem相匹配，我们将最小问题定义为：
 
 $$\min_w \theta_{\mathcal{P}}(w) = \min_w \max_{\alpha,\beta:\alpha_i\geq 0} \mathcal{L}(w,\alpha,\beta)$$
 
-This is the same as the primal problem if all constrain are satisfied. We define the value of primal problem to be: $p^{\ast} = \min_w \theta_{\mathcal{P}(w)}$. 
+如果满足了所有约束，那么这将与primal problem相同。我们将primal problem的值定义为：$p^{\ast} = \min_w \theta_{\mathcal{P}(w)}$
 
-Then, from different perspectives, we can define:
+从不同的角度我们可以将以下定义为dual problem（对偶问题）的一部分：
 
 $$\theta_{\mathcal{D}}(\alpha,\beta) = \min_w \mathcal{L}(w,\alpha,\beta)$$
 
-to be part of the dual problem. To again match with the primal problem, we define the **dual optimization problem** to be:
+为了再次与primal problem相匹配，我们将**对偶最优化问题(dual optimization problem)**定义为：
 
 $$\max_{\beta,\alpha:\alpha_i\geq 0} = \max_{\alpha,\beta:\alpha_i\geq 0} \min_w \mathcal{L}(w,\alpha,\beta)$$
 
-Similarily, the value of dual problem is $d^{\ast} = \max_{\alpha,\beta:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta)$
+相同的，对偶问题的值为：$d^{\ast} = \max_{\alpha,\beta:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta)$
 
-The primal and dual problem is related by:
+
+
+Primal 和 dual problem 的相关性为:
 
 $$d^{\ast} = \max_{\alpha,\beta:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta) \leq p^{\ast} = \min_w \theta_{\mathcal{P}(w)}$$
 
-This is always true. To see this, let's first define a function $f(x,y): X \times Y \mapsto \mathbb{R}$. Then, we can define:
+上述公式永远为真。要证明这一点，我们首先定义一个函数$f(x,y): X \times Y \mapsto \mathbb{R}$。然后，我们可以定义:
 
 $$g(x) := \min_{y} f(x,y)$$
 
-That is for every x of funciton g, we choose such a y value that f(x,y) is minimum. Then, we can say:
+也就是说，对于函数g的每个x，我们选一个能使f（x，y）最小化的y值。然后，我们可以说：
 
 $$g(x) \leq f(x,y) \forall x\forall y$$
 
-We can add a max operator on both sides so as to eliminate variable x. In particular,
+我们可以在两边各添加一个max运算符，以消除变量x：
 
 $$\max_{x} g(x) \leq \max_{x} f(x,y) \forall y$$
 
-This is equivalently saying:
+这等同于:
 
 $$\max_{x} \min_{y} f(x,y) \leq \min_{y} \max_{x} f(x,y)$$
 
-This concludes the proof. 
+以上便是证明的过程。 
 
-**Back to the topic:** The key is that under certain condition, they are equal. If they are equal, we can focus on dual problem instead of primal problem. The question is when they are equal. 
+**回到主题：**关键是在某些条件下，它们是相等的。如果他们是相等的，我们可以专注于dual problem而不是primal problem。那么唯一的问题将是 - 它们何时平等。
 
-We assume that f and g are all convex and h are affine(**When f has a Hessian, it is convex iff Hessian is positive semi-definite. All affine are convex. Affine means linear.**) and g are all less than 0 for some w. Wtih these assumptions, there must exist $w^{\ast}$ for primal solution and $\alpha^{\ast},\beta^{\ast}$ for dual solution and $p^{\ast} = d^{\ast}$. And $w^{\ast}$,$\alpha^{\ast}$ and $\beta^{\ast}$ satisfy **Karush-Kuhn-Tucker (KKT) conditions**, which says:
+我们假设f和g都是凸函数，h是仿射函数（**当f有Hessian时，如果Hessian是正半正定则它是凸的。所有仿射都是凸的，仿射意味着线性。**），对于一些w，函数g全部小于0。
+
+对于这些假设，primal的解必须有$w^{\ast}$，dual的解必须有$\alpha^{\ast},\beta^{\ast}$和$p^{\ast} = d^{\ast}$，并且$w^{\ast}$，$\alpha^{\ast}$和$\beta^{\ast}$满足 **Karush-Kuhn-Tucker（KKT）条件**，那么：
 
 $$\frac{\partial}{\partial w_i}\mathcal{L}(w^{\ast},\alpha^{\ast},\beta_{\ast}) = 0. i = 1,\dots,n$$
 
@@ -206,7 +210,7 @@ $$g_i(w^{\ast}) \leq 0,i = 1,\dots,k$$
 
 $$\alpha_i^{\ast} \geq 0,i = 1,\dots,k$$
 
-Third euqaiton is called **KKT dual complementarity condition**. It means if $\alpha_i^{\ast} > 0$, then $g_i(w^{\ast}) = 0$. When we find out the state where primal problem is equal to dual problem, every conditions and assumtions above should be met. 
+第三个等式被称为**KKT条件（KKT dual complementarity condition）**。意思是如果$\alpha_i^{\ast} > 0$，那么$g_i(w^{\ast}) = 0$。当primal problem等于dual problem时，上述的每个条件和假设都会成立。
 
 # 5 Optimal Margin Classifier
 
