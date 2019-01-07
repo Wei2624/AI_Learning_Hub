@@ -19,7 +19,7 @@ Please note this post is a study note translated to Chinese by me. Click [here](
 
 ---
 
-许多人认为支持向量机（SVM）是最好的分类器之一，并且很容易在许多编程语言（如Python和Matlab）中实现。我将在这篇博客种讨论支持向量机的原理。另外，SVM中核函数的运用也允许了我们在高维度数据空间中应用SVM，因此核函数也会作为其中一个要点在文章中进行讨论。
+许多人认为支持向量机（SVM）是最好的分类器之一，并且很容易在许多编程语言（如Python和Matlab）中实现。我将在这篇博客中讨论支持向量机的原理。另外，SVM中核函数的运用也允许了我们在高维度数据空间中应用SVM，因此核函数也会作为其中一个要点在文章中进行讨论。
 
 
 # 1 直观理解与符号应用
@@ -42,13 +42,13 @@ $$h_{w,b}(x) = g(w^Tx + b)$$
 
 $$\overset{\wedge}{\gamma^{(i)}} = y^{(i)}(w^Tx^{(i)} + b)$$
 
-当分类y为正数1时，我们希望$(w^Tx^{(i)} + b)$是一个较大的正数，当分类为负数-1时，则希望它是一个较大的负数。因此，这意味着**函数间隔必须是正数才对。间隔越大，我们就分类的结果越自信。**但是当我们将w和b的比例放大到2w和2b而不改变其他任何东西时，这可能并没有什么意义。虽然我们没有因此改变$(w^Tx^{(i)} + b)$的正负符号（也就是预测结果），但我们通过缩放w和b得到了更大的间隔。因此，为了使预测不因w和b的数值变动而变动，我们接下来将带来一个新的定义 - **几何间隔**。此外，我们将数据集的函数间隔表示为：
+当分类y为正数1时，我们希望$(w^Tx^{(i)} + b)$是一个较大的正数，当分类为负数-1时，则希望它是一个较大的负数。因此，这意味着**函数间隔必须是正数才对。间隔越大，我们就分类的结果越自信。**但是当我们将w和b的比例放大到2w和2b而不改变其他任何东西时，这可能并没有什么意义。虽然我们没有因此改变$(w^Tx^{(i)} + b)$的正负符号（也就是预测结果），但我们通过缩放w和b得到了更大的间隔。因此，为了使预测不因w和b的缩放倍数变动而变动，我们接下来将带来一个新的定义 - **几何间隔**。此外，我们将数据集的函数间隔表示为：
 
 $$\overset{\wedge}{\gamma} = \min_{i=1,\dots,m} \overset{\wedge}{\gamma^{(i)}} $$
 
 其中，m为训练样本的数量。
 
-**几何间隔：**在几何间隔中，我们认为w和b的大小不应影响间隔的比例，因此需要对w和b进行**关于w范数**的归一化。一个几何间隔的表示可见下图：
+**几何间隔：**在几何间隔中，我们认为w和b的缩放倍数大小不应影响间隔的比例，因此需要对w和b进行**关于w范数**的归一化。一个几何间隔的表示可见下图：
 
 ![SVM Geometric Margins](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_gm.png)
 
@@ -75,7 +75,7 @@ $$\gamma^{(i)} = (\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\lvert\lv
 
 $$\gamma^{(i)} = y^{(i)}((\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\lvert\lvert w \rvert\rvert)$$
 
-如果$\lvert\lvert w \rvert\rvert = 1$，函数间隔则等于几何间隔。几何间隔对于重新调整参数是不会变的，这意味着如果我们将w和b放大2倍，我们将具有相同的几何间隔（不是函数间隔）。这里请注意，我们必须使用相同的标量来缩放两个参数。那么关键点来了，这种情况下，我们想要任何的函数间隔都可以，同时我们仍然可以拥有相同的几何间隔。
+如果$\lvert\lvert w \rvert\rvert = 1$，函数间隔则等于几何间隔。几何间隔不会随着w和b的倍数变化而变化，这意味着如果我们将w和b放大2倍，我们将具有相同的几何间隔（不是函数间隔）。这里请注意，我们必须使用相同的标量来缩放两个参数。那么关键点来了，这种情况下，我们想要任何的函数间隔都可以，同时我们仍然可以拥有相同的几何间隔。
 
 类似地，对于所有训练样本的几何间隔是：
 
@@ -115,7 +115,7 @@ $$\begin{align}
 
 # 4 拉格朗日对偶性
 
-关于如何解决**约束优化问题**，让我们稍稍离题一下。一般来说，我们通常使用拉格朗日对偶来解决这类问题。
+关于如何解决**约束优化问题**，让我们稍稍插入另一个话题。一般来说，我们通常使用拉格朗日对偶来解决这类问题。
 
 我们考虑这样一个问题:
 
@@ -130,7 +130,7 @@ $$\mathcal{L}(w,\beta) = f(w) + \sum\limits_{i=1}^l \beta_i h_i(w)$$
 
 其中$\beta_i$称为**拉格朗日乘数**。现在，我们可以求偏导数并设为零，并找出每个$w_i$和每个$\beta_i$。
 
-上述只有等式约束，同时我们可以推演到等式和不等式约束。所以我们定义**Primal Problem**为（没有很好的中文翻译，所以用原英文代替）：
+上述只有等式约束，同时我们可以推演到等式和不等式约束。所以我们定义**Primal Problem**为：
 
 $$\begin{align}
 \min_w & f(w) \\
@@ -170,8 +170,6 @@ $$\max_{\beta,\alpha:\alpha_i\geq 0} = \max_{\alpha,\beta:\alpha_i\geq 0} \min_w
 
 相同的，对偶问题的值为：$d^{\ast} = \max_{\alpha,\beta:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta)$
 
-
-
 Primal 和 dual problem 的相关性为:
 
 $$d^{\ast} = \max_{\alpha,\beta:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta) \leq p^{\ast} = \min_w \theta_{\mathcal{P}(w)}$$
@@ -194,11 +192,11 @@ $$\max_{x} \min_{y} f(x,y) \leq \min_{y} \max_{x} f(x,y)$$
 
 以上便是证明的过程。 
 
-**回到主题：**关键是在某些条件下，它们是相等的。如果他们是相等的，我们可以专注于dual problem而不是primal problem。那么唯一的问题将是 - 它们何时平等。
+**回到主题：**关键是在某些条件下，它们是相等的。如果他们是相等的，我们可以专注于dual problem而不是primal problem。那么唯一的问题将是 - 它们何时相等。
 
 我们假设f和g都是凸函数，h是仿射函数（**当f有Hessian时，如果Hessian是正半正定则它是凸的。所有仿射都是凸的，仿射意味着线性。**），对于一些w，函数g全部小于0。
 
-对于这些假设，primal的解必须有$w^{\ast}$，dual的解必须有$\alpha^{\ast},\beta^{\ast}$和$p^{\ast} = d^{\ast}$，并且$w^{\ast}$，$\alpha^{\ast}$和$\beta^{\ast}$满足 **Karush-Kuhn-Tucker（KKT）条件**，那么：
+从这些假设出发，primal的解$w^{\ast}$一定存在，dual的解$\alpha^{\ast},\beta^{\ast}$一定存在，同时$p^{\ast} = d^{\ast}$，并且$w^{\ast}$，$\alpha^{\ast}$和$\beta^{\ast}$满足 **Karush-Kuhn-Tucker（KKT）条件**，KKT条件是：
 
 $$\frac{\partial}{\partial w_i}\mathcal{L}(w^{\ast},\alpha^{\ast},\beta_{\ast}) = 0. i = 1,\dots,n$$
 
@@ -210,11 +208,11 @@ $$g_i(w^{\ast}) \leq 0,i = 1,\dots,k$$
 
 $$\alpha_i^{\ast} \geq 0,i = 1,\dots,k$$
 
-第三个等式被称为**KKT条件（KKT dual complementarity condition）**。意思是如果$\alpha_i^{\ast} > 0$，那么$g_i(w^{\ast}) = 0$。当primal problem等于dual problem时，上述的每个条件和假设都会成立。
+第三个等式被称为**KKT dual complementarity condition**。意思是如果$\alpha_i^{\ast} > 0$，那么$g_i(w^{\ast}) = 0$。当primal problem等于dual problem时，上述的每个条件和假设都会成立。
 
 # 5 最优间隔分类器
 
-让我们回到SVM的primal problem（回首 掏！...）：
+让我们回到SVM的primal problem：
 
 $$\begin{align}
 \min_{\gamma,w,b} & \frac{1}{2} \lvert\lvert w \rvert\rvert^2 \\
@@ -304,7 +302,7 @@ $$K(x,z) = \phi(x)^T\phi(z)$$
 
 $$K(x,z) = \exp(-\frac{\lvert\lvert x-z \rvert\rvert^2}{2\sigma^2})$$
 
-我们可以使用它来训练SVM，它对应的是无限维度特征映射$\phi$。这意味着映射函数$\phi$是无限的。在无法计算无限维度映射时，我们可以使用核函数。（这句话有点绕啊，什么意思呀）
+我们可以使用它来训练SVM，它对应的是无限维度特征映射函数$\phi$。这意味着映射函数$\phi$是无限维度的。计算机是无法计算无线维度上的映射函数的，但我们可以使用核函数来直接得出对于应的內积值。
 
 接下来，我很想讨论下关于核函数有效性的事情。
 
@@ -332,7 +330,7 @@ $$\begin{align}
 & \xi_i \geq 0,i=1,\dots,m
 \end{align}$$
 
-（并不确定这个翻译对不对）正规化将惩罚对于函数建个小于1的情况，C将确保大多数样本的函数间隔至少为1。这表明了：
+正规化将惩罚对于函数间隔小于1的样本，C将确保大多数样本的函数间隔至少为1。这表明了：
 
 (1) 我们希望w小，这样间隔就会大。
 
