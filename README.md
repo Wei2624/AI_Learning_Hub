@@ -16,6 +16,16 @@ We do this because we love AI and sharing. Excellent materials are the step ston
 
 And you own whatever you write here! 
 
+## What notes are/can be posted here?
+
+We are looking for any related notes that are genuinely created by your own. By genuinity, we mean one of the following:
+
+1. You create and write the contents of notes from scratch. Everything is original. 
+
+2. You summarize contents from related course(s), book(s) and note(s). You can merge contents from multiple sources. Although this is expected to be a summary, your summary should be original. 
+
+3. You translate one of the notes in THIS repo. 
+
 ## View Contents
 
 We provide with two ways to view and learn the blogs. 
