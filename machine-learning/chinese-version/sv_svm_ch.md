@@ -212,7 +212,7 @@ $$\alpha_i^{\ast} \geq 0,i = 1,\dots,k$$
 
 第三个等式被称为**KKT条件（KKT dual complementarity condition）**。意思是如果$\alpha_i^{\ast} > 0$，那么$g_i(w^{\ast}) = 0$。当primal problem等于dual problem时，上述的每个条件和假设都会成立。
 
-# 5 Optimal Margin Classifier
+# 5 最优间隔分类器
 
 让我们回到SVM的primal problem（回首 掏！...）：
 
