@@ -214,6 +214,8 @@ $$\alpha_i^{\ast} \geq 0,i = 1,\dots,k$$
 
 # 5 Optimal Margin Classifier
 
+回首 掏！
+
 Let's revisit the primal problem in SVM:
 
 $$\begin{align}
