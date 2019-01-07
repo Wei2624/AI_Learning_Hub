@@ -286,45 +286,45 @@ $$w^Tx + b = (\sum\limits_{i=1}^m \alpha_i y^{(i)} x^{(i)})^Tx + b = \sum\limits
 
 如果大于零，我们预测1，小于零则预测-1。我们知道，由于约束，除了支持向量以外的所有$\alpha$将为零。这意味着**我们只关心x与支持向量的内积**。这使得预测更快并且将核函数概念带入我们的讨论中。请记住，到目前为止，一切都是低维度的。那么高维度和无限维度空间将会是什么情况呢？
 
-# 6 Kernels
+# 6 核函数
 
-In the example of living area of house, we can use the feature $x.x^2,x^3$ to get cubic function where x can be the size of house. X is called **input attribute** and $x.x^2,x^3$ is called **features**. We dentoe a feature mapping function $\phi (x)$ that maps from attribute to features. 
+在房屋居住区域的例子中，我们可以使用特征$x.x^2,x^3$来获得三维函数，其中$x$可以是房屋的大小。 我们称$x$为**输入属性**，$x.x^2,x^3$，称为**特征**。我们声明一个特征映射函数$\phi (x)$，这个函数可以将输入属性映射到特征。
 
-Thus, we might want to learn in the new feature space $\phi (x)$. In last section,we only need to calculate inner product $<x,z>$ and now we can replace it with $<\phi(x),\phi(z)>$. 
+因此，我们可以在新的特征空间$\phi (x)$中进行训练学习。在上一节结尾我们了解了，需要计算内积$<x,z>$。现在我们可以用$<\phi(x),\phi(z)>$替换它。
 
-Formally, given a mapping, we denote **Kernel** to be:
+定义上讲，给定一个映射函数我们可以将**核函数**声明为：
 
 $$K(x,z) = \phi(x)^T\phi(z)$$
 
-We can use Kernel instead of mapping itself. The reason can be found in the original notes. I am not talking details here. In short, the reason is that Kernel is less expensive computationally and can be used for high/infinite dimensional mapping. So we can learn in high dimensuional space without calculating mapping function $\phi$.
+这里我们可以使用核函数，而不是映射函数本身，其原因可以在cs229课程的原笔记中找到，由于内容比较细节这里就不再过多赘述。简而言之，核函数在计算上复杂度较低，并且可以用于高维度或无限维度映射中。所以我们可以在高维空间中进行训练而无需计算映射函数$\phi$。
 
-An example of how effective it is can be shown in the notes. It should be noted that calculating mapping is exponential time complexity whereas Kernel is linear time. 
+原笔记中有一个例子证明了核函数的效率之高。你需要知道的是，计算映射所需要的时间复杂度是呈指数的，而计算核函数需要的时间复杂度是线性的。
 
-In another way, Kernel is a measurement of how close or how far it is between two samples: x and z. It indicates the concepts of similarity. One of the popular Kernel is called **Gaussian Kernel** defined as: 
+换句话说，核函数是用来计算两个样本（x 和 z）之间的远近的，它呈现了相似性的概念。在流行的核函数中，有一个被称为**高斯核函数**，其定义如下：
 
 $$K(x,z) = \exp(-\frac{\lvert\lvert x-z \rvert\rvert^2}{2\sigma^2})$$
 
-We can use this as learning SVM and it corresponds to infinite dimensional feature mapping $\phi$. It means that the mapping funciton $\phi$ is infinite. It also shows that it is impossible to calculate infinite dimensional mapping but we can use Kernel instead. 
+我们可以使用它来训练SVM，它对应的是无限维度特征映射$\phi$。这意味着映射函数$\phi$是无限的。在无法计算无限维度映射时，我们可以使用核函数。（这句话有点绕啊，什么意思呀）
 
-Next, we are interested in telling if a given Kernel is valid or not. 
+接下来，我很想讨论下关于核函数有效性的事情。
 
-We define **Kernel Matrix** as $K_{ij} = K(x^{(i)},x^{(j)})$ for m points(i.e. K is m-by-m). Now, if K is valid, it means:
+我们定义拥有m个点的**核矩阵**为$K_{ij} = K(x^{(i)},x^{(j)})$ K是 m x m 矩阵。那么现在，如果K是有效的话，这意味着：
 
-(1)Symmetric: $K_{ij} = K(x^{(i)},x^{(j)}) = \phi(x^{(i)})^T\phi(x^{(j)}) = \phi(x^{(j)})^T\phi(x^{(i)}) = K_{ji}$
+(1)对称矩阵: $K_{ij} = K(x^{(i)},x^{(j)}) = \phi(x^{(i)})^T\phi(x^{(j)}) = \phi(x^{(j)})^T\phi(x^{(i)}) = K_{ji}$
 
-(2)Positive semi-definite: $z^TKz \geq 0$ proof is easy, will provide if necessary. 
+(2)半正定矩阵: $z^TKz \geq 0$ 这个证明很简单，如果需要的话可以提供过程。 
 
-**Mercer Theorem: Let $K:\mathbb{R}^n \times \mathbb{R}^n \mapsto \mathbb{R}$ be given. Then for a Kernel to be valid, it is necessary and sufficient that for any $\{x^{(1)},\dots,x^{(m)}\}$, the corresponding kernel matrix is symmetric and postive semi-definite.**
+Mercer定理（Mercer Theorem的中文无对应翻译）：设$K:\mathbb{R}^n \times \mathbb{R}^n \mapsto \mathbb{R}$。为了使核函数有效，对于任何$\{x^{(1)},\dots,x^{(m)}\}$，对应的核矩阵必须同时是对称的，也是半正定的，这是一个充要条件。
 
-Kernel method is not only used in SVM but also everywhere inner product is used. So we can replace the inner product with Kernel so that we can work in a higher dimensional space. 
+核函数方法不仅在SVM中有运用，它在任何有内积的情况下都是用途颇广的。因此，我们用核函数替换内积，以便在更高的维度空间中使用。
 
-# 7 Regularization and Non-separable Case
+# 7 正规化与无法分割问题
 
-Although mapping x to higher dimensional space increases the chance to be separable, it might not always be the case. An outlier could also be the cause that we actually don't want to include. An example of such a case can be shown below. 
+尽管将x映射到更高维度的空间增加了可分离的机会，但情况可能并非总是如此。一个异常值的出现也是非常棘手的，我们不会想把这种异常值放入训练集的。下图演示了这种情况：
 
 ![SVM outlier](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_outlier.png)
 
-To make the algorithm work for non-linear case as well, we add **regularization** to it:
+为了使算法也适用于非线性情况，我们将用到**正则化**：
 
 $$\begin{align}
 \min_{\gamma,w,b} & \frac{1}{2}\lvert\lvert w\rvert\rvert^2 + C\sum\limits_{i=1}^m \xi_i  \\
@@ -332,20 +332,20 @@ $$\begin{align}
 & \xi_i \geq 0,i=1,\dots,m
 \end{align}$$
 
-It will pay the cost for the functional margin that is less than one. C will ensure that most examples have functional margin at least 1. It says that:
+（并不确定这个翻译对不对）正规化将惩罚对于函数建个小于1的情况，C将确保大多数样本的函数间隔至少为1。这表明了：
 
-(1) We want w to be small so that margin will be large. 
+(1) 我们希望w小，这样间隔就会大。
 
-(2) We want most samples to have functional margin that is larger than 1. 
+(2) 我们希望大多数样本的函数间隔大于1。
 
-The Lagrangian is :
+拉格朗日为：
 
 $$\begin{align}
 \mathcal{L}(w,b,\xi,\alpha,r) &= \frac{1}{2}w^Tw + C\sum\limits_{i=1}^{m}\xi_i \\
 & - \sum\limits_{i=1}^m \alpha_i[y^{(i)}(x^{(i)T}w + b) - 1 + \xi_i] - \sum\limits_{i=1}^{m}r_i\xi_i
 \end{align}$$
 
-where $\alpha$ and r are Lagrangian multipliers which must be non-negative since constraints here are inequality. Now, we need to do the same thing to find out the dual form of the problem. I ignore the procedure here. After setting the derivatives with respect to w and b to zero, plugging back will produce the dual problem as:
+其中$\alpha$和r是拉格朗日乘数。因为这里的约束是不等式约束，所以这些乘数不能是负数。现在，我们需要做同样的事情来找出dual problem的形式，这里的过程我也不再赘述了。在将w和b的导数设为零之后，带回后得到dual problem：
 
 $$\max_{\alpha} W(\alpha) = \sum\limits_{i=1}^{m}\alpha_i - \frac{1}{2}\sum\limits_{i,j=1}^{m}y^{(i)}y^{(j)}\alpha_i\alpha_j<x^{(i)},x^{(j)}>$$
 
@@ -353,9 +353,9 @@ $$\text{s.t. }0\leq \alpha_i \leq C,i=1,\dots,m$$
 
 $$\sum\limits_{i=1}^{m}\alpha_i y^{(i)} = 0$$
 
-Notice that we have an interval for $\alpha$. This is becuase it has $\sum\limits_{i=1}^{m}(C-\alpha_i-r_i)\xi_i$. We take derivative with respect to $\xi$ and set to zero and we can eliminate $\xi$ and get the interval. In this case, $r_i$ is always non-negative and $\alpha_i=C$ when $r_i = 0$. 
+注意，$\alpha$的值有一个区间。这是因为$\sum\limits_{i=1}^{m}(C-\alpha_i-r_i)\xi_i$。我们将$\xi$取导并设零，将得到的结果带回原等式消除$\xi$，我们便得到了$\alpha$的区间。在这个情况下，当$r_i = 0$时，$r_i$始终为非负数，$\alpha_i=C$。
 
-Also notice that the optimal b is not the same anymore because the margin for both cloest points have changed. In next section, we will find the algrotihm to figure out the solution. 
+还需要注意的是，由于两个最近的点的间隔都已改变，这里的最优b不再与之前相同。在下一节中，我们将找到一个合适的算法来解决问题。
 
 # 8 The SMO Algorithm
 
