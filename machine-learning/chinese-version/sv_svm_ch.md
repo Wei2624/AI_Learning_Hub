@@ -357,17 +357,17 @@ $$\sum\limits_{i=1}^{m}\alpha_i y^{(i)} = 0$$
 
 还需要注意的是，由于两个最近的点的间隔都已改变，这里的最优b不再与之前相同。在下一节中，我们将找到一个合适的算法来解决问题。
 
-# 8 The SMO Algorithm
+# 8 序列最小优化算法（SMO）
 
-The SMO(sequential minimal optimization) algorithm by John Platt is to solve the dual problem in SVM. 
+John Platt的SMO（顺序最小优化）算法的出现是用来解决SVM中的dual problem的。
 
-## 8.1 Coordinate Ascent
+## 8.1 坐标上升法
 
-In general, the optimization problem
+一般来讲，最优化问题
 
 $$\max_{\alpha}W(\alpha_1,\alpha_2,\dots,\alpha_m)$$
 
-can be solved by gradient ascent and Newton's method. In addition, we can also use coordinate ascent:
+可以通过梯度上升和牛顿法来解决。另外，我们也可以使用坐标上升法：
 
 {% highlight bash %}
 for loop until convergence:
@@ -375,44 +375,44 @@ for loop until convergence:
     alpha(i) = argmin of alpha(i) W(all alpha)
 {% endhighlight %}
 
-Basically, we fix all the $\alpha$ except for $\alpha_i$ and then move to next $\alpha$ for updating. **The assumption is that calculating gradient to $\alpha$ is efficient.** An example can be shown below. 
+总的来说，我们将除$\alpha_i$之外的所有$\alpha$固定，然后移动到下一个$\alpha$进行更新。 **假设计算$\alpha$的梯度是有效的。**举个例子：
 
 ![SVM coordinate](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_coordinate.png)
 
-Note that the path of the convergence is always parallel to axis because it is updated one variable at a time. 
+这里请注意，收敛的路径始终与x或y轴平行，因为它每一次只更新一个变量。
 
-## 8.2 SMO
+## 8.2 序列最小优化算法（SMO）
 
-We cannot do the same thing in dual problem in SVM because varying only one variable might violate the constraint:
+我们不能在SVM的dual problem中做与上面相似的事情，因为只改变一个变量可能会违反约束：
 
 $$\alpha_1 y^{(1)} = -\sum\limits_{i=2}^m \alpha_i y^{(i)}$$
 
-which says once we determine the rest of $\alpha$, we cannot vary the left $\alpha$ anymore. Thus, we have to vary two $\alpha$ at one time and update them. For exmaple, we can have:
+这表示一旦我们确定剩余部分的$\alpha$，我们就不能再改变左边的$\alpha$了。因此，我们必须一次性改变两个$\alpha$并更新它们。例如，我们可以：
 
 $$\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = -\sum\limits_{i=3}^m \alpha_i y^{(i)}$$
 
-We make right side to be constant:
+我们使右边保持不变:
 
 $$\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = \zeta$$
 
-which can be pictorially shown as:
+在图中可以表示为:
 
 ![SVM coordinate](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_two_coord.png)
 
-In this figure, L and H are the lowest possible and highest possible value for $\alpha_2$, while $\alpha_1$ is between 0 and C. 
+在此图中，L和H是$\alpha_2$可能达到的最低值和最高值，而$\alpha_1$介于0和C之间。
 
 Note that although it is a square where $\alpha$ can lie but with a straight line, we might have a lower bound and upper bound on them. 
 
-We can rewrite the above equation:
+我们可以重写上面的等式：
 
 $$\alpha_1 = (\zeta - \alpha_2 y^{(2)})y^{(1)}$$
 
-Then, W will be :
+那么W将会是:
 
 $$W(\alpha_1,\dots,\alpha_m) = W((\zeta-\alpha_2 y^{(2)})y^{(1)},\alpha_2,\dots,\alpha_m)$$
 
-We treat all other $\alpha$ as constants.Thus, after plugging in, W will become quadratic, which can be written as $a\alpha_2^2 + b\alpha_2 + c$ for some a, b and c. 
+我们将所有其他$\alpha$视为常量。因此，带入等式后W将变为二次函数，对于某些a，b和c，可以写为$a\alpha_2^2 + b\alpha_2 + c$。
 
-Last, we define $\alpha_2^{new, unclipped}$ as the current solution to update $\alpha_2$. Thus, with applying constraints, only for this single variable, we can write:
+最后，我们将$\alpha_2^{new, unclipped}$定义为用来更新$\alpha_2$的解决方案。因此，通过针对这一个变量应用约束，我们可以得到：
 
 $$\alpha_2^{new} = \begin{cases} H  \text{, if          }\alpha_2^{new, unclipped}>H \\ \alpha_2^{new, unclipped}  \text{, if } L\leq \alpha_2^{new, unclipped} \leq H \\ L  \text{, if          } \alpha_2^{new, unclipped} < L \\ \end{cases}$$
