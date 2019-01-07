@@ -212,51 +212,50 @@ $$\alpha_i^{\ast} \geq 0,i = 1,\dots,k$$
 
 第三个等式被称为**KKT条件（KKT dual complementarity condition）**。意思是如果$\alpha_i^{\ast} > 0$，那么$g_i(w^{\ast}) = 0$。当primal problem等于dual problem时，上述的每个条件和假设都会成立。
 
-# 5 Optimal Margin Classifier
+# 5 最优间隔分类器
 
-Let's revisit the primal problem in SVM:
+让我们回到SVM的primal problem（回首 掏！...）：
 
 $$\begin{align}
 \min_{\gamma,w,b} & \frac{1}{2} \lvert\lvert w \rvert\rvert^2 \\
 \text{s.t.   } & y^{(i)}(w^Tx^{(i)} + b) \geq 1, i = 1,\dots,m
 \end{align}$$
 
-we can re-arrange the constraint to be:
+我们可以重新设定约束为：
 
 $$g_i(w) = -y^{(i)}(w^Tx^{(i)} + b) + 1 \leq 0$$
 
-where i spans all training samples. From KKT dual complementarity condition, we have $\alpha_i > 0$ only when the functional margin is 1 where $g_i(w) = 0$. 
+其中i包含所有训练样本。从KKT条件中我们可以看到，当函数间隔为1且$g_i(w) = 0$时，$\alpha_i > 0$。
 
-We can visualize this in the picture below. The three points on the dash line are the ones with the smallest geometric margin which is 1. Thus, those points are the ones with positve $\alpha_i$ and are called **support vector**. 
+我们可以在下面的图片中看到这一点:虚线上的三个点是具有最小几何间隔的点，所以这些点的$\alpha_i$为正值。这些点也被称为**支持向量**。
 
 ![SVM Boundary](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_bound.png)
 
-The Lagranian with only inequality constraint is:
+仅有不等式约束的拉格朗日：
 
 $$\mathcal{L}(w,b,\alpha) = \frac{1}{2}\lvert \lvert w\rvert \rvert^2 - \sum\limits_{i=1}^m \alpha_i [y^{(i)}(w^Tx^{(i)} + b) - 1] \tag{1}$$
 
-To find the dual form of this problem, we first find the min of loss function with respect to w and b for a fixed $\alpha$. To do that, we have:
+要找到这个问题的对偶形式（dual form）的话，我们需要在给定$\alpha$的情况下，找到损失函数中w和b的最小值：
 
-For w:
+对于 w：
 
 $$\triangledown_{w}\mathcal{L}(w,b,\alpha) = w - \sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)} = 0\tag{2}$$
 
-This means:
-
+这说明：
 $$w = \sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)}\tag{3}$$
 
-For b:
+对于 b：
 
 $$\frac{\partial}{\partial b}\mathcal{L}(w,b,\alpha) = \sum\limits_{i=1}^m \alpha_i y^{(i)} = 0 \tag{4}$$
 
-A useful formaul is:
+一个有用的公式:
 
 $$\begin{align}
 \lvert\lvert\sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)}\rvert\rvert^2 &= (\sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)})^T(\sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)}) \\
 &= \sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j (x^{(i)})^Tx^{(j)}
 \end{align}$$
 
-We take equation (3) back to equation (1) we have:
+我们将等式（3）带回到等式（1），得到：
 
 $$\begin{align}
 \mathcal{L}(w,b,\alpha) &= \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j (x^{(i)})^Tx^{(j)} \\
@@ -266,7 +265,7 @@ $$\begin{align}
 &= \sum\limits_{i=1}^m \alpha_i - \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j (x^{(i)})^Tx^{(j)}
 \end{align}$$
 
-Note that $\alpha_i \geq 0$ and constratin (4). Thus, we have the dual problem as:
+我们需要注意$\alpha_i \geq 0$ 和约束（4）。因此，我们得到的dual problem为：
 
 $$\begin{align}
 \max_{\alpha} W(\alpha) &= \sum\limits_{i=1}^m \alpha_i - \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j <x^{(i)},x^{(j)}> \\
@@ -274,58 +273,58 @@ $$\begin{align}
 & \sum\limits_{i=1}^m \alpha_i y^{(i)} = 0
 \end{align}$$
 
-which satisfies KKT condition (You can check it). It means we found out the dual problem to solve instead of primal problem. If we can find $\alpha$ from this dual problem, we can use equation (3) to find $w^{\ast}$. With optimal $w^{\ast}$, we can find $b^{\ast}$:
+这是满足KKT条件的，可以自己尝试着去证明一下。这意味着我们现在要解决的是dual problem而不是primal problem。如果我们可以在这个dual problem中找到$\alpha$，我们就可以用等式（3）去找到$w^{\ast}$。有了最优化的$w^{\ast}$，我们可以找到$b^{\ast}$：
 
 $$b^{\ast} = -\frac{\max_{i:y^{(i)}=-1}w^{\ast T}x^{(i)} + \min_{i:y^{(i)}=1}w^{\ast T}x^{(i)}}{2}$$
 
-This is easy to verify. Basically, we just take the two points from positive class and negative class that have the same distance to the hyperplane. That is, they are support vectors. The margin they are are euqal and this property can be used to solve for $b^{\ast}$. The optimal w and b will make the geometric margin of cloest negative and positive sample to be equal. 
 
-The equation (3) says that the optimal w is based on the optimal $\alpha$. To make prediction, then we have:
+想验证它的话很容易。基本上我们要做的就是，分别从正负两个类别中取出与超平面具有相同距离的点，也就是支持向量。由于它们的间隔是相同的，我们可以很好的用这个属性来解$b^{\ast}$。将w和b最优化后，最近的正负样本的几何间隔将会相等。
+
+等式（3）所表达的是：最优化的w是基于最优化的$\alpha$的。为了做出预测，我们可以：
 
 $$w^Tx + b = (\sum\limits_{i=1}^m \alpha_i y^{(i)} x^{(i)})^Tx + b = \sum\limits_{i=1}^m \alpha_i y^{(i)} <x^{(i)},x> + b$$
 
-If it is bigger than zero, we predict one.If it is less than zero, we predict negative one. We also know that $\alpha$ will be all zeros except for the support vectors because of the constraints. That means **we only cares about the inner product between x and support vector**. This makes the prediction faster and brings the **Kernel funciton** into the sight. Keep in mind that so far everything is low dimensional. How about high dimensions and infinite dimension space?
+如果大于零，我们预测1，小于零则预测-1。我们知道，由于约束，除了支持向量以外的所有$\alpha$将为零。这意味着**我们只关心x与支持向量的内积**。这使得预测更快并且将核函数概念带入我们的讨论中。请记住，到目前为止，一切都是低维度的。那么高维度和无限维度空间将会是什么情况呢？
 
+# 6 核函数
 
-# 6 Kernels
+在房屋居住区域的例子中，我们可以使用特征$x.x^2,x^3$来获得三维函数，其中$x$可以是房屋的大小。 我们称$x$为**输入属性**，$x.x^2,x^3$，称为**特征**。我们声明一个特征映射函数$\phi (x)$，这个函数可以将输入属性映射到特征。
 
-In the example of living area of house, we can use the feature $x.x^2,x^3$ to get cubic function where x can be the size of house. X is called **input attribute** and $x.x^2,x^3$ is called **features**. We dentoe a feature mapping function $\phi (x)$ that maps from attribute to features. 
+因此，我们可以在新的特征空间$\phi (x)$中进行训练学习。在上一节结尾我们了解了，需要计算内积$<x,z>$。现在我们可以用$<\phi(x),\phi(z)>$替换它。
 
-Thus, we might want to learn in the new feature space $\phi (x)$. In last section,we only need to calculate inner product $<x,z>$ and now we can replace it with $<\phi(x),\phi(z)>$. 
-
-Formally, given a mapping, we denote **Kernel** to be:
+定义上讲，给定一个映射函数我们可以将**核函数**声明为：
 
 $$K(x,z) = \phi(x)^T\phi(z)$$
 
-We can use Kernel instead of mapping itself. The reason can be found in the original notes. I am not talking details here. In short, the reason is that Kernel is less expensive computationally and can be used for high/infinite dimensional mapping. So we can learn in high dimensuional space without calculating mapping function $\phi$.
+这里我们可以使用核函数，而不是映射函数本身，其原因可以在cs229课程的原笔记中找到，由于内容比较细节这里就不再过多赘述。简而言之，核函数在计算上复杂度较低，并且可以用于高维度或无限维度映射中。所以我们可以在高维空间中进行训练而无需计算映射函数$\phi$。
 
-An example of how effective it is can be shown in the notes. It should be noted that calculating mapping is exponential time complexity whereas Kernel is linear time. 
+原笔记中有一个例子证明了核函数的效率之高。你需要知道的是，计算映射所需要的时间复杂度是呈指数的，而计算核函数需要的时间复杂度是线性的。
 
-In another way, Kernel is a measurement of how close or how far it is between two samples: x and z. It indicates the concepts of similarity. One of the popular Kernel is called **Gaussian Kernel** defined as: 
+换句话说，核函数是用来计算两个样本（x 和 z）之间的远近的，它呈现了相似性的概念。在流行的核函数中，有一个被称为**高斯核函数**，其定义如下：
 
 $$K(x,z) = \exp(-\frac{\lvert\lvert x-z \rvert\rvert^2}{2\sigma^2})$$
 
-We can use this as learning SVM and it corresponds to infinite dimensional feature mapping $\phi$. It means that the mapping funciton $\phi$ is infinite. It also shows that it is impossible to calculate infinite dimensional mapping but we can use Kernel instead. 
+我们可以使用它来训练SVM，它对应的是无限维度特征映射$\phi$。这意味着映射函数$\phi$是无限的。在无法计算无限维度映射时，我们可以使用核函数。（这句话有点绕啊，什么意思呀）
 
-Next, we are interested in telling if a given Kernel is valid or not. 
+接下来，我很想讨论下关于核函数有效性的事情。
 
-We define **Kernel Matrix** as $K_{ij} = K(x^{(i)},x^{(j)})$ for m points(i.e. K is m-by-m). Now, if K is valid, it means:
+我们定义拥有m个点的**核矩阵**为$K_{ij} = K(x^{(i)},x^{(j)})$ K是 m x m 矩阵。那么现在，如果K是有效的话，这意味着：
 
-(1)Symmetric: $K_{ij} = K(x^{(i)},x^{(j)}) = \phi(x^{(i)})^T\phi(x^{(j)}) = \phi(x^{(j)})^T\phi(x^{(i)}) = K_{ji}$
+(1)对称矩阵: $K_{ij} = K(x^{(i)},x^{(j)}) = \phi(x^{(i)})^T\phi(x^{(j)}) = \phi(x^{(j)})^T\phi(x^{(i)}) = K_{ji}$
 
-(2)Positive semi-definite: $z^TKz \geq 0$ proof is easy, will provide if necessary. 
+(2)半正定矩阵: $z^TKz \geq 0$ 这个证明很简单，如果需要的话可以提供过程。 
 
-**Mercer Theorem: Let $K:\mathbb{R}^n \times \mathbb{R}^n \mapsto \mathbb{R}$ be given. Then for a Kernel to be valid, it is necessary and sufficient that for any $\{x^{(1)},\dots,x^{(m)}\}$, the corresponding kernel matrix is symmetric and postive semi-definite.**
+Mercer定理（Mercer Theorem的中文无对应翻译）：设$K:\mathbb{R}^n \times \mathbb{R}^n \mapsto \mathbb{R}$。为了使核函数有效，对于任何$\{x^{(1)},\dots,x^{(m)}\}$，对应的核矩阵必须同时是对称的，也是半正定的，这是一个充要条件。
 
-Kernel method is not only used in SVM but also everywhere inner product is used. So we can replace the inner product with Kernel so that we can work in a higher dimensional space. 
+核函数方法不仅在SVM中有运用，它在任何有内积的情况下都是用途颇广的。因此，我们用核函数替换内积，以便在更高的维度空间中使用。
 
-# 7 Regularization and Non-separable Case
+# 7 正规化与无法分割问题
 
-Although mapping x to higher dimensional space increases the chance to be separable, it might not always be the case. An outlier could also be the cause that we actually don't want to include. An example of such a case can be shown below. 
+尽管将x映射到更高维度的空间增加了可分离的机会，但情况可能并非总是如此。一个异常值的出现也是非常棘手的，我们不会想把这种异常值放入训练集的。下图演示了这种情况：
 
 ![SVM outlier](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_outlier.png)
 
-To make the algorithm work for non-linear case as well, we add **regularization** to it:
+为了使算法也适用于非线性情况，我们将用到**正则化**：
 
 $$\begin{align}
 \min_{\gamma,w,b} & \frac{1}{2}\lvert\lvert w\rvert\rvert^2 + C\sum\limits_{i=1}^m \xi_i  \\
@@ -333,20 +332,20 @@ $$\begin{align}
 & \xi_i \geq 0,i=1,\dots,m
 \end{align}$$
 
-It will pay the cost for the functional margin that is less than one. C will ensure that most examples have functional margin at least 1. It says that:
+（并不确定这个翻译对不对）正规化将惩罚对于函数建个小于1的情况，C将确保大多数样本的函数间隔至少为1。这表明了：
 
-(1) We want w to be small so that margin will be large. 
+(1) 我们希望w小，这样间隔就会大。
 
-(2) We want most samples to have functional margin that is larger than 1. 
+(2) 我们希望大多数样本的函数间隔大于1。
 
-The Lagrangian is :
+拉格朗日为：
 
 $$\begin{align}
 \mathcal{L}(w,b,\xi,\alpha,r) &= \frac{1}{2}w^Tw + C\sum\limits_{i=1}^{m}\xi_i \\
 & - \sum\limits_{i=1}^m \alpha_i[y^{(i)}(x^{(i)T}w + b) - 1 + \xi_i] - \sum\limits_{i=1}^{m}r_i\xi_i
 \end{align}$$
 
-where $\alpha$ and r are Lagrangian multipliers which must be non-negative since constraints here are inequality. Now, we need to do the same thing to find out the dual form of the problem. I ignore the procedure here. After setting the derivatives with respect to w and b to zero, plugging back will produce the dual problem as:
+其中$\alpha$和r是拉格朗日乘数。因为这里的约束是不等式约束，所以这些乘数不能是负数。现在，我们需要做同样的事情来找出dual problem的形式，这里的过程我也不再赘述了。在将w和b的导数设为零之后，带回后得到dual problem：
 
 $$\max_{\alpha} W(\alpha) = \sum\limits_{i=1}^{m}\alpha_i - \frac{1}{2}\sum\limits_{i,j=1}^{m}y^{(i)}y^{(j)}\alpha_i\alpha_j<x^{(i)},x^{(j)}>$$
 
@@ -354,21 +353,21 @@ $$\text{s.t. }0\leq \alpha_i \leq C,i=1,\dots,m$$
 
 $$\sum\limits_{i=1}^{m}\alpha_i y^{(i)} = 0$$
 
-Notice that we have an interval for $\alpha$. This is becuase it has $\sum\limits_{i=1}^{m}(C-\alpha_i-r_i)\xi_i$. We take derivative with respect to $\xi$ and set to zero and we can eliminate $\xi$ and get the interval. In this case, $r_i$ is always non-negative and $\alpha_i=C$ when $r_i = 0$. 
+注意，$\alpha$的值有一个区间。这是因为$\sum\limits_{i=1}^{m}(C-\alpha_i-r_i)\xi_i$。我们将$\xi$取导并设零，将得到的结果带回原等式消除$\xi$，我们便得到了$\alpha$的区间。在这个情况下，当$r_i = 0$时，$r_i$始终为非负数，$\alpha_i=C$。
 
-Also notice that the optimal b is not the same anymore because the margin for both cloest points have changed. In next section, we will find the algrotihm to figure out the solution. 
+还需要注意的是，由于两个最近的点的间隔都已改变，这里的最优b不再与之前相同。在下一节中，我们将找到一个合适的算法来解决问题。
 
-# 8 The SMO Algorithm
+# 8 序列最小优化算法（SMO）
 
-The SMO(sequential minimal optimization) algorithm by John Platt is to solve the dual problem in SVM. 
+John Platt的SMO（顺序最小优化）算法的出现是用来解决SVM中的dual problem的。
 
-## 8.1 Coordinate Ascent
+## 8.1 坐标上升法
 
-In general, the optimization problem
+一般来讲，最优化问题
 
 $$\max_{\alpha}W(\alpha_1,\alpha_2,\dots,\alpha_m)$$
 
-can be solved by gradient ascent and Newton's method. In addition, we can also use coordinate ascent:
+可以通过梯度上升和牛顿法来解决。另外，我们也可以使用坐标上升法：
 
 {% highlight bash %}
 for loop until convergence:
@@ -376,44 +375,44 @@ for loop until convergence:
     alpha(i) = argmin of alpha(i) W(all alpha)
 {% endhighlight %}
 
-Basically, we fix all the $\alpha$ except for $\alpha_i$ and then move to next $\alpha$ for updating. **The assumption is that calculating gradient to $\alpha$ is efficient.** An example can be shown below. 
+总的来说，我们将除$\alpha_i$之外的所有$\alpha$固定，然后移动到下一个$\alpha$进行更新。 **假设计算$\alpha$的梯度是有效的。**举个例子：
 
 ![SVM coordinate](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_coordinate.png)
 
-Note that the path of the convergence is always parallel to axis because it is updated one variable at a time. 
+这里请注意，收敛的路径始终与x或y轴平行，因为它每一次只更新一个变量。
 
-## 8.2 SMO
+## 8.2 序列最小优化算法（SMO）
 
-We cannot do the same thing in dual problem in SVM because varying only one variable might violate the constraint:
+我们不能在SVM的dual problem中做与上面相似的事情，因为只改变一个变量可能会违反约束：
 
 $$\alpha_1 y^{(1)} = -\sum\limits_{i=2}^m \alpha_i y^{(i)}$$
 
-which says once we determine the rest of $\alpha$, we cannot vary the left $\alpha$ anymore. Thus, we have to vary two $\alpha$ at one time and update them. For exmaple, we can have:
+这表示一旦我们确定剩余部分的$\alpha$，我们就不能再改变左边的$\alpha$了。因此，我们必须一次性改变两个$\alpha$并更新它们。例如，我们可以：
 
 $$\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = -\sum\limits_{i=3}^m \alpha_i y^{(i)}$$
 
-We make right side to be constant:
+我们使右边保持不变:
 
 $$\alpha_1 y^{(1)} + \alpha_2 y^{(2)} = \zeta$$
 
-which can be pictorially shown as:
+在图中可以表示为:
 
 ![SVM coordinate](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_two_coord.png)
 
-In this figure, L and H are the lowest possible and highest possible value for $\alpha_2$, while $\alpha_1$ is between 0 and C. 
+在此图中，L和H是$\alpha_2$可能达到的最低值和最高值，而$\alpha_1$介于0和C之间。
 
 Note that although it is a square where $\alpha$ can lie but with a straight line, we might have a lower bound and upper bound on them. 
 
-We can rewrite the above equation:
+我们可以重写上面的等式：
 
 $$\alpha_1 = (\zeta - \alpha_2 y^{(2)})y^{(1)}$$
 
-Then, W will be :
+那么W将会是:
 
 $$W(\alpha_1,\dots,\alpha_m) = W((\zeta-\alpha_2 y^{(2)})y^{(1)},\alpha_2,\dots,\alpha_m)$$
 
-We treat all other $\alpha$ as constants.Thus, after plugging in, W will become quadratic, which can be written as $a\alpha_2^2 + b\alpha_2 + c$ for some a, b and c. 
+我们将所有其他$\alpha$视为常量。因此，带入等式后W将变为二次函数，对于某些a，b和c，可以写为$a\alpha_2^2 + b\alpha_2 + c$。
 
-Last, we define $\alpha_2^{new, unclipped}$ as the current solution to update $\alpha_2$. Thus, with applying constraints, only for this single variable, we can write:
+最后，我们将$\alpha_2^{new, unclipped}$定义为用来更新$\alpha_2$的解决方案。因此，通过针对这一个变量应用约束，我们可以得到：
 
 $$\alpha_2^{new} = \begin{cases} H  \text{, if          }\alpha_2^{new, unclipped}>H \\ \alpha_2^{new, unclipped}  \text{, if } L\leq \alpha_2^{new, unclipped} \leq H \\ L  \text{, if          } \alpha_2^{new, unclipped} < L \\ \end{cases}$$
