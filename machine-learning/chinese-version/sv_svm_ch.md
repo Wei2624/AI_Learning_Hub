@@ -214,51 +214,48 @@ $$\alpha_i^{\ast} \geq 0,i = 1,\dots,k$$
 
 # 5 Optimal Margin Classifier
 
-回首 掏！
-
-Let's revisit the primal problem in SVM:
+让我们回到SVM的primal problem（回首 掏！...）：
 
 $$\begin{align}
 \min_{\gamma,w,b} & \frac{1}{2} \lvert\lvert w \rvert\rvert^2 \\
 \text{s.t.   } & y^{(i)}(w^Tx^{(i)} + b) \geq 1, i = 1,\dots,m
 \end{align}$$
 
-we can re-arrange the constraint to be:
+我们可以重新设定约束为：
 
 $$g_i(w) = -y^{(i)}(w^Tx^{(i)} + b) + 1 \leq 0$$
 
-where i spans all training samples. From KKT dual complementarity condition, we have $\alpha_i > 0$ only when the functional margin is 1 where $g_i(w) = 0$. 
+其中i包含所有训练样本。从KKT条件中我们可以看到，当函数间隔为1且$g_i(w) = 0$时，$\alpha_i > 0$。
 
-We can visualize this in the picture below. The three points on the dash line are the ones with the smallest geometric margin which is 1. Thus, those points are the ones with positve $\alpha_i$ and are called **support vector**. 
+我们可以在下面的图片中看到这一点:虚线上的三个点是具有最小几何间隔的点，所以这些点的$\alpha_i$为正值。这些点也被称为**支持向量**。
 
 ![SVM Boundary](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_bound.png)
 
-The Lagranian with only inequality constraint is:
+仅有不等式约束的拉格朗日：
 
 $$\mathcal{L}(w,b,\alpha) = \frac{1}{2}\lvert \lvert w\rvert \rvert^2 - \sum\limits_{i=1}^m \alpha_i [y^{(i)}(w^Tx^{(i)} + b) - 1] \tag{1}$$
 
-To find the dual form of this problem, we first find the min of loss function with respect to w and b for a fixed $\alpha$. To do that, we have:
+要找到这个问题的对偶形式（dual form）的话，我们需要在给定$\alpha$的情况下，找到损失函数中w和b的最小值：
 
-For w:
+对于 w：
 
 $$\triangledown_{w}\mathcal{L}(w,b,\alpha) = w - \sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)} = 0\tag{2}$$
 
-This means:
-
+这说明：
 $$w = \sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)}\tag{3}$$
 
-For b:
+对于 b：
 
 $$\frac{\partial}{\partial b}\mathcal{L}(w,b,\alpha) = \sum\limits_{i=1}^m \alpha_i y^{(i)} = 0 \tag{4}$$
 
-A useful formaul is:
+一个有用的公式:
 
 $$\begin{align}
 \lvert\lvert\sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)}\rvert\rvert^2 &= (\sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)})^T(\sum\limits_{i=1}^m \alpha_i y^{(i)}x^{(i)}) \\
 &= \sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j (x^{(i)})^Tx^{(j)}
 \end{align}$$
 
-We take equation (3) back to equation (1) we have:
+我们将等式（3）带回到等式（1），得到：
 
 $$\begin{align}
 \mathcal{L}(w,b,\alpha) &= \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j (x^{(i)})^Tx^{(j)} \\
@@ -268,7 +265,7 @@ $$\begin{align}
 &= \sum\limits_{i=1}^m \alpha_i - \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j (x^{(i)})^Tx^{(j)}
 \end{align}$$
 
-Note that $\alpha_i \geq 0$ and constratin (4). Thus, we have the dual problem as:
+我们需要注意$\alpha_i \geq 0$ 和约束（4）。因此，我们得到的dual problem为：
 
 $$\begin{align}
 \max_{\alpha} W(\alpha) &= \sum\limits_{i=1}^m \alpha_i - \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j <x^{(i)},x^{(j)}> \\
@@ -276,18 +273,18 @@ $$\begin{align}
 & \sum\limits_{i=1}^m \alpha_i y^{(i)} = 0
 \end{align}$$
 
-which satisfies KKT condition (You can check it). It means we found out the dual problem to solve instead of primal problem. If we can find $\alpha$ from this dual problem, we can use equation (3) to find $w^{\ast}$. With optimal $w^{\ast}$, we can find $b^{\ast}$:
+这是满足KKT条件的，可以自己尝试着去证明一下。这意味着我们现在要解决的是dual problem而不是primal problem。如果我们可以在这个dual problem中找到$\alpha$，我们就可以用等式（3）去找到$w^{\ast}$。有了最优化的$w^{\ast}$，我们可以找到$b^{\ast}$：
 
 $$b^{\ast} = -\frac{\max_{i:y^{(i)}=-1}w^{\ast T}x^{(i)} + \min_{i:y^{(i)}=1}w^{\ast T}x^{(i)}}{2}$$
 
-This is easy to verify. Basically, we just take the two points from positive class and negative class that have the same distance to the hyperplane. That is, they are support vectors. The margin they are are euqal and this property can be used to solve for $b^{\ast}$. The optimal w and b will make the geometric margin of cloest negative and positive sample to be equal. 
 
-The equation (3) says that the optimal w is based on the optimal $\alpha$. To make prediction, then we have:
+想验证它的话很容易。基本上我们要做的就是，分别从正负两个类别中取出与超平面具有相同距离的点，也就是支持向量。由于它们的间隔是相同的，我们可以很好的用这个属性来解$b^{\ast}$。将w和b最优化后，最近的正负样本的几何间隔将会相等。
+
+等式（3）所表达的是：最优化的w是基于最优化的$\alpha$的。为了做出预测，我们可以：
 
 $$w^Tx + b = (\sum\limits_{i=1}^m \alpha_i y^{(i)} x^{(i)})^Tx + b = \sum\limits_{i=1}^m \alpha_i y^{(i)} <x^{(i)},x> + b$$
 
-If it is bigger than zero, we predict one.If it is less than zero, we predict negative one. We also know that $\alpha$ will be all zeros except for the support vectors because of the constraints. That means **we only cares about the inner product between x and support vector**. This makes the prediction faster and brings the **Kernel funciton** into the sight. Keep in mind that so far everything is low dimensional. How about high dimensions and infinite dimension space?
-
+如果大于零，我们预测1，小于零则预测-1。我们知道，由于约束，除了支持向量以外的所有$\alpha$将为零。这意味着**我们只关心x与支持向量的内积**。这使得预测更快并且将核函数概念带入我们的讨论中。请记住，到目前为止，一切都是低维度的。那么高维度和无限维度空间将会是什么情况呢？
 
 # 6 Kernels
 
