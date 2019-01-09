@@ -158,7 +158,7 @@ $$\theta_{\mathcal{D}}(\alpha,\beta) = \min_w \mathcal{L}(w,\alpha,\beta)$$
 
 to be part of the dual problem. To again match with the primal problem, we define the **dual optimization problem** to be:
 
-$$\max_{\beta,\alpha:\alpha_i\geq 0} = \max_{\alpha,\beta:\alpha_i\geq 0} \min_w \mathcal{L}(w,\alpha,\beta)$$
+$$\max_{\beta,\alpha:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta) = \max_{\alpha,\beta:\alpha_i\geq 0} \min_w \mathcal{L}(w,\alpha,\beta)$$
 
 Similarily, the value of dual problem is $d^{\ast} = \max_{\alpha,\beta:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta)$
 
@@ -277,7 +277,7 @@ If it is bigger than zero, we predict one.If it is less than zero, we predict ne
 
 # 6 Kernels
 
-In the example of living area of house, we can use the feature $x.x^2,x^3$ to get cubic function where x can be the size of house. X is called **input attribute** and $x.x^2,x^3$ is called **features**. We dentoe a feature mapping function $\phi (x)$ that maps from attribute to features. 
+In the example of living area of house, we can use the feature $x,x^2,x^3$ to get cubic function where x can be the size of house. X is called **input attribute** and $x,x^2,x^3$ is called **features**. We dentoe a feature mapping function $\phi (x)$ that maps from attribute to features. 
 
 Thus, we might want to learn in the new feature space $\phi (x)$. In last section,we only need to calculate inner product $<x,z>$ and now we can replace it with $<\phi(x),\phi(z)>$. 
 
@@ -304,6 +304,8 @@ We define **Kernel Matrix** as $K_{ij} = K(x^{(i)},x^{(j)})$ for m points(i.e. K
 (2)Positive semi-definite: $z^TKz \geq 0$ proof is easy, will provide if necessary. 
 
 **Mercer Theorem: Let $K:\mathbb{R}^n \times \mathbb{R}^n \mapsto \mathbb{R}$ be given. Then for a Kernel to be valid, it is necessary and sufficient that for any $\{x^{(1)},\dots,x^{(m)}\}$, the corresponding kernel matrix is symmetric and postive semi-definite.**
+
+Since Kernel method does allow us to project low dimensional vector to a higher dimensionality, this explains why dual problem is preferred than primal problem in general. 
 
 Kernel method is not only used in SVM but also everywhere inner product is used. So we can replace the inner product with Kernel so that we can work in a higher dimensional space. 
 
