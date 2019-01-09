@@ -73,7 +73,7 @@ Similarily, the geometric margin for all samples is:
 
 $$\gamma = \min_{i=1,\dots,m}\gamma^{(i)}$$
 
-# 3 Optimal Margin Classifier
+# 3 Optimal Margin Classifier (OMC)
 
 Most importantly, I will keep it short: the goal is to maximize the geometric margin. The larger, the better.
 
@@ -200,7 +200,7 @@ $$\alpha_i^{\ast} \geq 0,i = 1,\dots,k$$
 
 Third euqaiton is called **KKT dual complementarity condition**. It means if $\alpha_i^{\ast} > 0$, then $g_i(w^{\ast}) = 0$. When we find out the state where primal problem is equal to dual problem, every conditions and assumtions above should be met. 
 
-# 5 Optimal Margin Classifier
+# 5 OMC with Lagrange Duality
 
 Let's revisit the primal problem in SVM:
 
