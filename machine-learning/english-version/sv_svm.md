@@ -13,6 +13,10 @@ sidebar:
   nav: "MachineLearning"
 ---
 
+A Chinese version of this section is available. It can be found [here](https://air-yan.github.io//MachineLearning/sv_svm_ch/). The Chinese version will be synced periodically with English version. If the page is not working, you can check out a back-up link [here](https://wei2624.github.io/MachineLearning/sv_svm_ch/).
+
+---
+
 In this blog, I will talk about Support Vector Machine (SVM). Many people think SVM is one of the best classifier and is very easy to implment in many programming languages such as Python and Matlab. Also, I will talk about kernel idea. This allows us to apply SVM in a high dimensional space. 
 
 # 1 Intuition and Notation
