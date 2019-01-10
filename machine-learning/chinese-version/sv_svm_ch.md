@@ -162,11 +162,11 @@ $$\min_w \theta_{\mathcal{P}}(w) = \min_w \max_{\alpha,\beta:\alpha_i\geq 0} \ma
 
 从不同的角度我们可以将以下定义为dual problem（对偶问题）的一部分：
 
-$$\theta_{\mathcal{D}}(\alpha,\beta) \theta_{\mathcal{D}}(\alpha,\beta) = \min_w \mathcal{L}(w,\alpha,\beta)$$
+$$\theta_{\mathcal{D}}(\alpha,\beta) = \min_w \mathcal{L}(w,\alpha,\beta)$$
 
 为了再次与primal problem相匹配，我们将**对偶最优化问题(dual optimization problem)**定义为：
 
-$$\max_{\beta,\alpha:\alpha_i\geq 0} = \max_{\alpha,\beta:\alpha_i\geq 0} \min_w \mathcal{L}(w,\alpha,\beta)$$
+$$\max_{\beta,\alpha:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta) = \max_{\alpha,\beta:\alpha_i\geq 0} \min_w \mathcal{L}(w,\alpha,\beta)$$
 
 相同的，对偶问题的值为：$d^{\ast} = \max_{\alpha,\beta:\alpha_i\geq 0} \theta_{\mathcal{D}}(\alpha,\beta)$
 
