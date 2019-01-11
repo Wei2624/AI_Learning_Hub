@@ -107,6 +107,7 @@ Please respect the authorship of each blog there. If you want to distribute them
 |ML|[Discriminative Algorithm](https://wei2624.github.io/MachineLearning/sv_discriminative_model/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |ML|[Discriminative Algorithm](https://dark417.github.io/MachineLearning/sv_discriminative_model_ch/)|CH|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
 |ML|[Support Vector Machine](https://wei2624.github.io/MachineLearning/sv_svm/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
+|ML|[Support Vector Machine](https://air-yan.github.io//MachineLearning/sv_svm_ch/)|CH|[Zishi Yan](https://air-yan.github.io/)|WeChat:air-sowhat|
 |ML|[Bias-Varaince and Error Analysis](https://wei2624.github.io/MachineLearning/sv_bias_variance_tradeoff/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |ML|[Learning Theory ](https://wei2624.github.io/MachineLearning/sv_learning_theory/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |ML|[Regularization and Model Selection](https://wei2624.github.io/MachineLearning/sv_regularization_model_selection/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
