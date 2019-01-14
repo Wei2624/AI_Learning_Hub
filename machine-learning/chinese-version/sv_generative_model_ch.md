@@ -14,6 +14,11 @@ author_profile: true
 permalink: /MachineLearning/sv_generative_model_ch/
 ---
 
+Please note this post is a study note translated to Chinese by me. Click [here](https://wei2624.github.io/MachineLearning/sv_generative_model/) to see the original English version in Wei's homepage.
+
+请注意: 本文是我翻译的一份学习资料，英文原版请点击[Wei的学习笔记](https://wei2624.github.io/MachineLearning/sv_generative_model/)。
+
+---
 # 生成学习算法
 
 ## 1 判别模型
