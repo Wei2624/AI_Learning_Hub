@@ -197,7 +197,7 @@ $$\begin{align}
 \end{align}$$
 
 
-对 μ<sub>k<sub>取导并设为0：
+对 μ<sub>k</sub>取导并设为0：
 
 $$\begin{align}
 \frac{\partial \ell(\phi,\mu_k,\Sigma)}{\partial \mu_k} &= \sum\limits_{i=1}^m (-0-0-\frac{1}{2}2(x_k^i-\mu_k)^T\Sigma^{-1}\mathbb{1}\{y^i=k\})=0\\
@@ -279,7 +279,7 @@ $$\begin{align}
 \end{align}$$
 
 
-其中 ϕ<sub>j&#124;y=1</sub> = P (x<sub>j</sub>=1&#124;y=1)，ϕ <sub>j&#124;y=1</sub> = P(x<sub>j</sub>=1&#124;y=1), ϕ<sub>j&#124;y=0</sub> = P(x<sub>j</sub>=1&#124;y=0) 并且 ϕ<sub>y</sub>= p(y=1)。 这些是我们需要训练的参数。
+其中 ϕ <sub>j&#124;y=1</sub> = P(x<sub>j</sub>=1&#124;y=1), ϕ<sub>j&#124;y=0</sub> = P(x<sub>j</sub>=1&#124;y=0) 并且 ϕ<sub>y</sub>= p(y=1)。 这些是我们需要训练的参数。
 
 我们可以对其求导:
 

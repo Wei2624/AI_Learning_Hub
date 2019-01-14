@@ -81,7 +81,7 @@ $$\gamma^{(i)} = y^{(i)}((\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\
 
 $$\gamma = \min_{i=1,\dots,m}\gamma^{(i)}$$
 
-# 3 最优间隔分类器
+# 3 最优间隔分类器（OMC）
 
 最重要的是，简单来说，我们的目标是最大化几何间隔，越大越好。
 
@@ -210,7 +210,7 @@ $$\alpha_i^{\ast} \geq 0,i = 1,\dots,k$$
 
 第三个等式被称为**KKT dual complementarity condition**。意思是如果$\alpha_i^{\ast} > 0$，那么$g_i(w^{\ast}) = 0$。当primal problem等于dual problem时，上述的每个条件和假设都会成立。
 
-# 5 最优间隔分类器
+# 5 OMC与拉格朗日对偶性
 
 让我们回到SVM的primal problem：
 
