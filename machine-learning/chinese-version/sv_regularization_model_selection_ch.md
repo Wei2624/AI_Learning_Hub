@@ -34,7 +34,7 @@ This Article is a Chinese translation of a study note by Wei. Click [here](https
 
 1 以70%和30%的比例将S随机分成训练数据集$S_{tr}$和验证数据集$S_{cv}$ 
 
-2 在StrStr在中训练每一个 $M_i$ 以学习假设 $h_i$
+2 在$S_{tr}$在中训练每一个 $M_i$ 以学习假设 $h_i$
 
 3 选择拥有最小**经验误差(empirical error)**的模型 $S_{cv}$，我们将它标记为
 $\hat{\varepsilon}\_{S_{cv}}(h_i)$
