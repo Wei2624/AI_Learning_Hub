@@ -7,7 +7,7 @@ toc_sticky: true
 category: Machine Learning
 tags: [notes,chinese]
 excerpt: "This post is a translation for one of Wei's posts in his machine learning notes."
-title: Bias Varicne Tradeoff Chinese Version
+title: Regularization Model Selection Chinese Version
 share: true
 author_profile: true
 permalink: /MachineLearning/sv_regularization_model_selection_ch/
@@ -20,7 +20,7 @@ This Article is a Chinese translation of a study note by Wei. Click [here](https
 正则化与模型选择
 在选择模型时，如果我们在一个模型中有k个参数，那么问题就是这k个参数应该是什么值？哪些值可以给出最佳偏差-方差权衡呢。其中，我们从有限集合的模型 $\mathcal{M} = \{M_1,M_2,\dots,M_d\}$ 中来选取最佳模型。在集合中，我们有不同的模型，或者不同的参数。
 
-#1 交叉验证(Cross Validation)
+# 1 交叉验证(Cross Validation)
 
 想象一下，给定数据集S与一系列的模型，我们很容易想到通过以下方式来选择模型：
 
@@ -51,7 +51,7 @@ $\hat{\varepsilon}\_{S_{cv}}(h_i)$
 
 通常我们取k为10。虽然这样算术很复杂，但是它会给我们很好的结果。如果数据很少，我们也可能设k=m。在这种情况下，我们每一次除去一个样本，这种方法叫**除一交叉验证(leave-one-out cross validation)**。
 
-2 特征选择(Feature Selection)
+# 2 特征选择(Feature Selection)
 
 如果我们有n个特征，m个样本，其中$n \gg m$ (VC 维度is O(n)),我们可能会过度拟合。在这种情况下，你想选择最重要的特征来训练。在暴力算法中，我们会有用$2^n$ 个特征组合，我们会有$2^n$ 个可能的模型，这处理起来会很费力。因此我们可以选择用**向前搜索算法(forward search algorithm)**:
 
@@ -74,7 +74,7 @@ $$MI(x_i,y) = KL(p(x_i,y)\lvert\lvert p(x_i)p(y))$$
 
 其中KL是**相对熵(Kullback-Leibler divergence)**。它计算了竖线两边变量分布的差异。如果$x_i$和 $y$ 是独立的，那么 KL 是0。这代表着特征和标签直接没有任何关系。然而如果MI很高，那么这个特征和标签有强相关性。
 
-#3 贝叶斯统计与正则化(Bayesian Statistics and regularization)
+# 3 贝叶斯统计与正则化(Bayesian Statistics and regularization)
 
 在前面一章我们讨论了**最大似然法(maximum likelihood (ML) algorithm)**是如何训练模型参数的：
 
