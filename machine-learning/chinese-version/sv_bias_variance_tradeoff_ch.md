@@ -20,6 +20,7 @@ This Article is a Chinese translation of a study note by Wei. Click [here](https
 在这一节中，我们重点讨论偏差和误差之间是如何相互关联的。我们总想拥有0偏差和0方差，然而在实际中这是不可能的。因此，它们之间总会有权衡，一者多，另一者少。
 
 # 1 偏差-方差间权衡 (Bias Variance Tradeoff)
+
 我们将基于一些样本训练模型定义为$\overset{\wedge}{f}$，并且$y$ 为事实标签。因此，**均方差(mean squared error(MSE))**可以定义为：
 
 $$\mathbb{E}_{(x,y)\sim \text{test set}} \lvert \overset{\wedge}{f}(x) - y \rvert^2$$

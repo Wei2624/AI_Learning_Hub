@@ -32,7 +32,7 @@ This Article is a Chinese translation of a study note by Wei. Click [here](https
 
 在这个情况中，** 交叉验证（hold-out cross validation）**将会做得更好：
 
-1以70%和30%的比例将S随机分成训练数据集$S_{tr}$和验证数据集$S_{cv}$ 
+1 以70%和30%的比例将S随机分成训练数据集$S_{tr}$和验证数据集$S_{cv}$ 
 
 2 在StrStr在中训练每一个 $M_i$ 以学习假设 $h_i$
 
