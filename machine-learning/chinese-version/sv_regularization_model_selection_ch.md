@@ -30,7 +30,7 @@ This Article is a Chinese translation of a study note by Wei. Click [here](https
 
 这个想法不能达到目的因为当我们选择的多项指数越高时，模型会更好的拟合训练数据集。然而，这个模型将会在新的数据集中有很高的统一化误差，也就是高方差。
 
-在这个情况中，**交叉验证（hold-out cross validation**将会做得更好：
+在这个情况中，**交叉验证（hold-out cross validation)**将会做得更好：
 
 1 以70%和30%的比例将S随机分成训练数据集$S_{tr}$和验证数据集$S_{cv}$ 
 
