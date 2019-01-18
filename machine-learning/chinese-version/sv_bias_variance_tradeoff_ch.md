@@ -54,7 +54,7 @@ $$\begin{align}
 
 为了分析一个模型，我们应该首先建立一个序列的重点。然后我们从事实标签中抽取每一个元素，观察每一个变化会如何影响模型的精确度。我们总会试图看看事实标签中的哪个元素对模型系统的影响最大。以下是一个例子
 
-![Error Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/feature_selection.png)
+![Error Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/error_analysis.png)
 
 表1：这个表给出了给出了完美成分时系统的准确度
 
