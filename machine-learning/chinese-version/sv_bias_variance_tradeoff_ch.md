@@ -66,3 +66,5 @@ $$\begin{align}
 
 ![Ablative Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/ablative_ana_cn.png)
 
+表2：从逻辑回归移除特征的精确度
+
