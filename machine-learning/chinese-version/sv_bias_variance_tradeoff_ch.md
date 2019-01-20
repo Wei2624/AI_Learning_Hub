@@ -55,7 +55,7 @@ $$\begin{align}
 
 为了分析一个模型，我们应该首先将模型模块化。然后我们将每个模块的事实标签代入到每一模块中，观察每一个变化会如何影响整体模型的精确度。我们试图观察事实标签中的哪个模块对模型系统的影响最大。以下是一个例子
 
-![Error Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/error_analysis.png)
+![Error Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/err_ana_cn.png)
 
 表1：这个表给出了模块化对应的准确度
 
@@ -64,5 +64,7 @@ $$\begin{align}
 误差分析试图识别模型当前表现与完美表现之前的区别，而去除分析试图识别基准线与当前模型之前的区别。去除分析非常重要，很多研究论文因为丢失了这部分而被拒绝。这个分析可以告诉我们模型的哪个部分是最具影响力的。
 例如，假设我们有更多附加的特征可以让模型表现更好。我们想观察通过每一次减少一个附加的特征，模型的表现会减少多少。下面是一个例子
 
-![Ablative Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/ablative_ana.png)
+![Ablative Analysis](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/ablative_ana_cn.png)
+
+表2：从逻辑回归移除特征的精确度
 
