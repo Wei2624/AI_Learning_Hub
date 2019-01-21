@@ -13,6 +13,10 @@ sidebar:
   nav: "MachineLearning"
 ---
 
+A Chinese version of this section is available. It can be found [here](https://dark417.github.io/MachineLearning/sv_bias_variance_tradeoff_ch/). The Chinese version will be synced periodically with English version. If the page is not working, you can check out a back-up link [here](https://wei2624.github.io/MachineLearning/sv_bias_variance_tradeoff_ch/).
+
+---
+
 In this section, we focus on how bias and varaince are correlated. We always want to have zero bias and zero variance. However, this is practically impossible. So there is tradeoff in between. 
 
 # 1 The Bias-Varaince Tradeoff

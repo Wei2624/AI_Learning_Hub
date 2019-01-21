@@ -13,6 +13,10 @@ sidebar:
   nav: "MachineLearning"
 ---
 
+A Chinese version of this section is available. It can be found [here](https://dark417.github.io/MachineLearning/sv_regularization_model_selection_ch/). The Chinese version will be synced periodically with English version. If the page is not working, you can check out a back-up link [here](https://wei2624.github.io/MachineLearning/sv_regularization_model_selection_ch/).
+
+---
+
 
 In model selection, if we have k parameters in the model, the quesiton is what k should be?0,1,or 10?Which does one of them give the best bias-varaince tradeoff. In particular, we use a finite set of models $\mathcal{M} = \{M_1,M_2,\dots,M_d\}$ from which we try to select the best. Each model in the set contains either different parameterization of a particular model or different models. 
 
