@@ -7,7 +7,7 @@ toc_sticky: true
 category: Machine Learning
 tags: [notes,chinese]
 excerpt: "This post is a translation for one of Wei's posts in his machine learning notes."
-title: Regularization Model Selection Chinese Version
+title: Regularization and Model Selection Chinese Version
 share: true
 author_profile: true
 permalink: /MachineLearning/sv_regularization_model_selection_ch/
