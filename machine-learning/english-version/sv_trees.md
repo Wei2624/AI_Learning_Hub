@@ -90,7 +90,7 @@ Let's look at this definition. There are two variables that need to be determine
 
 Let's consider to split a reigon R at the splitting value s of dimension j. The intial region is usually the entire dataset. We can define $R^{-}(j,s) = \{ x_i\in\mathbb{R}^d\lvert x_i(j) \leq s \}$ and $R^{+}(j,s) = \{ x_i\in\mathbb{R}^d\lvert x_i(j) \geq s \}$. Then, for each dimension j, we calculate the splitting point s that can achieve the goal the best. We should do this for each existing regirons(leaf node) so far and pick up the best region splitting based on a predefined metric.
 
-**In a word, we always select a region (leafnode), then a feature and then a threshold to form a new split.**
+**In a word, we always select a region (leaf node), then a feature and then a threshold to form a new split.**
 
 ## Learning a classification decision tree.
 
@@ -136,7 +136,7 @@ Graphically, we show the fact that the classification error loss does not help m
 
 As you can see from the plot, the entropy loss will bring a reduction on the loss after we split the parent region. This is because entropy function is strictly concave.
 
-Let's see an example of growing a classification tree. Let's imagine we have a 2D space where some classified points are plotted. Such a plot can be show below.
+Let's see an example of growing a classification tree using Gini index as the loss function. Let's imagine we have a 2D space where some classified points are plotted. Such a plot can be show below.
 
 ![First Split Example](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_10.png)
 
@@ -178,4 +178,4 @@ The question remaining is that when do we stop the growing of a tree. Naively, w
 
 3, **Maximum Number of Nodes**: we can stop the training when the number of nodes in a tree reaches a threshold of leaf nodes.
 
-However, even if we have these on-hand weapon to avoid overfitting, it is still hard to train a single decision tree to perform well generally. Thus, we will another useful traning technique called ensembling methods in another section.
+However, even if we have these on-hand weapon to avoid overfitting, it is still hard to train a single decision tree to perform well generally. Thus, we will another useful traning technique called **ensembling methods** in another section.
