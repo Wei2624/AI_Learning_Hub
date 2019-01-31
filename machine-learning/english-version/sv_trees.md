@@ -17,7 +17,7 @@ sidebar:
 
 # Introduction
 
-Decision tree is one of the most popular non-linear framework used in the reality. It is known for its robustness to noisy and the capability of learning disjunctive expressions. In reality, decision tree has been widely used in credit risk of loan applicants.
+Decision tree is one of the most popular non-linear framework used in the reality. So far, support vector machine and generalized linear are the examples of linear models. On the other hand, kernelization will result in a non-linear hypothesis function via feature mapping $\phi(x)$. Decision tree is known for its robustness to noisy and the capability of learning disjunctive expressions. In reality, decision tree has been widely used in credit risk of loan applicants.
 
 A decision tree maps input $x\in \mathbb{R}^d$ to output y using binary rules. From top-down point of view, each node in the tree has a splitting rule. At the very bottom, each leaf node outputs an value or a class. Note, outputs can repeat. Each splitting rule can be characterized as :
 
@@ -114,6 +114,28 @@ It shows that
 
 2, all evaluations are minimized when $p_k=1$ or $p_k = 0$ for some k.
 
+In general, we always want to maximize the difference between the original loss and the cardinality-weighted loss of split regions. Formally,
+
+$$L(R_p) = \frac{\lvert R_1\rvert L(R_1) + \lvert R_2\lvert L(R_2)}{\lvert R_1\lvert +\lvert R_2\lvert}$$
+
+However, different loss function might have their own pros and cons. For classification error type, the problem with this type of loss is that it is insensitive to the change of splitting region. For example, if we make up a parent region $R_p$, we can depict an example like:
+
+![First Split Example](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_16.png)
+
+Although the splitting is different, but we can see:
+
+$$L(R_p) = \frac{\lvert R_1\rvert L(R_1) + \lvert R_2\lvert L(R_2)}{\lvert R_1\lvert +\lvert R_2\lvert} = \frac{\lvert R_1^{\prime}\rvert L(R_1^{\prime}) + \lvert R_2^{\prime}\lvert L(R_2^{\prime})}{\lvert R_1^{\prime}\lvert +\lvert R_2^{\prime}\lvert} =100$$
+
+We notice that different splitting results result in the same loss value if we use classification loss type. In addition, we also see that the new split regions do not reduce the original loss. Why is that? This is because classification error loss is not strictly concave. Thus, if we plot the splitting example above, we can see:
+
+![First Split Example](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_17.png)
+
+Graphically, we show the fact that the classification error loss does not help much. On the other hand, we can use entropy loss. This type of loss have a different plot.
+
+![First Split Example](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_18.png)
+
+As you can see from the plot, the entropy loss will bring a reduction on the loss after we split the parent region. This is because entropy function is strictly concave.
+
 Let's see an example of growing a classification tree. Let's imagine we have a 2D space where some classified points are plotted. Such a plot can be show below.
 
 ![First Split Example](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_10.png)
@@ -128,7 +150,7 @@ Next, we want to see how break points at different position along different axis
 
 $$G(R_m) - (p_{r_m^-}G(R_m^-) + p_{r_m^+}G(R_m^+))$$
 
-where $p_{R_m^+}$ is the fraction of data in $R_m$ split into $R_m^+$ and $G(R_m^+)$ is the Gina index for the new region $R_m^+$. Essentially, we want the Gini index to be zero. So we want to deduct the Gini index resulted from splitting the region furthermore. Thus, we want to plot the reduction amount on the Gini index as the function of different splitting point.
+where $p_{R_m^+}$ is the fraction of data in $R_m$ split into $R_m^+$ and $G(R_m^+)$ is the Gina index for the new region $R_m^+$. Essentially, we want the Gini index of the new split regions to be zero. So we want to maximize the difference between the Gini index of original region and the weighted sum of Gini index on new regions. Thus, we want to plot the reduction amount on the Gini index as the function of different splitting point.
 
 For the above example, we first look at different splitting points by sliding along with horizontal axis.
 
@@ -146,59 +168,14 @@ The resulted decision tree should be like:
 
 ![Uncertainty Plot 2](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_14.png)
 
-# Bootstrap
+## Regularization
 
-Bootstrap is basically a re-sampling technique for improving estimators on the data. In this algorithm, we keep sampling from the empirical distribution of the data to estimate statistics of the data.
+The question remaining is that when do we stop the growing of a tree. Naively, we can stop training when the leaf only contains one sample. However, this will lead to high variance and low bias issue, a.k.a overfitting. Some other off-the-shelf options are also available.
 
-Let's say we have an trained estimator E for the statistic such as median of the data. The question is how confident our estimator is and how much variance it is. We can use bootstrap to find out. In bootstrap algorithm, we do:
+1, **Minimum Leaf Size**: we can setup a minimum number of leaf size.
 
-1, Generate bootstrap samples $\mathbb{B}_1,\dots,\mathbb{B}_B$ where $\mathbb{B}_b$ is created by picking n samples from the dataset of size n **with** replacement
+2, **Maximum Depth**: we can also set the threshold value on the tree depth.
 
-2, Evaluate the estimator on each $\mathbb{B}_b$ as:
+3, **Maximum Number of Nodes**: we can stop the training when the number of nodes in a tree reaches a threshold of leaf nodes.
 
-$$E_b = E(\mathbb{B}_b)$$
-
-3, Estimate the mean and variance of E:
-
-$$\mu_B = \frac{1}{B}\sum\limits_{n=1}^B E_b, \sigma_B^2 = \frac{1}{B}\sum\limits_{b=1}^B (E_b - \mu_B)^2$$
-
-This can tell us how our estimator performs on estimating the median of the data.
-
-# Bagging and Random Forests
-
-Bagging basically uses the idea of bootstrap for regression or Classification. It represents Bootstrap aggregation.
-
-The algorithm is as the following:
-
-For $b=1,\dots,B$,
-
-1, Draw a bootstrap $\mathbb{B}_b$ of size n from training dataset
-
-2, Train a tree classifier or tree regression model $f_b$ on $\mathbb{B}_b$.
-
-To predict, for a new point $x_0$, we compute:
-
-$$f(x_0) = \frac{1}{B} \sum\limits_{b=1}^B f_b(x_0)$$
-
-For regression problem, we can see this is just the average of of prediction of each trained classifier. For classification task, we can view this as a voting mechanism.  
-
-
-For example, let's say we have an input feature $x\in \mathbb{R}^5$ for a binary classification.  We can use bootstrap strategy to train multiple classifier as:
-
-![Bagging Examples](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_15.png)
-
-There are two key points that should be emphasized:
-
-1, With bagging,each tree does not need to be perfect. "Ok" is fine.
-
-2, Bagging often improves when the function is non-linear.
-
-## Random Forests
-
-There are drawbacks of Bagging. The bagged tress trained from bootstrap is related because bootstraps are correlated. The bagging will not be able to have the best performance. Thus, random forest is proposed. The modification is small but works. Instead of growing a tree on all dimensions, random forests propose to grow a tree on randomly selected subset of dimensions. In details,
-
-For $b=1,\dots,B$,
-
-1, Draw a bootstrap $\mathbb{B}_b$ of size n from training dataset
-
-2, Train a tree classifier on $\mathbb{B}_b$. For each training, we randomly select a predefined m dimensions of d ($m \approx \sqrt(d)$). For each bootstrap, we have different m dimensions. 
+However, even if we have these on-hand weapon to avoid overfitting, it is still hard to train a single decision tree to perform well generally. Thus, we will another useful traning technique called ensembling methods in another section.
