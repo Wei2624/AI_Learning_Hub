@@ -104,7 +104,7 @@ Overall, there are three common measurements for classification task in growing 
 
 3, Entropy: $-\sum_k p_k \ln p_k$
 
-In this case, k means the class index. For a binary classification, if we plot the value of each evaluation with respect to $p_k$, we can have:
+where $p_k$ essentially represents the empirical portion of each class. In this case, k means the class index. For a binary classification, if we plot the value of each evaluation with respect to $p_k$, we can have:
 
 ![Evaluation Plot](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_9.png)
 
@@ -114,4 +114,91 @@ It shows that
 
 2, all evaluations are minimized when $p_k=1$ or $p_k = 0$ for some k.
 
-Let's see an example of growing a classification tree.
+Let's see an example of growing a classification tree. Let's imagine we have a 2D space where some classified points are plotted. Such a plot can be show below.
+
+![First Split Example](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_10.png)
+
+In this case, the left region $R_1$ is classified as label 1. We can see that it is classified perfectly. Thus, the measurement on this region should be perfect.
+
+For region 2, we need to do more since Gini index is not zero. If we calculate the Gini index, we can find out:
+
+$$G(R_2) = 1 - (\frac{1}{101})^2 - (\frac{50}{101})^2 - (\frac{50}{101})^2 = 0.5089$$
+
+Next, we want to see how break points at different position along different axis can affect the Gini index in this region based on some evaluation function. Such a evaluation function, a.k.a. uncertainty, can be:
+
+$$G(R_m) - (p_{r_m^-}G(R_m^-) + p_{r_m^+}G(R_m^+))$$
+
+where $p_{R_m^+}$ is the fraction of data in $R_m$ split into $R_m^+$ and $G(R_m^+)$ is the Gina index for the new region $R_m^+$. Essentially, we want the Gini index to be zero. So we want to deduct the Gini index resulted from splitting the region furthermore. Thus, we want to plot the reduction amount on the Gini index as the function of different splitting point.
+
+For the above example, we first look at different splitting points by sliding along with horizontal axis.
+
+![Uncertainty Plot](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_11.png)
+
+You see that there are two clear cuts on both sides because points less than approximately 1.7 belong to class 1 and no point appears after approximately 2.9. We can also experiment another setting by sliding along another axis, namely vertical axis.
+
+![Uncertainty Plot 2](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_12.png)
+
+As we can see from the graph, we have the largest improvement around 2.7 as a vertical splitting point. Then, we can split our data samples as:
+
+![Uncertainty Plot 2](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_13.png)
+
+The resulted decision tree should be like:
+
+![Uncertainty Plot 2](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_14.png)
+
+# Bootstrap
+
+Bootstrap is basically a re-sampling technique for improving estimators on the data. In this algorithm, we keep sampling from the empirical distribution of the data to estimate statistics of the data.
+
+Let's say we have an trained estimator E for the statistic such as median of the data. The question is how confident our estimator is and how much variance it is. We can use bootstrap to find out. In bootstrap algorithm, we do:
+
+1, Generate bootstrap samples $\mathbb{B}_1,\dots,\mathbb{B}_B$ where $\mathbb{B}_b$ is created by picking n samples from the dataset of size n **with** replacement
+
+2, Evaluate the estimator on each $\mathbb{B}_b$ as:
+
+$$E_b = E(\mathbb{B}_b)$$
+
+3, Estimate the mean and variance of E:
+
+$$\mu_B = \frac{1}{B}\sum\limits_{n=1}^B E_b, \sigma_B^2 = \frac{1}{B}\sum\limits_{b=1}^B (E_b - \mu_B)^2$$
+
+This can tell us how our estimator performs on estimating the median of the data.
+
+# Bagging and Random Forests
+
+Bagging basically uses the idea of bootstrap for regression or Classification. It represents Bootstrap aggregation.
+
+The algorithm is as the following:
+
+For $b=1,\dots,B$,
+
+1, Draw a bootstrap $\mathbb{B}_b$ of size n from training dataset
+
+2, Train a tree classifier or tree regression model $f_b$ on $\mathbb{B}_b$.
+
+To predict, for a new point $x_0$, we compute:
+
+$$f(x_0) = \frac{1}{B} \sum\limits_{b=1}^B f_b(x_0)$$
+
+For regression problem, we can see this is just the average of of prediction of each trained classifier. For classification task, we can view this as a voting mechanism.  
+
+
+For example, let's say we have an input feature $x\in \mathbb{R}^5$ for a binary classification.  We can use bootstrap strategy to train multiple classifier as:
+
+![Bagging Examples](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_15.png)
+
+There are two key points that should be emphasized:
+
+1, With bagging,each tree does not need to be perfect. "Ok" is fine.
+
+2, Bagging often improves when the function is non-linear.
+
+## Random Forests
+
+There are drawbacks of Bagging. The bagged tress trained from bootstrap is related because bootstraps are correlated. The bagging will not be able to have the best performance. Thus, random forest is proposed. The modification is small but works. Instead of growing a tree on all dimensions, random forests propose to grow a tree on randomly selected subset of dimensions. In details,
+
+For $b=1,\dots,B$,
+
+1, Draw a bootstrap $\mathbb{B}_b$ of size n from training dataset
+
+2, Train a tree classifier on $\mathbb{B}_b$. For each training, we randomly select a predefined m dimensions of d ($m \approx \sqrt(d)$). For each bootstrap, we have different m dimensions. 
