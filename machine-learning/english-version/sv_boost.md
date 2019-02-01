@@ -13,6 +13,12 @@ sidebar:
   nav: "MachineLearning"
 ---
 
+# Introduction
+
+In Decision Tree section, we talked about how decision tree is applied in regression and classification task and how we can grow a decision tree. However, as also mentioned in the section, decision tree has limited power to generalize well. Thus, it has been proposed to use ensembling methods. In a word, multiple trained models perform better than the single model. But why?
+
+Let's have n i.i.d. random variables $X_i$ for $0 \leq i \leq n$ and assume $Var(X_i) = \sigma^2$ for all $X_i$. 
+
 
 
 # Bootstrap
