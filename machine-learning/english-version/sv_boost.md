@@ -17,9 +17,40 @@ sidebar:
 
 In Decision Tree section, we talked about how decision tree is applied in regression and classification task and how we can grow a decision tree. However, as also mentioned in the section, decision tree has limited power to generalize well. Thus, it has been proposed to use ensembling methods. In a word, multiple trained models perform better than the single model. But why?
 
-Let's have n i.i.d. random variables $X_i$ for $0 \leq i \leq n$ and assume $Var(X_i) = \sigma^2$ for all $X_i$. 
+Let's have n i.i.d. random variables $X_i$ for $0 \leq i \leq n$ and assume $Var(X_i) = \sigma^2$ for all $X_i$. Then, we have the variance of the mean:
 
+$$Var(\bar{X}) = Var(\frac{1}{n}\sum\limits_i X_i) = \frac{\sigma^2}{n}$$
 
+If we remove the independent assumption, then each random variable is correlated.
+
+$$\begin{align}
+Var(\bar{X})&=Var(\frac{1}{n}\sum\limits_i X_i) \\
+&= \frac{1}{n^2}\sum\limits_{i,j}Cov(X_i,X_j) \\
+&= \frac{n\sigma^2}{n^2} + \frac{n(n-1)p\sigma^2}{n^2} \\
+& = p\sigma^2 + \frac{1-p}{n}\sigma^2
+\end{align}$$
+
+where p is pearson correlation coefficient $p_{X,Y} = \frac{Cov(X,Y)}{\sigma_x\sigma_y}$. We know that Cov(X,X) = Var(X).
+
+**Math**: The following proof might be helpful for understanding the steps above.
+
+$$\begin{align}
+Var(\frac{1}{n}\sum\limits_i X_i) &= \frac{1}{n^2} Var(\sum\limits_i X_i) \\
+&= \mathbb{E}[(\sum\limits_i X_i)^2] - (\mathbb{E}[\sum\limits_i X_i])^2 \\
+&=\mathbb{E}[\sum\limits_{i,j}X_i X_j] - (\mathbb{E}[\sum\limits_i X_i])^2  \\
+&=\sum\limits_{i,j}\mathbb{E}[X_iX_j]- (\mathbb{E}[\sum\limits_i X_i])^2 \\
+&= \sum\limits_{i,j}\mathbb{E}[X_iX_j] - \sum\limits_{i,j}\mathbb{E}[X_i] \mathbb{E}[X_j] \\
+&= \sum\limits_{i,j} \mathbb{E}[X_iX_j] - \mathbb{E}[X_i] \mathbb{E}[X_j] \\
+&= \sum\limits_{i,j} Cov(X_i,X_j)
+\end{align}$$
+
+**Back to topic**: Now, if we treat each random variable is the error of a trained model, we can see that the variance can be reduced by:
+
+1, increase the number of random variable (i.e. number of models) n to make the second term smaller
+
+2, reduce the correlation between each random variable to make the first term smaller, and it become more i.i.d.
+
+How do we achieve those? Here, we will introduce **Bagging** and **Boosting**.
 
 # Bootstrap
 
