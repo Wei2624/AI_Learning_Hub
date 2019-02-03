@@ -179,3 +179,13 @@ The question remaining is that when do we stop the growing of a tree. Naively, w
 3, **Maximum Number of Nodes**: we can stop the training when the number of nodes in a tree reaches a threshold of leaf nodes.
 
 However, even if we have these on-hand weapon to avoid overfitting, it is still hard to train a single decision tree to perform well generally. Thus, we will another useful traning technique called **ensembling methods** in another section.
+
+## Lack of Additive Structure
+
+At every decision stump, one can only have one single rule based on a single feature. Features cannot be the addition from two other features. This will bring some issue for decision tree. For example, the figure below shows the case where you have to set multiple splitting points on each axis. Only one feature space is allowed at one time. That is why we always have the parallel line.
+
+![Lack of Additive Structure](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_19.png)
+
+However, with additive structure, we can easily draw a linear boundary on this.
+
+![Additive Structure](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_20.png)

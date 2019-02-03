@@ -136,7 +136,7 @@ We know that bagging is to reduce the variance from a single tree. Boosting is, 
 
 Formally, we have the AdaBoost Algorithm as:
 
-**1,** Initialize $w_i \leftarrow \frac{1}{N}$ for $i=1,2,\dots,n$
+**1,** Initialize $w_i \leftarrow \frac{1}{N}$ for $i=1,2,\dots,n$ and it is binary classification.
 
 **2,** For m=0 to M:
 
@@ -144,10 +144,83 @@ Formally, we have the AdaBoost Algorithm as:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fit the model $F_m$ on bootstrap $B_t$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set $\epsilon_m = \frac{\sum_{i=1}^n w_m(i) \mathbb{1}[y_i\neq F_m(x_i)]}{\sum_{i=1}^n w_m(i)}$ and $\alpha_m = \frac{1}{2}\ln\frac{1-\epsilon_m}{\epsilon_m}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set $\epsilon_m = \sum_{i=1}^n w_m(i) \mathbb{1}[y_i\neq F_m(x_i)] $ and $\alpha_m = \frac{1}{2}\ln\frac{1-\epsilon_m}{\epsilon_m}$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scale $\bar{w}_{m+1}(i) = w_m(i)\exp(-\alpha_m \mathbb{1}[y_i \neq F_m(x_i))$ and normalize $w_{m+1}(i) = \frac{\bar{w}_{m+1}(i)}{\sum_j \bar{w}_{m+1}(j)}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scale $\bar{w}_{m+1}(i) = w_m(i)\exp(-\alpha_m y_i F_m(x_i))$ and normalize $w_{m+1}(i) = \frac{\bar{w}_{m+1}(i)}{\sum_j \bar{w}_{m+1}(j)}$
 
 **3,** The classification rule is $f_{boost}(x_0) = sign(\sum_{m=1}^M \alpha_m)$
 
-In each iteration, the misclassified samples are up-weighted cumulatively. The final prediction is weighted by weighted error. The summation form allows additive terms for increasing more modeling capability but will result in a high variance since each trained model is dependent. Thus, increasing M will increase variance as well. 
+In each iteration, the misclassified samples are up-weighted cumulatively. The final prediction is weighted by weighted error. The summation allows additive terms for adding more modeling capability but will result in a high variance since each trained model is dependent. Thus, increasing M will increase variance as well.
+
+## Analysis of boosting
+
+it is worth talking about the accuracy of boosting on training data. This is purely theoretic, and you can skip it if you want.
+
+**Theorem**: With AdaBoost algorithm, if $\epsilon_m$ is the weighted error of classifier $f_m$, then the final classification $f_{noost}(x_0)=sign(\sum_{m=1}^M \alpha_mf_m(x_0))$. The training error can be bounded as:
+
+$$\frac{1}{n}\sum\limits_{i=1}^n \mathbb{1}[y_i\neq f_{boost}(x_i)] \leq \exp(-2\sum\limits_{m=1}^M (\frac{1}{2}-\epsilon_m)^2)$$
+
+What it means that even though each $\epsilon_m$ is just a little better than random guessing, the sum over M models can produce a large negative value in the exponent when M is larger. Thus, we have a small upper bound.
+
+**Proof**:
+
+To prove this, we want to find an intermediate value as the stepping stone. That is, we find a < b and b < c, then a < c.
+
+Recall that:
+
+$$\bar{w}_{m+1}(i) = w_m (i) \exp(-\alpha_m y_i F_m(x_i))$$
+
+$$w_{m+1}(i) = \frac{\bar{w}_{m+1}(i)}{\sum_j \bar{w}_{m+1}(j)}$$
+
+Let's define:
+
+$$Z_m = \sum_j \bar{w}_{m+1}(j)$$
+
+Now, we can re-write:
+
+$$w_{m+1}(i) = \frac{1}{Z_m} w_m(i)\exp(-\alpha_m y_i F_m(x_i))$$
+
+We can use this to re-write:
+
+$$w_{M+1}(i) = w_1(i)\frac{\exp(-\alpha_1 y_i F_1(x_i))}{Z_1} \times \frac{\exp(-\alpha_2 y_i F_2(x_i))}{Z_2} \dots\times \frac{\exp(-\alpha_M y_i F_M(x_i))}{Z_M}$$
+
+We know that $w_1(i) = \frac{1}{n}$ since I initialized this way. So we have:
+
+$$w_{M+1}(i) = \frac{1}{n}\frac{\exp(-y_i\sum_{m=1}^M \alpha_m F_m(x_i))}{\prod_{m=1}^M Z_m} = \frac{1}{n}\frac{\exp(-y_i h_M(x_i))}{\prod_{m=1}^M Z_m}$$
+
+where we define $h_M(x) = \sum_{m=1}^M \alpha_m F_m(x)$. And $\prod_{m=1}^M Z_m$ is our "b" above. Next, we can re-write the weights as:
+
+$$w_{T+1}(i) \prod_{m=1}^M Z_m = \frac{1}{n} \exp(-y_i h_M(x_i))$$
+
+Then, we can plug our training error back. Note that $0 < \exp(z_1), 1<\exp(z_2)$ for any $z_1 <0< z_2$. We have:
+
+$$\begin{align}
+\frac{1}{n}\sum\limits_{i=1}^n \mathbb{1}[y_i\neq f_{boost}] &\leq \frac{1}{n}\sum\limits_{i=1}^n \exp(-y_i h_M(x_i)) \\
+&= \sum\limits_{i=1}^n w_{M+1}(i)\prod_{m=1}^M Z_m = \prod_{m=1}^M Z_m
+\end{align}$$
+
+We have shown that the training error is less or equal to an intermediate value "b". Then, we work on a single $Z_m$:
+
+$$\begin{align}
+Z_m = \sum\limits_{i=1}^n w_m(i)\exp(-y_i\alpha_m F_m(x_i)) \\
+&= \sum\limits_{i:y_i=F_m(x_i)} \exp(-\alpha_m w_m(i) + \sum\limits_{i:y_i\neq F_m(x_i)} \exp(\alpha_m)w_m(i) \\
+&= \exp(-\alpha_m)(1 - \epsilon_m) + \exp(\alpha_m)\epsilon_m
+\end{align}$$
+
+where $\epsilon_m = \sum_{i:y_i\neq F_m(x_i)} w_m(i)$. If we minimize $Z_m$ with respect to $\alpha_m$, we can get:
+
+$$\alpha_m = \frac{1}{2}\ln (\frac{1 - \epsilon_m}{\epsilon_m})$$
+
+This is exactly what we have set up at the beginning.
+
+We can plug this back to find out:
+
+$$Z_m = 2\sqrt{\epsilon_m(1-\epsilon_m)} = \sqrt{1 - 4(\frac{1}{2} - \epsilon_m)^2}$$
+
+We know that $1 - x \leq \exp(-x)$. Then, we can say:
+
+$$Z_m = (1 - 4(\frac{1}{2} - \epsilon_m)^2)^{\frac{1}{2}} \leq (\exp(-4(\frac{1}{2} - \epsilon_m)^2))^{\frac{1}{2}} = \exp(-2(\frac{1}{2} - \epsilon_m)^2)
+
+For all $Z_m$, we can have:
+
+$$\prod_{m=1}^M Z_m \leq \exp(-2\sum_{m=1}^M (\frac{1}{2}-\epsilon_m)^2)$$
