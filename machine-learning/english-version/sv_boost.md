@@ -224,3 +224,61 @@ $$Z_m = (1 - 4(\frac{1}{2} - \epsilon_m)^2)^{\frac{1}{2}} \leq (\exp(-4(\frac{1}
 For all $Z_m$, we can have:
 
 $$\prod_{m=1}^M Z_m \leq \exp(-2\sum_{m=1}^M (\frac{1}{2}-\epsilon_m)^2)$$
+
+## Forward Stagewise Additive Modeling
+
+Before talking about a new boosting algorithm, it is worth talking about the general framework of ensembling. It is called **Forward Stagewise Additive Modeling**. In details, we have
+
+**Input**: Labeled training data $(x_1,y_1),\dot,(x_N,y_N)$
+
+**Output**: Ensemble classifier f(x)
+
+1, Initialize $f_0(x) = 0$
+
+2, for m=1 to M do:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Compute $(\beta_m,\gamma_m) = \arg\min_{\beta,\gamma}\sum_{i=1}^N L(y_i,f_{m-1}(x_i) + \beta G(x_i;\gamma))$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Set $f_m(x) = f_{m-1}(x) + \beta_m G(x;\gamma_m)$
+
+3, Output $f(x) = f_m(x)$
+
+In each iteration, we fix the weights and parameters of all the trained models from previous steps. We have a weak learner G(x) parameterized by $\gamma$. We can show that Adaboost is a special case of this formulation of binary setting and exponential loss:
+
+$$L(y,\bar{y}) = \exp(-y\bar{y})$$
+
+Also, we can also show that if we plug in a squared loss, then:
+
+$$L=\sum\limits_{i=1}^N (y_i-(f_{m-1}(x_i) + G(x_i)))^2 = ((y_i-f_{m-1}(x_i)) - G(x_i))^2$$
+
+It means squared loss in this formulation is equally saying that we are fitting the individual classifier to the residual $(y_i-f_{m-1}(x_i)$. This just opens a short introduction to stagewise additive learning, if you want to see more, you should check more on textbooks.
+
+## Gradient boosting
+
+Boosting is used in many areas. It is also one of examples in stagewise additive modeling. The core idea is that every iteration we learn a weak learner. That is, we just need each one to perform a little better than random guess. At the end, we can aggregate all weak learns together to form a strong one. In Adaboost, for every iteration, we want the new model to focus on the re-weighted data samples. For gradient boosting, the core idea is that we want the new model to focus on gradients from biased predictions.
+
+There are several steps to follow:
+
+1, initialize $f_0(x) = c$
+
+2, At i-th iteration, for sample $j=1,\dots,N$, we compute:
+
+$$g_{ij} = \frac{\partial L(y_i,f_{i-1}(x_i))}{\partial f_{i-1}(x_i)}$$
+
+At this point, we have new pairs $(x_1,g_{1i}),\dots,(x_N,g_{Ni})$ for i-th iteration.
+
+3, Fit a new decision or regression tree on the new pairs $(x_1,g_{1i}),\dots,(x_N,g_{Ni})$ for i-th iteration. That is,
+
+$$\gamma_i = \arg\min_{\gamma}\sum\limits_{j=1}^N (g_j-G(x_j;\gamma))^2$$
+
+4, We set
+
+$$f_i(x) = f_{i+1}(x) + G(x;\gamma_i)$$
+
+We can do this M iterations to get $f_M(X)$, which is out final output model.
+
+Again, this is just a short introduction to **Gradient Boosting**. More can be found on textbooks. There are two links that I found very helpful:
+
+[Tutorial from Northeastern University by Prof. Cheng Li](http://www.chengli.io/tutorials/gradient_boosting.pdf)
+
+[Top voted answer from Quora](https://www.quora.com/What-is-an-intuitive-explanation-of-Gradient-Boosting)
