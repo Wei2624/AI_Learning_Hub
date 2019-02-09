@@ -182,7 +182,10 @@ $$w_{m+1}(i) = \frac{1}{Z_m} w_m(i)\exp(-\alpha_m y_i F_m(x_i))$$
 
 We can use this to re-write:
 
-$$w_{M+1}(i) = w_1(i)\frac{\exp(-\alpha_1 y_i F_1(x_i))}{Z_1} \times \frac{\exp(-\alpha_2 y_i F_2(x_i))}{Z_2} \dots\times \frac{\exp(-\alpha_M y_i F_M(x_i))}{Z_M}$$
+$$\begin{align}
+w_{M+1}(i) &= w_1(i)\frac{\exp(-\alpha_1 y_i F_1(x_i))}{Z_1} \times \frac{\exp(-\alpha_2 y_i F_2(x_i))}{Z_2}  \\
+&\dots\times \frac{\exp(-\alpha_M y_i F_M(x_i))}{Z_M}
+\end{align}$$
 
 We know that $w_1(i) = \frac{1}{n}$ since I initialized this way. So we have:
 
@@ -202,7 +205,7 @@ $$\begin{align}
 We have shown that the training error is less or equal to an intermediate value "b". Then, we work on a single $Z_m$:
 
 $$\begin{align}
-Z_m = \sum\limits_{i=1}^n w_m(i)\exp(-y_i\alpha_m F_m(x_i)) \\
+Z_m &= \sum\limits_{i=1}^n w_m(i)\exp(-y_i\alpha_m F_m(x_i)) \\
 &= \sum\limits_{i:y_i=F_m(x_i)} \exp(-\alpha_m w_m(i) + \sum\limits_{i:y_i\neq F_m(x_i)} \exp(\alpha_m)w_m(i) \\
 &= \exp(-\alpha_m)(1 - \epsilon_m) + \exp(\alpha_m)\epsilon_m
 \end{align}$$
