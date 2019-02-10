@@ -13,8 +13,12 @@ sidebar:
   nav: "MachineLearning"
 ---
 
+A Chinese version of this section is available. It can be found [here](https://dark417.github.io/MachineLearning/sv_regularization_model_selection_ch/). The Chinese version will be synced periodically with English version. If the page is not working, you can check out a back-up link [here](https://wei2624.github.io/MachineLearning/sv_regularization_model_selection_ch/).
 
-In model selection, if we have k parameters in the model, the quesiton is what k should be?0,1,or 10?Which does one of them give the best bias-varaince tradeoff. In particular, we use a finite set of models $\mathcal{M} = \{M_1,M_2,\dots,M_d\}$ from which we try to select the best. Each model in the set contains either different parameterization of a particular model or different models. 
+---
+
+
+In model selection, if we have k parameters in the model, the quesiton is what k should be?0,1,or 10?Which does one of them give the best bias-varaince tradeoff. In particular, we use a finite set of models $\mathcal{M} = \{M_1,M_2,\dots,M_d\}$ from which we try to select the best. Each model in the set contains either different parameterization of a particular model or different models.
 
 # 1 Cross Validation
 
@@ -22,7 +26,7 @@ Imagine that given a dataset S and a set of models, it is easy to think to selec
 
 1 Training each model $M_i$  from S and get the hypothesis $h_i$.
 
-2 Pick the hypothesis with the smallest training error. 
+2 Pick the hypothesis with the smallest training error.
 
 This pipeline does not work simply because the higher order of the polynomial you choose, the better it will fit for the training set. However, the model you select will have a high generalizaton error in a new dataset. That is, it will be high variance.
 
@@ -34,7 +38,7 @@ In this scenario, **hold-out cross validation** will do a better work as:
 
 3 Select the hypothesis which has the smallest epirical error on the $S_{cv}$, which denotes $\hat{\varepsilon}\_{S_{cv}}(h_i)$
 
-By doing the above, we try to estimate the real generalization error by testing the model on validation set. In step 3, after selecting the best model, we can retrain the model on the entire dataset again to generate the best hypothesis. However, even though that's the case, we still select the model based on 70% dataset. This is bad when data is scarce. 
+By doing the above, we try to estimate the real generalization error by testing the model on validation set. In step 3, after selecting the best model, we can retrain the model on the entire dataset again to generate the best hypothesis. However, even though that's the case, we still select the model based on 70% dataset. This is bad when data is scarce.
 
 Thus, we introduce the K-fold corss validation as:
 
@@ -42,9 +46,9 @@ Thus, we introduce the K-fold corss validation as:
 
 2 For each model $M_i$, we unselect one of subsets dentoed j, and train the model on the rest of data to get the hypothesis $H_{ij}$. We test the hypothesis on $S_j$ and get $\varepsilon_{S_j}(h_{ij})$. We do this for all j. And lastly, we take average the generalization error over j.
 
-3 We select the model with the smallest averaged generalization error. 
+3 We select the model with the smallest averaged generalization error.
 
-A typical choice for k is 10. This is computationally expensive although it gives the best performance. If the data is scarce, we might set k=m. In this case, we leave one sample at a time. We call it **leave-ont-out cross validation**. 
+A typical choice for k is 10. This is computationally expensive although it gives the best performance. If the data is scarce, we might set k=m. In this case, we leave one sample at a time. We call it **leave-one-out cross validation**. 
 
 # 2 Feature Selection
 
@@ -54,11 +58,11 @@ If we have n features and m samples where $n \gg m$ (VC dimension is O(n)), we m
 
 2 Repeat: (a)for $i =1,\dots,n$ if $i\notin\mathcal{F}$, let $\mathcal{F}_i = \mathcal{F}\cup\{i\}$ and use some corss validation algorithm to evaluate $\mathcal{F}_i$. (b)Set $\mathcal{F}$ to be the best feature subset from (a)
 
-3 Select the best feature subset from the above. 
+3 Select the best feature subset from the above.
 
-You can terminate the loop by setting the number of features you like to have. In contrast, we can also have **backward search** in for feature selection, which is similar wtih the section of **Ablative Analysis**. However, both of them are computationally expensive since it requires $O(n^2)$ in time complexity. 
+You can terminate the loop by setting the number of features you like to have. In contrast, we can also have **backward search** in for feature selection, which is similar wtih the section of **Ablative Analysis**. However, both of them are computationally expensive since it requires $O(n^2)$ in time complexity.
 
-Instead, we can use **Filter feature selection** heristically. The idea is to give a score to how informative each feature is with respect to labels y. Then we pick the best out of it. 
+Instead, we can use **Filter feature selection** heristically. The idea is to give a score to how informative each feature is with respect to labels y. Then we pick the best out of it.
 
 One intuitive option of the sorce is to compute the correlation between each feature $x_i$ and y. In practice, we set the score to be **mutual information** as:
 
@@ -68,7 +72,7 @@ where we assume each feature and label is binary-valued and the summation is ove
 
 $$MI(x_i,y) = KL(p(x_i,y)\lvert\lvert p(x_i)p(y))$$
 
-where KL is **Kullback-Leibler divergence**. It simply measures how different the probability distributions from both sides of the two bars are. If $x_i$ and $y$ are independent, then KL is 0. That means there is no relationship between this feature and labels. In contrast, if we have a high score of MI, then such a feature is strongly correlated with labels. 
+where KL is **Kullback-Leibler divergence**. It simply measures how different the probability distributions from both sides of the two bars are. If $x_i$ and $y$ are independent, then KL is 0. That means there is no relationship between this feature and labels. In contrast, if we have a high score of MI, then such a feature is strongly correlated with labels.
 
 # 3 Bayesian Statistics and regularization
 
@@ -76,7 +80,7 @@ In the previous section, we talk about the maximum likelihood (ML) algorithm to 
 
 $$\theta_{ML} = \arg\max\prod_{i=1}^m p(y^{(i)}\lvert x^{(i)},\theta)$$
 
-In this case, we viewed $\theta$ as a unknown parameter. It already exists there and just happens to be unknown. So our job is to find the unknown or estimate it. 
+In this case, we viewed $\theta$ as a unknown parameter. It already exists there and just happens to be unknown. So our job is to find the unknown or estimate it.
 
 On the other hand, we can have a Bayesian view of this goal. We think the unknown parameter $\theta$ is also random. Thus, we place our prior belief on this parameter. We call it **prior distribution**. Given the prior distribution, we can calculate the posterior with dataset S as :
 
@@ -90,4 +94,4 @@ At this point, we can calculate the conditional expected value y. However, it is
 
 $$\theta_{MAP} = \arg\max_{\theta} = \prod_{i=1}^m p(y^{(i)}\lvert x^{(i)},\theta)p(\theta)$$
 
-In general, the prior is usually zero mean and unit variance. This will make MAP less susceptiable overfitting than the ML estimate of the parameters. 
+In general, the prior is usually zero mean and unit variance. This will make MAP less susceptiable overfitting than the ML estimate of the parameters.
