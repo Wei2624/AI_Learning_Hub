@@ -89,8 +89,6 @@ $$\sum\limits_i (y_i - f(x_i))^2$$
 
 初始区域通常是整个数据集，首先我们在维度j的阈值s处分割一个区域R。我们可以定义$R^{-}(j,s) = \{ x_i\in\mathbb{R}^d\lvert x_i(j) \leq s \}$ and $R^{+}(j,s) = \{ x_i\in\mathbb{R}^d\lvert x_i(j) \geq s \}$。那么，对于每个维度j，我们计算并找到最佳分裂点s。我们应该为每个现有的区域（叶节点）执行此操作，并根据定义好的度量标准选择出最佳区域分割。
 
-**In a word, we always select a region (leaf node), then a feature and then a threshold to form a new split.**
-
 **简而言之，我们需要选择一个区域（叶节点），然后选择一个特征，再之后选择一个阈值来形成一个新的分割。**
 
 ## 分类树学习算法
@@ -105,7 +103,7 @@ $$\sum\limits_i (y_i - f(x_i))^2$$
 
 3, 信息熵：$-\sum_k p_k \ln p_k$
 
-其中$p_k$代表每个类的empirical portion，k表示类索引。对于二元分类，如果我们绘制出每次评估相对于$p_k$的值，我们可以看到：
+其中$p_k$代表每个类的经验概率（empirical portion），k表示类索引。对于二元分类，如果我们绘制出每次评估相对于$p_k$的值，我们可以看到：
 
 ![Evaluation Plot](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_9.png)
 
