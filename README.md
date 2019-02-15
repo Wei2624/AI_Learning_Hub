@@ -125,4 +125,4 @@ Please respect the authorship of each blog there. If you want to distribute them
 |ML|[Discriminative Algorithm](https://dark417.github.io/MachineLearning/sv_discriminative_model_ch/)|CH|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
 |ML|[Support Vector Machine](https://air-yan.github.io//MachineLearning/sv_svm_ch/)|CH|[Zishi Yan](https://air-yan.github.io/)|WeChat:air-sowhat|
 |ML|[Bias-Varaince and Error Analysis](https://dark417.github.io/MachineLearning/sv_bias_variance_tradeoff_ch/)|CH|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
-|ML|[Regularization and Model Selection](https://dark417.github.io/MachineLearning/sv_regularization_model_selection_ch/)|EN|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
+|ML|[Regularization and Model Selection](https://dark417.github.io/MachineLearning/sv_regularization_model_selection_ch/)|CH|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
