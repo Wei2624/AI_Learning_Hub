@@ -100,22 +100,29 @@ Please respect the authorship of each blog there. If you want to distribute them
 
 # Blog Information
 
+## Blogs in English
+
 | Module | Blog Title | Lang | Author | Contact |
 |:--------:|:------------:|:------:|:--------:|:---------:|
 |ML|[Generative Algorithm](https://wei2624.github.io/MachineLearning/sv_generative_model/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
-|ML|[Generative Algorithm](https://air-yan.github.io/machine%20learning/Generative-Learning-Algorithm/)|CH|[Zishi Yan](https://air-yan.github.io/)|WeChat:air-sowhat|
 |ML|[Discriminative Algorithm](https://wei2624.github.io/MachineLearning/sv_discriminative_model/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
-|ML|[Discriminative Algorithm](https://dark417.github.io/MachineLearning/sv_discriminative_model_ch/)|CH|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
 |ML|[Support Vector Machine](https://wei2624.github.io/MachineLearning/sv_svm/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
-|ML|[Support Vector Machine](https://air-yan.github.io//MachineLearning/sv_svm_ch/)|CH|[Zishi Yan](https://air-yan.github.io/)|WeChat:air-sowhat|
 |ML|[Bias-Varaince and Error Analysis](https://wei2624.github.io/MachineLearning/sv_bias_variance_tradeoff/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
-|ML|[Bias-Varaince and Error Analysis](https://dark417.github.io/MachineLearning/sv_bias_variance_tradeoff_ch/)|CH|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
 |ML|[Learning Theory ](https://wei2624.github.io/MachineLearning/sv_learning_theory/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |ML|[Regularization and Model Selection](https://wei2624.github.io/MachineLearning/sv_regularization_model_selection/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
-|ML|[Regularization and Model Selection](https://dark417.github.io/MachineLearning/sv_regularization_model_selection_ch/)|EN|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
 |ML|[Online Learning and Perceptron Algorithm](https://wei2624.github.io/MachineLearning/sv_online_learning_perceptron/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |ML|[K-Means](https://wei2624.github.io/MachineLearning/usv_kmeans/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |ML|[EM Algorithm](https://wei2624.github.io/MachineLearning/usv_em/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |ML|[Variational Inference](https://wei2624.github.io/MachineLearning/bayes_vi/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |DL|[Nerual Networks ](https://wei2624.github.io/MachineLearning/dl_neural_network/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
 |DL|[Backpropagation](https://wei2624.github.io/MachineLearning/dl_propagtion/)|EN|[Wei Zhang](https://wei2624.github.io/)|weiuw2624@gmail.com|
+
+## Blogs in Chinese
+
+| Module | Blog Title | Lang | Author | Contact |
+|:--------:|:------------:|:------:|:--------:|:---------:|
+|ML|[Generative Algorithm](https://air-yan.github.io/machine%20learning/Generative-Learning-Algorithm/)|CH|[Zishi Yan](https://air-yan.github.io/)|WeChat:air-sowhat|
+|ML|[Discriminative Algorithm](https://dark417.github.io/MachineLearning/sv_discriminative_model_ch/)|CH|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
+|ML|[Support Vector Machine](https://air-yan.github.io//MachineLearning/sv_svm_ch/)|CH|[Zishi Yan](https://air-yan.github.io/)|WeChat:air-sowhat|
+|ML|[Bias-Varaince and Error Analysis](https://dark417.github.io/MachineLearning/sv_bias_variance_tradeoff_ch/)|CH|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
+|ML|[Regularization and Model Selection](https://dark417.github.io/MachineLearning/sv_regularization_model_selection_ch/)|EN|[Xiaoxiao Lei](https://dark417.github.io/)|WeChat: Dark417|
