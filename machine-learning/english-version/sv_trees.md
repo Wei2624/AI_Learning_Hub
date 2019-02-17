@@ -13,6 +13,9 @@ sidebar:
   nav: "MachineLearning"
 ---
 
+A Chinese version of this section is available. It can be found [here](https://air-yan.github.io//MachineLearning/sv_trees_ch/). The Chinese version will be synced periodically with English version. If the page is not working, you can check out a back-up link [here](https://wei2624.github.io/MachineLearning/sv_trees_ch/).
+
+---
 
 
 # Introduction
