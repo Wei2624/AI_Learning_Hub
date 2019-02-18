@@ -57,13 +57,13 @@ Var(\frac{1}{n}\sum\limits_i X_i) &= \frac{1}{n^2} Var(\sum\limits_i X_i) \\
 
 ## Bootstrap
 
-Bootstrap is basically a re-sampling technique for improving estimators on the data. In this algorithm, we keep sampling from the empirical distribution of the data to estimate statistics of the data.
+简单来讲，Bootstrap是一种重新采样技术，它用于改进数据的估算器（estimator）。在该算法中，我们从数据的经验分布中不断采样以估计数据。
 
-Let's say we have an trained estimator E for the statistic such as median of the data. The question is how confident our estimator is and how much variance it is. We can use bootstrap to find out. In bootstrap algorithm, we do:
+假设我们有一个经过训练的统计类估算器E，例如计算数据的中位数。我们想知道这个估算器估算的置信度有多高，以及它与真实数据的差异有多大。这里我们可以使用bootstrap来进行测评。在bootstrap算法中，我们可以：
 
-**1,** Generate bootstrap samples $\mathbb{B}_1,\dots,\mathbb{B}_B$ where $\mathbb{B}_b$ is created by picking n samples from the dataset of size n **with** replacement
+**1,** 生成bootstrap样本$\mathbb{B}_1,\dots,\mathbb{B}_B$，其中$\mathbb{B}_b$是通过从数据为n的数据集中**有放回**的抽取样本而生成的。
 
-**2,** Evaluate the estimator on each $\mathbb{B}_b$ as:
+**2,** 评估每个$\mathbb{B}_b$的估算值为：
 
 $$E_b = E(\mathbb{B}_b)$$
 
