@@ -132,15 +132,15 @@ $$\begin{align}
 
 # Boosting
 
-We know that bagging is to reduce the variance from a single tree. Boosting is, on the other hand, to reduce bias. In bagging, we generate bootstrap sample to train each individual model. In boosting, we re-weighted each sample in the bootstrap after every training iteration. Graphically, we have:
+我们现在知道了bagging是为了减少使用决策树时的误差，而Boosting则是为了减少偏差。在bagging中，我们生成bootstrap样本训练每个模型。在boosting中，我们在每次训练迭代后对bootstrap中的每个样本进行重新加权。如图所示：
 
 ![Bagging Boost Examples](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_boost_1.png)
 
-Formally, we have the AdaBoost Algorithm as:
+定义上讲，Adaboost为:
 
 **1,** Initialize $w_i \leftarrow \frac{1}{N}$ for $i=1,2,\dots,n$ and it is binary classification.
 
-**2,** For m=0 to M:
+**2,** 对 m=0 到 M:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample a bootstrap dataset $B_m$ of size n according to distribution $w_t(i)$
 
@@ -154,9 +154,9 @@ Formally, we have the AdaBoost Algorithm as:
 
 In each iteration, the misclassified samples are up-weighted cumulatively. The final prediction is weighted by weighted error. The summation allows additive terms for adding more modeling capability but will result in a high variance since each trained model is dependent. Thus, increasing M will increase variance as well.
 
-## Analysis of boosting
+## Boosting分析
 
-it is worth talking about the accuracy of boosting on training data. This is purely theoretic, and you can skip it if you want.
+值得一谈的是Boosting训练的准确性。这部分是纯粹理论，如果你愿意可以跳过它。
 
 **Theorem**: With AdaBoost algorithm, if $\epsilon_m$ is the weighted error of classifier $f_m$, then the final classification $f_{noost}(x_0)=sign(\sum_{m=1}^M \alpha_mf_m(x_0))$. The training error can be bounded as:
 
