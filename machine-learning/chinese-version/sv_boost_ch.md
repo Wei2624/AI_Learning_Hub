@@ -96,21 +96,21 @@ $$f(x_0) = \frac{1}{B} \sum\limits_{b=1}^B f_b(x_0)$$
 
 ![Bagging Examples](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_15.png)
 
-Let's back to the equation:
+让我们回到等式：
 
 $$Var(\bar{X}) = p\sigma^2 + \frac{1-p}{n}\sigma^2$$
 
-As we talked about, one way to reduce the variance is that we have less correlation on each trained model. Bagging achieves this by training on different datasets. One might concert about the fact that this will increase the bias since each bootstrap does not take the full training samples from the original dataset. However, it turns out that the decrease in variance is more than the increase in bias. Also, we can keep reducing variance by introducing more models (i.e. increase M). This will not lead to overfitting because $p$ is insensitive to M. Thus, overall variance can only decrease.
+正如我们所讨论的，减少误差的一种方法是使每个训练模型上的相关性变小。 Bagging可以通过对不同的数据集训练，实现这一目标。我们无法否认的是，由于每个bootstrp从原始数据集中只获取部分训练样本，这可能会使偏差加大。然而事实证明，由此带来的误差的减少将大于偏差的增加。此外，我们可以通过引入更多模型（即增加M）不断减少误差。这并不会导致过拟合，因为$p$对M不敏感，所以整体误差只会减少。
 
-However, there are two key points that should be emphasized:
+以下两点需要强调：
 
-**1,** With bagging,each tree does not need to be perfect. "Ok" is fine.
+**1,** 用bagging时，每个决策树并不需要做到完美，OK就差不多了。
 
-**2,** Bagging often improves when the function is non-linear.
+**2,** Bagging在非线性数据中表现更好。
 
 ### Out-of-bag estimation
 
-In each bootstrap, we can only contain a portion of original dataset. Let's assume that we sample it from uniform distribution with replacement. As dataset size $n\rightarrow \infty$, we have the probability of a sample not being selected as:
+在每个bootstrap中，我们只选择原始数据集的一部分。让我们假设我们均匀分布中对其进行**有放回**采样。由于数据集大小为$n\rightarrow \infty$，对于某一个样本，它未被选择的概率为：
 
 $$\begin{align}
 \lim\limits_{n\rightarrow \infty} (1-\frac{1}{n})^n &= \lim\limits_{n\rightarrow \infty} \exp(n\log(1-\frac{1}{n})) \\
@@ -118,17 +118,17 @@ $$\begin{align}
 &= \exp(-1)
 \end{align}$$
 
-This is roughly one third. That means one third of data not being selected in a single bootstrap. To test our bagging-trained models, for i-th sample, we can ask those models (approxmiately M/3 models) that are not trained on this sample to make prediction. By doing this over the entire dataset, we can obtain the out-of-bag error estimation. In the extreme case where $M\rightarrow\infty$, those models that are not trained on i-th sample are trained on all other samples. This gives us the same results as leave-one-out corss-validation does.
+这大约是三分之一，这意味着一个bootstrap中约有三分之一的原始数据未被选中进行训练。为了测试我们的bagging训练模型，对于第i个样本，我们可以用未经过该样本训练过的那些模型（大约M / 3模型）在此样本上进行预测。通过在整个数据集中执行此操作，我们可以获得out-of-bag（词如其名，bagging外的误差）误差估计。在$M\rightarrow\infty$的极端情况下，未对第i个样本进行训练的模型，对所有其他样本进行了训练，这个效果与交叉验证的留一法相同。
 
-## Random Forests
+## 随机森林
 
-There are drawbacks of Bagging. The bagged tress trained from bootstrap is related because bootstraps are correlated. This is unwanted because we want to have less correlation. The bagging will not be able to have the best performance. Thus, random forest is proposed. The modification is small but works. Instead of growing a tree on all dimensions, random forests propose to grow a tree on randomly selected subset of dimensions. In details,
+不过Bagging也是存在缺点的。从bootstrap训练的决策树是彼此相关的，因为bootstrap之间是相关的。这是我们不想见到的，我们只希望减少相关性。这样的bagging将无法获得最佳性能。因此，有人就提出了随机森林，这种方法，修改虽小但却很有效。bagging是在所有维度上生长决策树，随机森林则是在随机选择的维度子集中生长决策树，详细为：
 
-For $b=1,\dots,B$,
+对 $b=1,\dots,B$,
 
-**1,** Draw a bootstrap $\mathbb{B}_b$ of size n from training dataset
+**1,** 从训练数据集中提取大小为n的bootstrap$\mathbb{B}_b$
 
-**2,** Train a tree classifier on $\mathbb{B}_b$. For each training, we randomly select a predefined m dimensions of d ($m \approx \sqrt(d)$). For each bootstrap, we have different m dimensions.
+**2,** 对于每次训练，我们从d维度中随机选择m维($m \approx \sqrt(d)$)。对于每个bootstrap，我们有不同的维度m。
 
 # Boosting
 
