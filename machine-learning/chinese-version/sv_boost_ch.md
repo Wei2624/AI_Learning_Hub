@@ -57,41 +57,42 @@ Var(\frac{1}{n}\sum\limits_i X_i) &= \frac{1}{n^2} Var(\sum\limits_i X_i) \\
 
 ## Bootstrap
 
-简单来讲，Bootstrap是一种重新采样技术，它用于改进数据的估算器（estimator）。在该算法中，我们从数据的经验分布中不断采样以估计数据。
+简单来讲，Bootstrap是一种重新采样技术，它可以用于改进数据的estimator。在该算法中，我们从数据的经验分布中不断采样，最后得到数据的统计值。
 
-假设我们有一个经过训练的统计类估算器E，例如计算数据的中位数。我们想知道这个估算器估算的置信度有多高，以及它与真实数据的差异有多大。这里我们可以使用bootstrap来进行测评。在bootstrap算法中，我们可以：
+假设我们有一个经过训练的estimator E，这个estimator可以预测数据的中位数。我们想知道这个estimator估算的置信度有多高，以及它与真实数据的差异有多大。这里我们可以使用bootstrap来进行测评。在bootstrap算法中，我们可以：
 
-**1,** 生成bootstrap样本$\mathbb{B}_1,\dots,\mathbb{B}_B$，其中$\mathbb{B}_b$是通过从数据为n的数据集中**有放回**的抽取样本而生成的。
+**1,** Bootstrap样本$\mathbb{B}_1,\dots,\mathbb{B}_B$，其中$\mathbb{B}_b$，是通过从数据为n的数据集中**有放回**的抽取样本而生成的。
 
-**2,** 评估每个$\mathbb{B}_b$的估算值为：
+**2,** 得到每个Bootstrap $\mathbb{B}_b$的estimator为：
 
 $$E_b = E(\mathbb{B}_b)$$
 
-**3,** Estimate the mean and variance of E:
+**3,** 计算E的均值与方差:
 
-$$\mu_B = \frac{1}{B}\sum\limits_{n=1}^B E_b, \sigma_B^2 = \frac{1}{B}\sum\limits_{b=1}^B (E_b - \mu_B)^2$$
+$$\mu_B = \frac{1}{B}\sum\limits_{n=1}^B E_b,   \sigma_B^2 = \frac{1}{B}\sum\limits_{b=1}^B (E_b - \mu_B)^2$$
 
-This can tell us how our estimator performs on estimating the median of the data.
+这可以让我们了解estimator在估算数据中值时的表现如何。
 
 ## Bagging
 
-Bagging basically uses the idea of bootstrap for regression or Classification. It represents **Bootstrap aggregation**.
+Bagging使用bootstrap的概念进行回归或分类，它代表着**Bootstrap聚合**。
 
-The algorithm is as the following:
+算法如下：
 
-For $b=1,\dots,B$,
+对于$b=1,\dots,B$，
 
-**1,** Draw a bootstrap $\mathbb{B}_b$ of size n from training dataset
+**1,** 从训练数据集中提取大小为n的bootstrap$\mathbb{B}_b$
+Draw a bootstrap $\mathbb{B}_b$ of size n from training dataset
 
-**2,** Train a tree classifier or tree regression model $f_b$ on $\mathbb{B}_b$.
+**2,** 对bootstrap $\mathbb{B}_b$，训练决策树分类器或决策树回归模型$f_b$。
 
-To predict, for a new point $x_0$, we compute:
+要预测新数据点$x_0$，我们需要计算：
 
 $$f(x_0) = \frac{1}{B} \sum\limits_{b=1}^B f_b(x_0)$$
 
-For regression problem, we can see this is just the average of of prediction of each trained classifier. For classification task, we can use a voting mechanism for the final result.  
+对于回归问题，我们只需要计算出所有分类器的预测平均值即可。对于分类任务，我们可以使用投票机制来获得最终结果。
 
-For example, let's say we have an input feature $x\in \mathbb{R}^5$ for a binary classification.  We can use bootstrap strategy to train multiple classifier as:
+假设在二元分类中，有一个输入特征$x\in \mathbb{R}^5$。如下所示，我们可以使用bootstrap来训练多个分类器：
 
 ![Bagging Examples](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_15.png)
 
