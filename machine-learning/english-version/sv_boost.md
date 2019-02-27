@@ -254,7 +254,7 @@ Also, we can also show that if we plug in a squared loss, then:
 
 $$L=\sum\limits_{i=1}^N (y_i-(f_{m-1}(x_i) + G(x_i)))^2 = ((y_i-f_{m-1}(x_i)) - G(x_i))^2$$
 
-It means squared loss in this formulation is equally saying that we are fitting the individual classifier to the residual $(y_i-f_{m-1}(x_i)$. This just opens a short introduction to stagewise additive learning, if you want to see more, you should check more on textbooks.
+It means squared loss in this formulation is equally saying that we are fitting the individual classifier to the residual $(y_i-f_{m-1}(x_i))$. This just opens a short introduction to stagewise additive learning, if you want to see more, you should check more on textbooks.
 
 ## Gradient boosting
 

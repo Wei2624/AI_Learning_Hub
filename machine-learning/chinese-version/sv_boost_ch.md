@@ -16,7 +16,7 @@ permalink： /MachineLearning/sv_boost_ch/
 
 # 简介
 
-在决策树章节中，我们讨论了如何在回归和分类任务中应用决策树，以及如何构建决策树。正如该章节中所述，决策树模型能力有限，过拟合问题难以解决，我们很难训练一个在一般情况下表现良好的决策树。因此，该章节中提出了使用决策树的集成算法。简而言之，多个训练模型的表现比单个模型的表现会更好。
+在决策树章节中，我们讨论了如何在回归和分类任务中应用决策树，以及如何构建决策树。正如决策树章节中所述，决策树模型能力有限，过拟合问题难以解决，我们很难训练一个在一般情况下表现良好的决策树。因此，该章节中提出了使用决策树的集成算法。简而言之，多个训练模型的表现比单个模型的表现会更好。
 
 我们有n个独立同分布的随机变量$X_i$，其中$0 \leq i \leq n$，并假设所有$X_i$有$Var(X_i) = \sigma^2$。那么，我可以得到$X_i$均值的方差为：
 
@@ -81,10 +81,9 @@ Bagging使用bootstrap的概念进行回归或分类，它代表着**Bootstrap�
 
 对于$b=1,\dots,B$，
 
-**1,** 从训练数据集中提取大小为n的bootstrap$\mathbb{B}_b$
-Draw a bootstrap $\mathbb{B}_b$ of size n from training dataset
+**1,** 从训练数据集中提取大小为n的bootstrap数据$\mathbb{B}_b$
 
-**2,** 对bootstrap $\mathbb{B}_b$，训练决策树分类器或决策树回归模型$f_b$。
+**2,** 对bootstrap数据$\mathbb{B}_b$训练决策树分类器或决策树回归模型$f_b$。
 
 要预测新数据点$x_0$，我们需要计算：
 
@@ -92,7 +91,7 @@ $$f(x_0) = \frac{1}{B} \sum\limits_{b=1}^B f_b(x_0)$$
 
 对于回归问题，我们只需要计算出所有分类器的预测平均值即可。对于分类任务，我们可以使用投票机制来获得最终结果。
 
-假设在二元分类中，有一个输入特征$x\in \mathbb{R}^5$。如下所示，我们可以使用bootstrap来训练多个分类器：
+假设在二元分类中，有一个输入特征$x\in \mathbb{R}^5$。如下所示，我们可以使用bootstrap算法来训练多个分类器：
 
 ![Bagging Examples](https：//raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_trees_15.png)
 
@@ -100,7 +99,7 @@ $$f(x_0) = \frac{1}{B} \sum\limits_{b=1}^B f_b(x_0)$$
 
 $$Var(\bar{X}) = p\sigma^2 + \frac{1-p}{n}\sigma^2$$
 
-正如我们所讨论的，减少误差的一种方法是使每个训练模型上的相关性变小。 Bagging可以通过对不同的数据集训练，实现这一目标。我们无法否认的是，由于每个bootstrp从原始数据集中只获取部分训练样本，这可能会使偏差加大。然而事实证明，由此带来的误差的减少将大于偏差的增加。此外，我们可以通过引入更多模型（即增加M）不断减少误差。这并不会导致过拟合，因为$p$对M不敏感，所以整体误差只会减少。
+正如我们所讨论的，减少误差的一种方法是使每个训练模型上的相关性变小。 Bagging可以通过对不同的数据集训练，实现这一目标。我们无法否认的是，由于每个bootstrp从原始数据集中只获取部分训练样本，这可能会使偏差加大。然而事实证明，由此带来的误差的减少将大于偏差的增加。此外，我们可以通过引入更多模型（即增加M或者在等式中的n）不断减少误差。这并不会导致过拟合，因为$p$对M不敏感，所以整体误差只会减少。
 
 以下两点需要强调：
 
@@ -110,7 +109,7 @@ $$Var(\bar{X}) = p\sigma^2 + \frac{1-p}{n}\sigma^2$$
 
 ### Out-of-bag estimation
 
-在每个bootstrap中，我们只选择原始数据集的一部分。让我们假设我们均匀分布中对其进行**有放回**采样。由于数据集大小为$n\rightarrow \infty$，对于某一个样本，它未被选择的概率为：
+在每个bootstrap中，我们只选择原始数据集的一部分。让我们假设我们均匀分布中对其进行**有放回**采样。随着数据集大小为$n\rightarrow \infty$，对于某一个样本，它未被选择的概率为：
 
 $$\begin{align}
 \lim\limits_{n\rightarrow \infty} (1-\frac{1}{n})^n &= \lim\limits_{n\rightarrow \infty} \exp(n\log(1-\frac{1}{n})) \\
@@ -132,7 +131,7 @@ $$\begin{align}
 
 # Boosting
 
-我们现在知道了bagging是为了减少使用决策树时的误差，而Boosting则是为了减少偏差。在bagging中，我们生成bootstrap样本训练每个模型。在boosting中，我们在每次训练迭代后对bootstrap中的每个样本进行重新加权。如图所示：
+我们现在知道了bagging是为了减少使用决策树时的方差，而Boosting则是为了减少偏差。在bagging中，我们生成bootstrap样本训练每个模型。在boosting中，我们在每次训练迭代后对bootstrap中的每个样本进行重新加权。如图所示：
 
 ![Bagging Boost Examples](https：//raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/cs229_boost_1.png)
 
@@ -152,15 +151,13 @@ $$\begin{align}
 
 **3,** 分类所遵循的规则为 $f_{boost}(x_0) = sign(\sum_{m=1}^M \alpha_m)$
 
-在每次迭代中，错误分类的样本被累加加权。最终预测由加权误差加权。这添加了更多建模能力（**这句不太会**），但由于每个训练模型都是相关的，也会导致高误差的出现。因此，增加M也会增加误差。
+在每次迭代中，错误分类的样本的权重不断增加。最终预测由加权误差决定。计算求和的结构准许我们增加建模能力，但由于每个训练模型都是相关的，也会导致高方差的出现。因此，增加M也会增加方差。
 
 ## Boosting分析
 
 值得一谈的是Boosting训练的准确性。这部分是纯粹理论，如果你愿意可以跳过它。
 
-**定理**： With AdaBoost algorithm, if $\epsilon_m$ is the weighted error of classifier $f_m$, then the final classification $f_{noost}(x_0)=sign(\sum_{m=1}^M \alpha_mf_m(x_0))$. The training error can be bounded as：
-
-使用AdaBoost算法，如果$\epsilon_m$是分类器$f_m$的加权误差，则最终分类为$f_{noost}(x_0)=sign(\sum_{m=1}^M \alpha_mf_m(x_0))$。那么训练误差可以被表示为：
+**定理**： 使用AdaBoost算法，如果$\epsilon_m$是分类器$f_m$的加权误差，则最终分类为$f_{boost}(x_0)=sign(\sum_{m=1}^M \alpha_m f_m(x_0))$。那么训练误差可以被限制：
 
 $$\frac{1}{n}\sum\limits_{i=1}^n \mathbb{1}[y_i\neq f_{boost}(x_i)] \leq \exp(-2\sum\limits_{m=1}^M (\frac{1}{2}-\epsilon_m)^2)$$
 
@@ -184,7 +181,7 @@ $$Z_m = \sum_j \bar{w}_{m+1}(j)$$
 
 $$w_{m+1}(i) = \frac{1}{Z_m} w_m(i)\exp(-\alpha_m y_i F_m(x_i))$$
 
-改写为：
+利用上面的等式进一步改写为：
 
 $$\begin{align}
 w_{M+1}(i) &= w_1(i)\frac{\exp(-\alpha_1 y_i F_1(x_i))}{Z_1} \times \frac{\exp(-\alpha_2 y_i F_2(x_i))}{Z_2}  \\
@@ -258,11 +255,11 @@ $$L(y,\bar{y}) = \exp(-y\bar{y})$$
 
 $$L=\sum\limits_{i=1}^N (y_i-(f_{m-1}(x_i) + G(x_i)))^2 = ((y_i-f_{m-1}(x_i)) - G(x_i))^2$$
 
-It means squared loss in this formulation is equally saying that we are fitting the individual classifier to the residual $(y_i-f_{m-1}(x_i)$。这只是对逐步叠加学习的一个简短介绍，如果你想了解更多相关知识，你应该去查阅一下课本等相关书籍。
+这意味着在这个推导中的平方损失的效果等于在对每一个残差 $(y_i-f_{m-1}(x_i))$拟合一个分类器。这只是对逐步叠加学习的一个简短介绍，如果你想了解更多相关知识，你应该去查阅一下课本等相关书籍。
 
-## 梯度boosting
+## 梯度提升
 
-Boosting的应用领域很广泛，它也是逐步叠加建模的一种。其核心思想是，在每次迭代后，我们都会得到一个弱分类器。也就是说，我们只需要每个分类器的分类效果稍强于随机猜测即可。在最后，我们可以汇集所有弱分类器，形成一个能力较强的分类器。在Adaboost中，对于每次迭代，我们希望新模型专注于重新加权过的数据样本。对于梯度boosting，最重要的是我们希望新模型专注于有偏差预测的梯度。
+Boosting的应用领域很广泛，它也是逐步叠加建模的一种。其核心思想是，在每次迭代后，我们都会得到一个弱分类器。也就是说，我们只需要每个分类器的分类效果稍强于随机猜测即可。在最后，我们可以汇集所有弱分类器，形成一个能力较强的分类器。在Adaboost中，对于每次迭代，我们希望新模型专注于重新加权过的数据样本。对于梯度提升，最重要的是我们希望新模型专注于有偏差预测的梯度。
 
 步骤为：
 
