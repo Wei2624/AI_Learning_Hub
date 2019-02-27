@@ -98,7 +98,7 @@ Let's back to the equation:
 
 $$Var(\bar{X}) = p\sigma^2 + \frac{1-p}{n}\sigma^2$$
 
-As we talked about, one way to reduce the variance is that we have less correlation on each trained model. Bagging achieves this by training on different datasets. One might concert about the fact that this will increase the bias since each bootstrap does not take the full training samples from the original dataset. However, it turns out that the decrease in variance is more than the increase in bias. Also, we can keep reducing variance by introducing more models (i.e. increase M). This will not lead to overfitting because $p$ is insensitive to M. Thus, overall variance can only decrease.
+As we talked about, one way to reduce the variance is that we have less correlation on each trained model. Bagging achieves this by training on different datasets. One might concert about the fact that this will increase the bias since each bootstrap does not take the full training samples from the original dataset. However, it turns out that the decrease in variance is more than the increase in bias. Also, we can keep reducing variance by introducing more models (i.e. increase M or n in the equation). This will not lead to overfitting because $p$ is insensitive to M. Thus, overall variance can only decrease.
 
 However, there are two key points that should be emphasized:
 
