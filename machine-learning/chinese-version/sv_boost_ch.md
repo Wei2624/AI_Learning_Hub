@@ -1,15 +1,15 @@
 ---
-published:true
-layout:single
-mathjax:true
-toc:true
-toc_sticky:true
-category:Machine Learning
-tags:[notes]
-excerpt:"This post is a translation for one of Wei's posts in his machine learning notes."
-title:Ensembling Methods Chinese Version
-share:true
-author_profile:true
+published: true
+layout: single
+mathjax: true
+toc: true
+toc_sticky: true
+category: Machine Learning
+tags: [notes]
+excerpt: "This post is a translation for one of Wei's posts in his machine learning notes."
+title: Ensembling Methods Chinese Version
+share: true
+author_profile: true
 permalink: /MachineLearning/sv_boost_ch/
 ---
 
