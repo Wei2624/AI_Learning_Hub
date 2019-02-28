@@ -146,7 +146,7 @@ Formally, we have the AdaBoost Algorithm as:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set $\epsilon_m = \sum_{i=1}^n w_m(i) \mathbb{1}[y_i\neq F_m(x_i)] $ and $\alpha_m = \frac{1}{2}\ln\frac{1-\epsilon_m}{\epsilon_m}$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scale $\bar{w}_{m+1}(i) = w_m(i)\exp(-\alpha_m y_i F_m(x_i))$ and normalize 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scale $\bar{w}_{m+1}(i) = w_m(i)\exp(-\alpha_m y_i F_m(x_i))$ and normalize $w_{m+1}(i) = \frac{\bar{w}_{m+1}(i)}{\sum_j \bar{w}_{m+1}(j)}$
 
 **3,** The classification rule is $f_{boost}(x_0) = sign(\sum_{m=1}^M \alpha_m)$
 
