@@ -1,16 +1,16 @@
 ---
-published： true
-layout： single
-mathjax： true
-toc： true
-toc_sticky： true
-category： Machine Learning
-tags： [notes]
-excerpt： "This post is a translation for one of Wei's posts in his machine learning notes."
-title： Ensembling Methods Chinese Version
-share： true
-author_profile： true
-permalink： /MachineLearning/sv_boost_ch/
+published: true
+layout: single
+mathjax: true
+toc: true
+toc_sticky: true
+category: Machine Learning
+tags: [notes]
+excerpt: "This post is a translation for one of Wei's posts in his machine learning notes."
+title: Ensembling Methods Chinese Version
+share: true
+author_profile: true
+permalink: /MachineLearning/sv_boost_ch/
 ---
 
 
@@ -61,11 +61,11 @@ Var(\frac{1}{n}\sum\limits_i X_i) &= \frac{1}{n^2} Var(\sum\limits_i X_i) \\
 
 假设我们有一个经过训练的estimator E，这个estimator可以预测数据的中位数。我们想知道这个estimator估算的置信度有多高，以及它与真实数据的差异有多大。这里我们可以使用bootstrap来进行测评。在bootstrap算法中，我们可以：
 
-**1,** Bootstrap样本$\mathbb{B}_1,\dots,\mathbb{B}_B$，其中$\mathbb{B}_b$，是通过从数据为n的数据集中**有放回**的抽取样本而生成的。
+**1,** Bootstrap样本$\mathbb{B}\_1,\dots,\mathbb{B}\_B$，其中$\mathbb{B}\_b$，是通过从数据为n的数据集中**有放回**的抽取样本而生成的。
 
-**2,** 得到每个Bootstrap $\mathbb{B}_b$的estimator为：
+**2,** 得到每个Bootstrap $\mathbb{B}\_b$的estimator为：
 
-$$E_b = E(\mathbb{B}_b)$$
+$$E_b = E(\mathbb{B}\_b)$$
 
 **3,** 计算E的均值与方差：
 
@@ -81,9 +81,9 @@ Bagging使用bootstrap的概念进行回归或分类，它代表着**Bootstrap�
 
 对于$b=1,\dots,B$，
 
-**1,** 从训练数据集中提取大小为n的bootstrap数据$\mathbb{B}_b$
+**1,** 从训练数据集中提取大小为n的bootstrap数据$\mathbb{B}\_b$
 
-**2,** 对bootstrap数据$\mathbb{B}_b$训练决策树分类器或决策树回归模型$f_b$。
+**2,** 对bootstrap数据$\mathbb{B}\_b$训练决策树分类器或决策树回归模型$f_b$。
 
 要预测新数据点$x_0$，我们需要计算：
 
@@ -125,7 +125,7 @@ $$\begin{align}
 
 对 $b=1,\dots,B$,
 
-**1,** 从训练数据集中提取大小为n的bootstrap$\mathbb{B}_b$
+**1,** 从训练数据集中提取大小为n的bootstrap$\mathbb{B}\_b$
 
 **2,** 对于每次训练，我们从d维度中随机选择m维($m \approx \sqrt(d)$)。对于每个bootstrap，我们有不同的维度m。
 
@@ -147,7 +147,7 @@ $$\begin{align}
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设 $\epsilon_m = \sum_{i=1}^n w_m(i) \mathbb{1}[y_i\neq F_m(x_i)] $ 并且 $\alpha_m = \frac{1}{2}\ln\frac{1-\epsilon_m}{\epsilon_m}$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scale $\bar{w}_{m+1}(i) = w_m(i)\exp(-\alpha_m y_i F_m(x_i))$ and normalize $w_{m+1}(i) = \frac{\bar{w}_{m+1}(i)}{\sum_j \bar{w}_{m+1}(j)}$ **这句有问题**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;缩放 $\bar{w}\_{m+1}(i) = w_m(i)\exp(-\alpha_m y_i F_m(x_i))$ 并且归一化 $w\_{m+1}(i) = \frac{\bar{w}\_{m+1}(i)}{\sum_j \bar{w}\_{m+1}(j)}$ 
 
 **3,** 分类所遵循的规则为 $f_{boost}(x_0) = sign(\sum_{m=1}^M \alpha_m)$
 
@@ -169,13 +169,13 @@ $$\frac{1}{n}\sum\limits_{i=1}^n \mathbb{1}[y_i\neq f_{boost}(x_i)] \leq \exp(-2
 
 回想：
 
-$$\bar{w}_{m+1}(i) = w_m (i) \exp(-\alpha_m y_i F_m(x_i))$$
+$$\bar{w}\_{m+1}(i) = w_m (i) \exp(-\alpha_m y_i F_m(x_i))$$
 
 $$w_{m+1}(i) = \frac{\bar{w}_{m+1}(i)}{\sum_j \bar{w}_{m+1}(j)}$$
 
 我们可以定义：
 
-$$Z_m = \sum_j \bar{w}_{m+1}(j)$$
+$$Z_m = \sum_j \bar{w}\_{m+1}(j)$$
 
 那么，我们可以将其改写：
 
