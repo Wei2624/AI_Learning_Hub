@@ -50,3 +50,13 @@ If we have a 2D Gaussian and plot it, we should see a contours that are circles.
 To see why this helps, if we model a full, unconstrained covariance matrix, it was necessary (not sufficient) that $m\geq n$ in order to make $\Sigma$ non-singular. On the other hand, either of the two restriction above will produce a non-singular matrix $\Sigma$ when $m\geq 2$.
 
 However, both restrictions have the same issue. That is, we cannot model the correlation and dependence between any pair of features in the covariance matrix because they are forced to be zero. So We cannot capture any correlation between any pair of features, which is bad. 
+
+# Marginals and Conditions of Gaussian
+
+Before talking about factor analysis, we want to talk about how to find conditional and marginal distributions of multivariate Gaussian variables. 
+
+Suppose we have a vector-valued random variable:
+
+$$x = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$$
+
+where $x_1\in \mathbb{R}^r, x_2\in$
