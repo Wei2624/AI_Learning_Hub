@@ -303,8 +303,8 @@ $$\log L(\theta) = \sum\limits_{i=1}^m y^{(i)}\log h(x^{(i)}) + (1-y^{(i)})\log(
 然后，我们可以使用梯度下降来优化代价函数。 在更新中，我们应该有 $\theta = \theta + \alpha\triangledown_{\theta}L(\theta)$。 注意我们有加号而不是减号，因为我们发现最大值不是最小值。 接下来求导数：
 
 $$\begin{align}
-\frac{\partial}{\partial\theta_j}L(\theta) &= \bigg(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(^Tx)}\bigg)\frac{\partial}{\partial\theta_j}g(\theta^Tx)\\
-&= \bigg(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(^Tx)}\bigg) g(\theta^Tx)* \\
+\frac{\partial}{\partial\theta_j}L(\theta) &= \bigg(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\bigg)\frac{\partial}{\partial\theta_j}g(\theta^Tx)\\
+&= \bigg(y\frac{1}{g(\theta^Tx)}-(1-y)\frac{1}{1-g(\theta^Tx)}\bigg) g(\theta^Tx)* \\
 &(1 - g(\theta^Tx))\frac{\partial}{\partial\theta_j}\theta^Tx\\
 &= (y - h_{\theta}(x))x_j
 \end{align}$$
