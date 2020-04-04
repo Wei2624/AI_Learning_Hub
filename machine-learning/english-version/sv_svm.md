@@ -21,7 +21,7 @@ In this blog, I will talk about Support Vector Machine (SVM). Many people think 
 
 # 1 Intuition and Notation
 
-In general, binary classification is of great interests since it is the simplest case for multi-classes classification. We have seen probabilistic models in the previous sectons such as logistic regression. On the other hand, SVM can classify points in a random dimensional space and can sovle the problem by using a determinist algorithm. 
+In general, binary classification is of great interests since it is the simplest case for multi-classes classification. We have seen probabilistic models in the previous sectons such as logistic regression. On the other hand, SVM can classify points in a random dimensional space and can sovle the problem by using a deterministic algorithm. 
 
 ![SVM Intuition](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_intuition.png)
 
@@ -49,7 +49,7 @@ where m is the number of training samples.
 
 ![SVM Geometric Margins](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_gm.png)
 
-It shows a vector w also called **support vector** which is perpendicular to the boundary line, which is always true. To prove this, let's take any two points on the line, $x_i,x_j,i\neq j$. By definition, we have:
+It shows a vector w also called **support vector** which is perpendicular to the boundary line, which is always true. To prove this, let's take any two points on the line, $x_i,x_j,i\neq j$. Since two points are on the line, by definition, we have:
 
 $$w^T x_i + b = w^T x_j + b = 0$$
 
@@ -71,7 +71,7 @@ This is for the positive case. So the margin is positive. For negative samples, 
 
 $$\gamma^{(i)} = y^{(i)}((\frac{w}{\lvert\lvert w \rvert\rvert})^T x^{(i)} + b/\lvert\lvert w \rvert\rvert)$$
 
-If $\lvert\lvert w \rvert\rvert = 1$, the functional margin is equal to geometric margin. The geometric margin is invariant to rescaling of the parameteres. It means that if we scale w and b by 2, we will stll have the same geometric margin (not functional margin). Keep in mind that you have to scale both parameters by same scalar. The key idea is that we can get whatever functional margin we want but still have the same geometric margin. 
+If $\lvert\lvert w \rvert\rvert = 1$, the functional margin is equal to geometric margin. The geometric margin is invariant to rescaling of the parameteres. It means that if we scale w and b by 2, we will still have the same geometric margin (not functional margin). Keep in mind that you have to scale both parameters by same scalar. The key idea is that we can get whatever functional margin we want but still have the same geometric margin. 
 
 Similarily, the geometric margin for all samples is:
 
@@ -89,7 +89,7 @@ $$\begin{align}
 & \lvert\lvert w \rvert\rvert = 1
 \end{align}$$
 
-The first constraint is to ensure that every training sample has a valid geometric margin. The second point is to ensure that geometric margin is equal to functional margin. We have to have the second constraint since $y^{(i)}(w^Tx^{(i)} + b)$ is functional margin. By having the second constraint, we make functional margin equal to geometric margin. The nasty point is $\lvert\lvert w \rvert\rvert = 1$ constraint, which makes it non-convex. If it is convex, we can get the derivative and set to zero. This is another topic. 
+The first constraint is to ensure that every training sample has a valid geometric margin. The second constraint is to ensure that geometric margin is equal to functional margin. We have to have the second constraint since $y^{(i)}(w^Tx^{(i)} + b)$ is functional margin. By having the second constraint, we make functional margin equal to geometric margin. The nasty point is $\lvert\lvert w \rvert\rvert = 1$ constraint, which makes it non-convex. If it is convex, we can get the derivative and set to zero. This is another topic. 
 
 To facilitate this, we can then transform it to:
 
@@ -219,7 +219,7 @@ $$g_i(w) = -y^{(i)}(w^Tx^{(i)} + b) + 1 \leq 0$$
 
 where i spans all training samples. From KKT dual complementarity condition, we have $\alpha_i > 0$ only when the functional margin is 1 where $g_i(w) = 0$. 
 
-We can visualize this in the picture below. The three points on the dash line are the ones with the smallest geometric margin which is 1. Thus, those points are the ones with positve $\alpha_i$ and are called **support vector**. 
+We can visualize this in the picture below. The three points on the dash line are the ones with the smallest margin which is 1. Thus, those points are the ones with positve $\alpha_i$ and are called **support vector**. 
 
 ![SVM Boundary](https://raw.githubusercontent.com/Wei2624/AI_Learning_Hub/master/machine-learning/images/svm_bound.png)
 
@@ -258,7 +258,7 @@ $$\begin{align}
 &= \sum\limits_{i=1}^m \alpha_i - \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j (x^{(i)})^Tx^{(j)}
 \end{align}$$
 
-Note that $\alpha_i \geq 0$ and constratin (4). Thus, we have the dual problem as:
+Note that $\alpha_i \geq 0$ and constraint (4). Thus, we have the dual problem as:
 
 $$\begin{align}
 \max_{\alpha} W(\alpha) &= \sum\limits_{i=1}^m \alpha_i - \frac{1}{2}\sum\limits_{i,j}^m y^{(i)}y^{(j)}\alpha_i\alpha_j <x^{(i)},x^{(j)}> \\
