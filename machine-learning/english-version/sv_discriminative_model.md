@@ -215,7 +215,7 @@ $$\begin{align}
 &= \frac{1}{2}\triangledown_{\theta} tr(\theta^TX^TX\theta - \theta^TX^T\overrightarrow{y} - \overrightarrow{y}^TX\theta + \overrightarrow{y}^T\overrightarrow{y}) \\
 &= \frac{1}{2}\triangledown_{\theta} (tr\theta^TX^TX\theta - 2tr\overrightarrow{y}^TX\theta)\\
 &= \frac{1}{2}(X^TX\theta + X^TX\theta - 2X^T\overrightarrow{y})\\
-&= X^X\theta - X^T\overrightarrow{y}
+&= X^TX\theta - X^T\overrightarrow{y}
 \end{align}$$
 
 **Math**: the second line is resulted from applying $a = tr(a)$ where a is a scaler. The third line is from the fact that (1) the derivative w.r.t. $\theta$ on $\overrightarrow{y}^T\overrightarrow{y}$ is zero; (2) $tr(A+B) = tr(A) + tr(B)$;(3) $- \theta^TX^T\overrightarrow{y} - \overrightarrow{y}^TX\theta = 2\overrightarrow{y}^TX\theta$. The fourth line is resulted from using (1) the property right above where $A^T = \theta,B = B^T = X^TX, C = I$; (2)$\triangledown_A trAB = B^T$.
